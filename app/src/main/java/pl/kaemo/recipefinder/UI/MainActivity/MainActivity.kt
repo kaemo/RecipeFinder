@@ -1,9 +1,10 @@
-package pl.kaemo.recipefinder
+package pl.kaemo.recipefinder.UI.MainActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.viewModels
+import pl.kaemo.recipefinder.R
 
 class MainActivity : AppCompatActivity() {
 
