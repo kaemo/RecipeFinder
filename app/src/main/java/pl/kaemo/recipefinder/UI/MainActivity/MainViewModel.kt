@@ -8,7 +8,7 @@ import pl.kaemo.recipefinder.domain.UseCase.GetRecipesForIngredientsUseCase
 
 class MainViewModel : ViewModel() {
     private var counter = 0
-    var greeting = MutableLiveData<String>("Hello app")
+    var greeting = MutableLiveData<String>("Hello app updated")
 
     val ingredientsList = mutableListOf<String>()
     val getRecipesForIngredientsUseCase = GetRecipesForIngredientsUseCase(FakeRecipeService())
