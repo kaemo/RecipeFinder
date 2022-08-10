@@ -4,25 +4,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ECEBEB"
+    android:padding="20dp"
     tools:context=".UI.MainActivity.MainActivity">
 
     <TextView
-        android:id="@+id/test_text_view"
+        android:id="@+id/main_activity_mainText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/main_activity_maintext"
+        android:textAlignment="center"
+        android:textColor="#333333"
+        android:textSize="55sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/main_activity_textInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/test_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_mainText" />
+
+    <Button
+        android:id="@+id/main_activity_button_plus"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#377D3F"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="+"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/main_activity_textInputLayout"
+        app:layout_constraintEnd_toEndOf="@+id/main_activity_textInputLayout"
+        app:layout_constraintTop_toTopOf="@+id/main_activity_textInputLayout" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputEditText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/main_activity_inputHintText"
+        app:layout_constraintBottom_toBottomOf="@+id/main_activity_textInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/main_activity_button_plus"
+        app:layout_constraintStart_toStartOf="@+id/main_activity_textInputLayout"
+        app:layout_constraintTop_toTopOf="@+id/main_activity_textInputLayout" />
+
+    <Button
+        android:id="@+id/main_activity_button_findmeal"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#377D3F"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="@string/main_activity_buttonFindMeal"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_activity_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/main_activity_button_findmeal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_textInputLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,8 +14,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val textView = findViewById<TextView>(R.id.test_text_view)
-        val button = findViewById<TextView>(R.id.button)
+        val textView = findViewById<TextView>(R.id.main_activity_mainText)
+        val button = findViewById<TextView>(R.id.main_activity_button_plus)
 
         viewModel.greeting.observe(this) {
             textView.text = it

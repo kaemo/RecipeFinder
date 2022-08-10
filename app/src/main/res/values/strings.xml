@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">RecipeFinder</string>
+
+    // Main Activity
+    <string name="main_activity_maintext">What do you have in your fridge?</string>
+    <string name="main_activity_inputHintText">Enter all ingredients</string>
+    <string name="main_activity_buttonFindMeal">Find a recipe!</string>
 </resources>
