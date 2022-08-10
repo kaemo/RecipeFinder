@@ -1,4 +1,4 @@
-package pl.kaemo.recipefinder.data
+package pl.kaemo.recipefinder.data.Repository
 
 import pl.kaemo.recipefinder.domain.Model.RecipePreview
 import pl.kaemo.recipefinder.domain.RecipeService

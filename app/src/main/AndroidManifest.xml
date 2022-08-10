@@ -4,6 +4,7 @@
     package="pl.kaemo.recipefinder">
 
     <application
+        android:name=".RecipeByIngredientsApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
