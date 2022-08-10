@@ -8,11 +8,13 @@
     android:padding="20dp"
     tools:context=".UI.MainActivity.MainActivity">
 
+    <!-- Top text -->
+
     <TextView
         android:id="@+id/main_activity_mainText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/main_activity_maintext"
+        android:text="@string/main_activity_mainText"
         android:textAlignment="center"
         android:textColor="#333333"
         android:textSize="55sp"
@@ -20,6 +22,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Input field -->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/main_activity_textInputLayout"
@@ -31,23 +35,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_activity_mainText" />
 
-    <Button
-        android:id="@+id/main_activity_button_plus"
+    <ImageButton
+        android:id="@+id/main_activity_imageButton_add"
         android:layout_width="40dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:backgroundTint="#377D3F"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:text="+"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:cornerRadius="10dp"
+        android:background="@android:color/transparent"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="@+id/main_activity_textInputLayout"
         app:layout_constraintEnd_toEndOf="@+id/main_activity_textInputLayout"
-        app:layout_constraintTop_toTopOf="@+id/main_activity_textInputLayout" />
+        app:layout_constraintTop_toTopOf="@+id/main_activity_textInputLayout"
+        app:srcCompat="@drawable/ic_baseline_add_box_24" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/textInputEditText"
@@ -59,9 +59,24 @@
         android:layout_marginBottom="10dp"
         android:hint="@string/main_activity_inputHintText"
         app:layout_constraintBottom_toBottomOf="@+id/main_activity_textInputLayout"
-        app:layout_constraintEnd_toStartOf="@+id/main_activity_button_plus"
+        app:layout_constraintEnd_toStartOf="@+id/main_activity_imageButton_add"
         app:layout_constraintStart_toStartOf="@+id/main_activity_textInputLayout"
         app:layout_constraintTop_toTopOf="@+id/main_activity_textInputLayout" />
+
+    <!-- Recycler view -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_activity_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/main_activity_button_findmeal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_textInputLayout" />
+
+    <!-- Bottom button -->
 
     <Button
         android:id="@+id/main_activity_button_findmeal"
@@ -77,16 +92,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_activity_recyclerview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/main_activity_button_findmeal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_activity_textInputLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
