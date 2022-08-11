@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ECEBEB"
     android:padding="20dp"
-    tools:context=".UI.MainActivity.MainActivity">
+    tools:context=".ui.mainActivity.MainActivity">
 
     <!-- Top text -->
 

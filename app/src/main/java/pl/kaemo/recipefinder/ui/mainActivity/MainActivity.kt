@@ -1,4 +1,4 @@
-package pl.kaemo.recipefinder.UI.MainActivity
+package pl.kaemo.recipefinder.ui.mainActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
