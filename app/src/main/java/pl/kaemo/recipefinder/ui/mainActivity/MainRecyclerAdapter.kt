@@ -9,7 +9,7 @@ import pl.kaemo.recipefinder.R
 
 class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder>() {
 
-    private var ingirdients = arrayOf("eggs", "milk", "chicken", "cheese")
+    private var ingredients = arrayOf("eggs", "milk", "chicken", "cheese")
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -22,16 +22,16 @@ class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.MainViewHol
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.itemName.text = ingirdients[position]
+        holder.ingredientName.text = ingredients[position]
     }
 
     override fun getItemCount(): Int {
-        return ingirdients.size
+        return ingredients.size
     }
 
     class MainViewHolder constructor(
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
-        var itemName: TextView = itemView.findViewById(R.id.main_activity_recyclerview_textView)
+        var ingredientName: TextView = itemView.findViewById(R.id.main_activity_recyclerview_textView)
     }
 }
