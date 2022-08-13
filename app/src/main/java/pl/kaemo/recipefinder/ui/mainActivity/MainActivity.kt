@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.main_activity_imageButton_add).setOnClickListener {
             if (userInputIsValid(inputId.text.toString())) {
                 addIngredient(inputId)
+                inputId.hint = getString(R.string.main_activity_inputSecondHintText)
             }
         }
 
@@ -76,6 +77,9 @@ class MainActivity : AppCompatActivity() {
             false
         } else if (userInput.contains("[!\"#\$%&'()*+,-./:;\\\\<=>?@\\[\\]^_`{|}~]".toRegex())) {
             validationId.text = getString(R.string.validation_specChar)
+            false
+        } else if (userInput.length == 1) {
+            validationId.text = getString(R.string.validation_char)
             false
         } else {
             validationId.text = ""

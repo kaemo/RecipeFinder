@@ -28,7 +28,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/main_activity_textInputLayout_old"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:background="@color/white"
         app:cardCornerRadius="5dp"
@@ -58,7 +58,7 @@
                 android:id="@+id/textInputEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="5dp"
                 android:hint="@string/main_activity_inputHintText"
                 app:layout_constraintBottom_toBottomOf="@+id/main_activity_textInputLayout"
                 app:layout_constraintEnd_toStartOf="@+id/main_activity_imageButton_add"
@@ -81,7 +81,7 @@
         app:layout_constraintBottom_toTopOf="@+id/main_activity_textInputLayout_old"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="eample validation text" />
+        tools:text="example validation text" />
 
     <!-- Recycler view or Infotext -->
 
