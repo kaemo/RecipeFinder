@@ -2,9 +2,13 @@ package pl.kaemo.recipefinder.ui.mainActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
+import pl.kaemo.recipefinder.ui.mainActivity.recyclerView.MainRecyclerAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +22,14 @@ class MainActivity : AppCompatActivity() {
 
         // Recycler View
         initRecyclerView()
+
+        findViewById<Button>(R.id.main_activity_button_findmeal).setOnClickListener {
+            Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show()
+        }
+
+        findViewById<ImageButton>(R.id.main_activity_imageButton_add).setOnClickListener {
+            Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initRecyclerView() {
