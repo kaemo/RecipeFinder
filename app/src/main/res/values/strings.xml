@@ -6,5 +6,13 @@
     <string name="main_activity_mainText">What do you have in your fridge?</string>
     <string name="main_activity_inputHintText">Enter all ingredients</string>
     <string name="main_activity_buttonFindMeal">Find a recipe!</string>
+    <string name="main_activity_user_guide">1. Type all ingredients you have\n\n2. Click on the button below\n\n3. The algorithm will find recipes that use as many of the given ingredients as possible and require as few additional ingredients as possible</string>
+
+    <!-- Main activity - validations -->
+
+    <string name="validation_empty">Field cannot be empty!</string>
+    <string name="validation_whitespaces">Field cannot contain whitespaces!</string>
+    <string name="validation_digits">Field cannot contain any digits!</string>
+    <string name="validation_specChar">Field cannot contain any special characters!</string>
 
 </resources>

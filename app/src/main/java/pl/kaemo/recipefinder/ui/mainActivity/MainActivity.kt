@@ -30,9 +30,18 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show()
         }
 
+        val inputId = findViewById<TextView>(R.id.textInputEditText)
+
         findViewById<ImageButton>(R.id.main_activity_imageButton_add).setOnClickListener {
-            buttonAddClicked()
+            if (userInputIsValid(inputId.text.toString())) {
+                addIngredient(inputId)
+            }
         }
+
+        findViewById<TextView>(R.id.textInputEditText).setOnFocusChangeListener { _, _ ->
+            findViewById<TextView>(R.id.InfoText).text = ""
+        }
+
     }
 
     private fun initRecyclerView() {
@@ -44,11 +53,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     @SuppressLint("CutPasteId")
-    private fun buttonAddClicked() {
-        val getUserInput: String = findViewById<TextView>(R.id.textInputEditText).text.toString()
+    private fun addIngredient(inputId: TextView) {
+        val getUserInput: String = inputId.text.toString()
         val listLastIndex = FakeDataBase.ingredientsList.size
         FakeDataBase.ingredientsList.add(listLastIndex, getUserInput)
         adapter?.notifyItemInserted(listLastIndex)
+        inputId.text = "" //clean the input
+    }
+
+    private fun userInputIsValid(userInput: String): Boolean {
+
+        val validationId = findViewById<TextView>(R.id.main_activity_validation_text)
+
+        return if (userInput == "") {
+            validationId.text = getString(R.string.validation_empty)
+            false
+        } else if (userInput.contains(" ")) {
+            validationId.text = getString(R.string.validation_whitespaces)
+            false
+        } else if (userInput.contains("[0-9]".toRegex())) {
+            validationId.text = getString(R.string.validation_digits)
+            false
+        } else if (userInput.contains("[!\"#\$%&'()*+,-./:;\\\\<=>?@\\[\\]^_`{|}~]".toRegex())) {
+            validationId.text = getString(R.string.validation_specChar)
+            false
+        } else {
+            validationId.text = ""
+            true
+        }
     }
 
 }

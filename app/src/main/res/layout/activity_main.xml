@@ -69,20 +69,47 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- Recycler view -->
+    <!-- Validation text -->
+
+    <TextView
+        android:id="@+id/main_activity_validation_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="3dp"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/main_activity_textInputLayout_old"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="eample validation text" />
+
+    <!-- Recycler view or Infotext -->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_activity_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/main_activity_button_findmeal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_activity_textInputLayout_old" />
 
     <!-- Bottom button -->
+
+    <TextView
+        android:id="@+id/InfoText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="@string/main_activity_user_guide"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/main_activity_recyclerview"
+        app:layout_constraintEnd_toEndOf="@+id/main_activity_recyclerview"
+        app:layout_constraintStart_toStartOf="@+id/main_activity_recyclerview"
+        app:layout_constraintTop_toTopOf="@+id/main_activity_recyclerview" />
 
     <Button
         android:id="@+id/main_activity_button_findmeal"
