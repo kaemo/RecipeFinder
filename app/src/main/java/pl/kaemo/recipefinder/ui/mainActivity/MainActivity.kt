@@ -81,6 +81,9 @@ class MainActivity : AppCompatActivity() {
         } else if (userInput.length == 1) {
             validationId.text = getString(R.string.validation_char)
             false
+        } else if (userInput.length > 70) {
+            validationId.text = getString(R.string.validation_long)
+            false
         } else {
             validationId.text = ""
             true

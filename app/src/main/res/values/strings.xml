@@ -16,5 +16,6 @@
     <string name="validation_digits">Field cannot contain any digits!</string>
     <string name="validation_specChar">Field cannot contain any special characters!</string>
     <string name="validation_char">Field cannot contain chars!</string>
+    <string name="validation_long">Name too long!</string>
 
 </resources>
