@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.textInputEditText).setOnFocusChangeListener { _, _ ->
             findViewById<TextView>(R.id.InfoText).text = ""
+            findViewById<TextView>(R.id.main_activity_mainText).textSize = 40.0F //nie znalazłem sposobu na wykrywanie pojawiania się samej klawiatury. Masz może jakiś pomysł jak nasłuchiwać wysuwanie się klawiatury?
         }
 
     }
