@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
 
@@ -33,15 +32,18 @@ class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.MainViewHol
 
         holder.itemView.findViewById<ImageButton>(R.id.main_activity_recyclerview_imageButton_remove)
             .setOnClickListener {
-                Toast.makeText(
-                    holder.itemView.context,
-                    "remove $position not implemented yet",
-                    Toast.LENGTH_SHORT
-                ).show()
+                deleteItem(holder.bindingAdapterPosition) //jak było poprostu "position" to coś dziwnego się dzialo z indeksowaniem w notifyItemRemoved(position) i się apka crashowała - why?
+                //Thread.sleep(500)  //apka crshuje się gdy za szybko jest usuwanie klikane. Jest jakiś sposbób żeby zapobiec crashom? Jak ustawić żeby apka czekała aż animacja usuwania się zakończy? sleep nie pomaga
             }
+
     }
 
     class MainViewHolder constructor(
         itemView: View
     ) : RecyclerView.ViewHolder(itemView)
+
+    private fun deleteItem(position: Int) {
+        FakeDataBase.ingredientsList.removeAt(position)
+        notifyItemRemoved(position)
+    }
 }
