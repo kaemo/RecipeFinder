@@ -11,7 +11,7 @@
     <!-- Top text -->
 
     <TextView
-        android:id="@+id/main_activity_mainText"
+        android:id="@+id/activity_main_xml_mainText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/main_activity_mainText"
@@ -26,7 +26,7 @@
     <!-- Input field -->
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/main_activity_textInputLayout_old"
+        android:id="@+id/activity_main_xml_textInputLayout_old"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -35,35 +35,35 @@
         app:cardElevation="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_activity_mainText">
+        app:layout_constraintTop_toBottomOf="@+id/activity_main_xml_mainText">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/main_activity_textInputLayout"
+            android:id="@+id/activity_main_xml_textInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp">
 
             <ImageButton
-                android:id="@+id/main_activity_imageButton_add"
+                android:id="@+id/activity_main_xml_imageButton_add"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:importantForAccessibility="no"
-                app:layout_constraintBottom_toBottomOf="@+id/main_activity_textInputLayout"
-                app:layout_constraintEnd_toEndOf="@+id/main_activity_textInputLayout"
-                app:layout_constraintTop_toTopOf="@+id/main_activity_textInputLayout"
+                app:layout_constraintBottom_toBottomOf="@+id/activity_main_xml_textInputLayout"
+                app:layout_constraintEnd_toEndOf="@+id/activity_main_xml_textInputLayout"
+                app:layout_constraintTop_toTopOf="@+id/activity_main_xml_textInputLayout"
                 app:srcCompat="@drawable/ic_baseline_add_box_24" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputEditText"
+                android:id="@+id/activity_main_xml_user_input"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:hint="@string/main_activity_inputHintText"
-                app:layout_constraintBottom_toBottomOf="@+id/main_activity_textInputLayout"
-                app:layout_constraintEnd_toStartOf="@+id/main_activity_imageButton_add"
-                app:layout_constraintStart_toStartOf="@+id/main_activity_textInputLayout"
-                app:layout_constraintTop_toTopOf="@+id/main_activity_textInputLayout" />
+                app:layout_constraintBottom_toBottomOf="@+id/activity_main_xml_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@+id/activity_main_xml_imageButton_add"
+                app:layout_constraintStart_toStartOf="@+id/activity_main_xml_textInputLayout"
+                app:layout_constraintTop_toTopOf="@+id/activity_main_xml_textInputLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -72,13 +72,13 @@
     <!-- Validation text -->
 
     <TextView
-        android:id="@+id/main_activity_validation_text"
+        android:id="@+id/activity_main_xml_validation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="3dp"
         android:textColor="@android:color/holo_red_light"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/main_activity_textInputLayout_old"
+        app:layout_constraintBottom_toTopOf="@+id/activity_main_xml_textInputLayout_old"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="example validation text" />
@@ -86,33 +86,33 @@
     <!-- Recycler view or Infotext -->
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_activity_recyclerview"
+        android:id="@+id/activity_main_xml_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/main_activity_button_findmeal"
+        app:layout_constraintBottom_toTopOf="@+id/activity_main_xml_button_findmeal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_activity_textInputLayout_old" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_main_xml_textInputLayout_old" />
 
     <!-- Bottom button -->
 
     <TextView
-        android:id="@+id/InfoText"
+        android:id="@+id/activity_main_xml_user_guide"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:text="@string/main_activity_user_guide"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/main_activity_recyclerview"
-        app:layout_constraintEnd_toEndOf="@+id/main_activity_recyclerview"
-        app:layout_constraintStart_toStartOf="@+id/main_activity_recyclerview"
-        app:layout_constraintTop_toTopOf="@+id/main_activity_recyclerview" />
+        app:layout_constraintBottom_toBottomOf="@+id/activity_main_xml_recyclerview"
+        app:layout_constraintEnd_toEndOf="@+id/activity_main_xml_recyclerview"
+        app:layout_constraintStart_toStartOf="@+id/activity_main_xml_recyclerview"
+        app:layout_constraintTop_toTopOf="@+id/activity_main_xml_recyclerview" />
 
     <Button
-        android:id="@+id/main_activity_button_findmeal"
+        android:id="@+id/activity_main_xml_button_findmeal"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:backgroundTint="#377D3F"

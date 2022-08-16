@@ -1,6 +1,5 @@
 package pl.kaemo.recipefinder.ui.mainActivity
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -19,53 +18,62 @@ class MainActivity : AppCompatActivity() {
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder>? = null
 
-    @SuppressLint("MissingInflatedId")
+    private lateinit var recyclerViewId: RecyclerView
+    private lateinit var buttonAddId: ImageButton
+    private lateinit var userInputId: TextView
+    private lateinit var validationId: TextView
+    private lateinit var buttonFindId: Button
+    private lateinit var userGuideId: TextView
+    private lateinit var mainTextId: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        recyclerViewId = findViewById(R.id.activity_main_xml_recyclerview)
+        buttonAddId = findViewById(R.id.activity_main_xml_imageButton_add)
+        userInputId = findViewById(R.id.activity_main_xml_user_input)
+        validationId = findViewById(R.id.activity_main_xml_validation)
+        buttonFindId = findViewById(R.id.activity_main_xml_button_findmeal)
+        userGuideId = findViewById(R.id.activity_main_xml_user_guide)
+        mainTextId = findViewById(R.id.activity_main_xml_mainText)
+
         initRecyclerView()
 
-        findViewById<Button>(R.id.main_activity_button_findmeal).setOnClickListener {
+        buttonFindId.setOnClickListener {
             Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show()
         }
 
-        val inputId = findViewById<TextView>(R.id.textInputEditText)
-
-        findViewById<ImageButton>(R.id.main_activity_imageButton_add).setOnClickListener {
-            if (userInputIsValid(inputId.text.toString())) {
-                addIngredient(inputId)
-                inputId.hint = getString(R.string.main_activity_inputSecondHintText)
+        buttonAddId.setOnClickListener {
+            if (userInputIsValid(userInputId.text.toString())) {
+                addIngredient()
+                userInputId.hint = getString(R.string.main_activity_inputSecondHintText)
             }
         }
 
-        findViewById<TextView>(R.id.textInputEditText).setOnFocusChangeListener { _, _ ->
-            findViewById<TextView>(R.id.InfoText).text = ""
-            findViewById<TextView>(R.id.main_activity_mainText).textSize = 40.0F //nie znalazłem sposobu na wykrywanie pojawiania się samej klawiatury. Masz może jakiś pomysł jak nasłuchiwać wysuwanie się klawiatury?
+        userInputId.setOnFocusChangeListener { _, _ ->
+            userGuideId.text = ""
+            mainTextId.textSize = 40.0F //nie znalazłem sposobu na wykrywanie pojawiania się samej klawiatury. Masz może jakiś pomysł jak nasłuchiwać wysuwanie się klawiatury?
         }
 
     }
 
     private fun initRecyclerView() {
-        val recyclerView = findViewById<RecyclerView>(R.id.main_activity_recyclerview)
         layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
+        recyclerViewId.layoutManager = layoutManager
         adapter = MainRecyclerAdapter()
-        recyclerView.adapter = adapter
+        recyclerViewId.adapter = adapter
     }
 
-    @SuppressLint("CutPasteId")
-    private fun addIngredient(inputId: TextView) {
-        val getUserInput: String = inputId.text.toString()
+    private fun addIngredient() {
+        val getUserInput: String = userInputId.text.toString()
         val listLastIndex = FakeDataBase.ingredientsList.size
         FakeDataBase.ingredientsList.add(listLastIndex, getUserInput)
         adapter?.notifyItemInserted(listLastIndex)
-        inputId.text = "" //clean the input
+        userInputId.text = "" //clean the input
     }
 
     private fun userInputIsValid(userInput: String): Boolean {
-
-        val validationId = findViewById<TextView>(R.id.main_activity_validation_text)
 
         return if (userInput == "") {
             validationId.text = getString(R.string.validation_empty)
