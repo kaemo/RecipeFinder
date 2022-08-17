@@ -1,22 +1,21 @@
 package pl.kaemo.recipefinder.ui.mainActivity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
-import pl.kaemo.recipefinder.ui.mainActivity.recyclerView.MainRecyclerAdapter
 
 class MainActivity : AppCompatActivity() {
 
-    //part of recycler view
-    private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: MainRecyclerAdapter? = null
+    lateinit var viewModel: MainViewModel
+
+    private lateinit var adapter: MainRecyclerAdapter
 
     private lateinit var recyclerViewId: RecyclerView
     private lateinit var buttonAddId: ImageButton
@@ -30,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
         recyclerViewId = findViewById(R.id.activity_main_xml_recyclerview)
         buttonAddId = findViewById(R.id.activity_main_xml_imageButton_add)
         userInputId = findViewById(R.id.activity_main_xml_user_input)
@@ -38,65 +39,46 @@ class MainActivity : AppCompatActivity() {
         userGuideId = findViewById(R.id.activity_main_xml_user_guide)
         mainTextId = findViewById(R.id.activity_main_xml_mainText)
 
-        Log.d("TAG1", "Test")
-
         initRecyclerView()
+
+        observeIngredients()
 
         buttonFindId.setOnClickListener {
             Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show()
         }
 
         buttonAddId.setOnClickListener {
-            if (userInputIsValid(userInputId.text.toString())) {
-                addIngredient()
+            val validationStatus = IngredientNameValidation.validateUserInput(userInputId.text.toString())
+            if (validationStatus is ValidationStatus.Error){
+                validationId.text = getString(validationStatus.message)
+            } else {
+                validationId.text = "" //clean the validation field
+                viewModel.onIngredientAdded(userInputId.text.toString())
+                userInputId.text = "" //clean the input
                 userInputId.hint = getString(R.string.main_activity_inputSecondHintText)
             }
         }
 
         userInputId.setOnFocusChangeListener { _, _ ->
             userGuideId.text = ""
-            mainTextId.textSize = 40.0F //nie znalazłem sposobu na wykrywanie pojawiania się samej klawiatury. Masz może jakiś pomysł jak nasłuchiwać wysuwanie się klawiatury?
+            mainTextId.textSize = 40.0F
         }
-
     }
 
     private fun initRecyclerView() {
-        layoutManager = LinearLayoutManager(this)
-        recyclerViewId.layoutManager = layoutManager
-        adapter = MainRecyclerAdapter()
+        recyclerViewId.layoutManager = LinearLayoutManager(this)
+        adapter = MainRecyclerAdapter(::onItemDeleted)
+        //adapter = MainRecyclerAdapter(viewModel::onIngredientDeleted) //bezpośrednie odwołanie z pominięciem metody
         recyclerViewId.adapter = adapter
     }
 
-    private fun addIngredient() {
-        val getUserInput: String = userInputId.text.toString()
-        adapter?.add(getUserInput)
-        userInputId.text = "" //clean the input
+    private fun onItemDeleted(index: Int) {
+        viewModel.onIngredientDeleted(index)
     }
 
-    private fun userInputIsValid(userInput: String): Boolean {
-
-        return if (userInput == "") {
-            validationId.text = getString(R.string.validation_empty)
-            false
-        } else if (userInput.contains(" ")) {
-            validationId.text = getString(R.string.validation_whitespaces)
-            false
-        } else if (userInput.contains("[0-9]".toRegex())) {
-            validationId.text = getString(R.string.validation_digits)
-            false
-        } else if (userInput.contains("[!\"#\$%&'()*+,-./:;\\\\<=>?@\\[\\]^_`{|}~]".toRegex())) {
-            validationId.text = getString(R.string.validation_specChar)
-            false
-        } else if (userInput.length == 1) {
-            validationId.text = getString(R.string.validation_char)
-            false
-        } else if (userInput.length > 70) {
-            validationId.text = getString(R.string.validation_long)
-            false
-        } else {
-            validationId.text = ""
-            true
+    private fun observeIngredients() {
+        viewModel.ingredients.observe(this) {
+            adapter.update(it)
         }
     }
-
 }

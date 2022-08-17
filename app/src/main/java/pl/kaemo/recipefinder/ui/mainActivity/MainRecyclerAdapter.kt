@@ -1,4 +1,4 @@
-package pl.kaemo.recipefinder.ui.mainActivity.recyclerView
+package pl.kaemo.recipefinder.ui.mainActivity
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,18 +9,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
 
-class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder>() {
+class MainRecyclerAdapter(val onDeleted: (Int) -> Unit) : RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder>() {
 
-    private var ingredientsList: MutableList<String> = mutableListOf()
+    private var ingredientsList: List<String> = listOf()
 
-    fun add (ingr: String){
-        ingredientsList.add(ingr)
-        notifyItemInserted(ingredientsList.size-1)
-    }
-
-    private fun deleteItem(position: Int) {
-        ingredientsList.removeAt(position)
-        notifyItemRemoved(position)
+    fun update(list: List<String>) {
+        ingredientsList = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(
@@ -44,8 +39,7 @@ class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.MainViewHol
 
         holder.itemView.findViewById<ImageButton>(R.id.main_activity_recyclerview_imageButton_remove)
             .setOnClickListener {
-                deleteItem(holder.bindingAdapterPosition) //jak było poprostu "position" to coś dziwnego się dzialo z indeksowaniem w notifyItemRemoved(position) i się apka crashowała - why?
-                //Thread.sleep(500)  //apka crshuje się gdy za szybko jest usuwanie klikane. Jest jakiś sposbób żeby zapobiec crashom? Jak ustawić żeby apka czekała aż animacja usuwania się zakończy? sleep nie pomaga
+                onDeleted(holder.bindingAdapterPosition)
             }
 
     }

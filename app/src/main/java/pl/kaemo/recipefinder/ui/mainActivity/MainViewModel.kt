@@ -1,36 +1,23 @@
 package pl.kaemo.recipefinder.ui.mainActivity
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import pl.kaemo.recipefinder.domain.FakeRecipeService
-import pl.kaemo.recipefinder.domain.UseCase.GetRecipesForIngredientsUseCase
 
 class MainViewModel : ViewModel() {
-    private var counter = 0
-    var greeting = MutableLiveData<String>("Hello app updated")
 
-    val ingredientsList = mutableListOf<String>()
-    val getRecipesForIngredientsUseCase = GetRecipesForIngredientsUseCase(FakeRecipeService())
+    private val ingredientsList = mutableListOf<String>()
+
+    private val _ingredients = MutableLiveData<List<String>>(ingredientsList)
+    val ingredients: LiveData<List<String>> = _ingredients
 
     fun onIngredientAdded(name: String) {
-        //if empty - validate
-        //else
         ingredientsList.add(name)
+        _ingredients.postValue(ingredientsList)
     }
 
-    fun onButtonClicked(){
-        counter++
-//        greeting.value = "Button was clicked $counter times"
-        Log.d("TAG", "Counter is $counter")
-
-        try {
-            val recipes = getRecipesForIngredientsUseCase.execute(listOf())
-            greeting.value = recipes.toString()
-            Log.d("TAG", "Got recipes: $recipes")
-        } catch (e: Exception) {
-            greeting.value = "Empty list. Try again."
-            Log.d("TAG", "Got exception")
-        }
+    fun onIngredientDeleted(index: Int) {
+        ingredientsList.removeAt(index)
+        _ingredients.postValue(ingredientsList)
     }
 }
