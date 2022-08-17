@@ -11,6 +11,18 @@ import pl.kaemo.recipefinder.R
 
 class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder>() {
 
+    private var ingredientsList: MutableList<String> = mutableListOf()
+
+    fun add (ingr: String){
+        ingredientsList.add(ingr)
+        notifyItemInserted(ingredientsList.size-1)
+    }
+
+    private fun deleteItem(position: Int) {
+        ingredientsList.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ): MainViewHolder {
@@ -22,13 +34,13 @@ class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.MainViewHol
     }
 
     override fun getItemCount(): Int {
-        return FakeDataBase.ingredientsList.size
+        return ingredientsList.size
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val ingredientName: TextView =
             holder.itemView.findViewById(R.id.main_activity_recyclerview_textView)
-        ingredientName.text = FakeDataBase.ingredientsList[position]
+        ingredientName.text = ingredientsList[position]
 
         holder.itemView.findViewById<ImageButton>(R.id.main_activity_recyclerview_imageButton_remove)
             .setOnClickListener {
@@ -41,9 +53,4 @@ class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.MainViewHol
     class MainViewHolder constructor(
         itemView: View
     ) : RecyclerView.ViewHolder(itemView)
-
-    private fun deleteItem(position: Int) {
-        FakeDataBase.ingredientsList.removeAt(position)
-        notifyItemRemoved(position)
-    }
 }

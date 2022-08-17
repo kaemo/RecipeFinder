@@ -2,6 +2,7 @@ package pl.kaemo.recipefinder.ui.mainActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -9,14 +10,13 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
-import pl.kaemo.recipefinder.ui.mainActivity.recyclerView.FakeDataBase
 import pl.kaemo.recipefinder.ui.mainActivity.recyclerView.MainRecyclerAdapter
 
 class MainActivity : AppCompatActivity() {
 
     //part of recycler view
     private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder>? = null
+    private var adapter: MainRecyclerAdapter? = null
 
     private lateinit var recyclerViewId: RecyclerView
     private lateinit var buttonAddId: ImageButton
@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         buttonFindId = findViewById(R.id.activity_main_xml_button_findmeal)
         userGuideId = findViewById(R.id.activity_main_xml_user_guide)
         mainTextId = findViewById(R.id.activity_main_xml_mainText)
+
+        Log.d("TAG1", "Test")
 
         initRecyclerView()
 
@@ -67,9 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addIngredient() {
         val getUserInput: String = userInputId.text.toString()
-        val listLastIndex = FakeDataBase.ingredientsList.size
-        FakeDataBase.ingredientsList.add(listLastIndex, getUserInput)
-        adapter?.notifyItemInserted(listLastIndex)
+        adapter?.add(getUserInput)
         userInputId.text = "" //clean the input
     }
 
