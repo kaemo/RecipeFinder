@@ -6,10 +6,12 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
+import pl.kaemo.recipefinder.ui.util.IsKeyboardVisibleLiveData
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttonFindId: Button
     private lateinit var userGuideId: TextView
     private lateinit var mainTextId: TextView
+    private lateinit var xmlLayoutId: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         buttonFindId = findViewById(R.id.activity_main_xml_button_findmeal)
         userGuideId = findViewById(R.id.activity_main_xml_user_guide)
         mainTextId = findViewById(R.id.activity_main_xml_mainText)
+        xmlLayoutId = findViewById(R.id.activity_main_xml_root)
 
         initRecyclerView()
 
@@ -61,8 +65,16 @@ class MainActivity : AppCompatActivity() {
 
         userInputId.setOnFocusChangeListener { _, _ ->
             userGuideId.text = ""
-            mainTextId.textSize = 40.0F
         }
+
+        IsKeyboardVisibleLiveData(xmlLayoutId).observe(this) {
+            if (it) {
+                mainTextId.textSize = 40.0F
+            } else {
+                mainTextId.textSize = 60.0F
+            }
+        }
+
     }
 
     private fun initRecyclerView() {
