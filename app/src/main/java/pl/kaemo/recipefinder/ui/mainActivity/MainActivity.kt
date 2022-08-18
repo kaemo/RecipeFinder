@@ -1,6 +1,7 @@
 package pl.kaemo.recipefinder.ui.mainActivity
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -14,6 +15,8 @@ import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.ui.util.IsKeyboardVisibleLiveData
 
 class MainActivity : AppCompatActivity() {
+
+    private val logger: Logger = AndroidLogger("TAG") // lub FileLogger()
 
     lateinit var viewModel: MainViewModel
 
@@ -43,6 +46,8 @@ class MainActivity : AppCompatActivity() {
         mainTextId = findViewById(R.id.activity_main_xml_mainText)
         xmlLayoutId = findViewById(R.id.activity_main_xml_root)
 
+        logger.logMessage("onCreate")
+
         initRecyclerView()
 
         observeIngredients()
@@ -69,8 +74,10 @@ class MainActivity : AppCompatActivity() {
 
         IsKeyboardVisibleLiveData(xmlLayoutId).observe(this) {
             if (it) {
+                logger.logMessage("keyboard is visible")
                 mainTextId.textSize = 40.0F
             } else {
+                logger.logMessage("keyboard is invisible")
                 mainTextId.textSize = 60.0F
             }
         }
@@ -78,6 +85,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
+        logger.logMessage("initrecyclerview")
         recyclerViewId.layoutManager = LinearLayoutManager(this)
         adapter = MainRecyclerAdapter(::onItemDeleted)
         //adapter = MainRecyclerAdapter(viewModel::onIngredientDeleted) //bezpośrednie odwołanie z pominięciem metody
@@ -85,6 +93,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onItemDeleted(index: Int) {
+        logger.logMessage("onItemDeleted index: $index")
+
         viewModel.onIngredientDeleted(index)
     }
 
@@ -94,3 +104,30 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+interface Logger{
+    fun logMessage(text: String)
+}
+
+class AndroidLogger(private val tag: String): Logger {
+    override fun logMessage(text: String) {
+        Log.d(tag, text)
+    }
+}
+
+class FileLogger: Logger {
+    override fun logMessage(text: String) {
+        //TO DO zapisywanie do pliku
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
