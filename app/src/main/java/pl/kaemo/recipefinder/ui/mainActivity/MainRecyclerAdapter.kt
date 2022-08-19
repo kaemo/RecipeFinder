@@ -21,7 +21,7 @@ class MainRecyclerAdapter(val onDeleted: (Int) -> Unit) : RecyclerView.Adapter<M
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ): MainViewHolder {
-        Log.d("TAG", "onCreateViewHolder")
+        Log.d("TAG", "Adapter: onCreateViewHolder")
         return MainViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.main_activity_recyclerview_card, parent, false)

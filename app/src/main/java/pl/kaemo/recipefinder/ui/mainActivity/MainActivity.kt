@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        logger.logMessage("onCreate")
+
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         recyclerViewId = findViewById(R.id.activity_main_xml_recyclerview)
@@ -46,8 +48,6 @@ class MainActivity : AppCompatActivity() {
         mainTextId = findViewById(R.id.activity_main_xml_mainText)
         xmlLayoutId = findViewById(R.id.activity_main_xml_root)
 
-        logger.logMessage("onCreate")
-
         initRecyclerView()
 
         observeIngredients()
@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonAddId.setOnClickListener {
+            logger.logMessage("Button ADD clicked")
             val validationStatus = IngredientNameValidation.validateUserInput(userInputId.text.toString())
             if (validationStatus is ValidationStatus.Error){
                 validationId.text = getString(validationStatus.message)
@@ -94,12 +95,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun onItemDeleted(index: Int) {
         logger.logMessage("onItemDeleted index: $index")
-
         viewModel.onIngredientDeleted(index)
     }
 
     private fun observeIngredients() {
         viewModel.ingredients.observe(this) {
+            Log.d("TAG", "it: $it")
             adapter.update(it)
         }
     }
