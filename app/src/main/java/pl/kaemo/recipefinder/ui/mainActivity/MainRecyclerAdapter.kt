@@ -24,7 +24,7 @@ class MainRecyclerAdapter(val onDeleted: (Int) -> Unit) : RecyclerView.Adapter<M
         Log.d("TAG", "Adapter: onCreateViewHolder")
         return MainViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.main_activity_recyclerview_card, parent, false)
+                .inflate(R.layout.activity_main_recyclerview_card, parent, false)
         )
     }
 
@@ -37,7 +37,7 @@ class MainRecyclerAdapter(val onDeleted: (Int) -> Unit) : RecyclerView.Adapter<M
             holder.itemView.findViewById(R.id.main_activity_recyclerview_textView)
         ingredientName.text = ingredientsList[position]
 
-        holder.itemView.findViewById<ImageButton>(R.id.main_activity_recyclerview_imageButton_remove)
+        holder.itemView.findViewById<ImageButton>(R.id.activity_recipes_list_recyclerview_imageButton_remove)
             .setOnClickListener {
                 onDeleted(holder.bindingAdapterPosition)
             }

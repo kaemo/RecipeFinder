@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_recipes_list_recyclerview_card_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@android:color/white"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activity_recipes_list_recyclerview_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/activity_recipes_list_recyclerview_card_image_view"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="#919191"
+            android:scaleType="centerCrop"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toBottomOf="@+id/activity_recipes_list_recyclerview_card_view"
+            app:layout_constraintStart_toStartOf="@id/activity_recipes_list_recyclerview_card_view"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/activity_recipes_list_recyclerview_card_ingredient_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/activity_recipes_list_recyclerview_card_view"
+            app:layout_constraintStart_toEndOf="@+id/activity_recipes_list_recyclerview_card_image_view"
+            app:layout_constraintTop_toTopOf="@+id/activity_recipes_list_recyclerview_card_view"
+            tools:text="Slow Cooker Apple Pork Tenderloin" />
+
+        <TextView
+            android:id="@+id/activity_recipes_list_recyclerview_card_ingredient_summary"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/activity_recipes_list_recyclerview_card_view"
+            app:layout_constraintEnd_toEndOf="@id/activity_recipes_list_recyclerview_card_view"
+            app:layout_constraintStart_toEndOf="@+id/activity_recipes_list_recyclerview_card_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/activity_recipes_list_recyclerview_card_ingredient_title"
+            tools:text="Slow Cooker Apple Pork Tenderloin is a gluten free and primal main course. For $4.19 per serving, this recipe covers 27% of your daily requirements of vitamins and minerals. One serving contains 486 calories, 34g of protein, and 12g of fat. Only a few people made this recipe, and 1 would say it hit the spot. (...)" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

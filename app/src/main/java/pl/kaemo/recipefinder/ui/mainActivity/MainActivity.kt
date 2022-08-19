@@ -1,17 +1,18 @@
 package pl.kaemo.recipefinder.ui.mainActivity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
+import pl.kaemo.recipefinder.ui.recipesListActivity.RecipesListActivity
 import pl.kaemo.recipefinder.ui.util.IsKeyboardVisibleLiveData
 
 class MainActivity : AppCompatActivity() {
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         observeIngredients()
 
         buttonFindId.setOnClickListener {
-            Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, RecipesListActivity::class.java))
         }
 
         buttonAddId.setOnClickListener {

@@ -17,7 +17,7 @@
         android:padding="10dp">
 
         <ImageButton
-            android:id="@+id/main_activity_recyclerview_imageButton_remove"
+            android:id="@+id/activity_recipes_list_recyclerview_imageButton_remove"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -37,7 +37,7 @@
             android:paddingEnd="10dp"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/main_activity_recyclerview_card_view_cons"
-            app:layout_constraintEnd_toStartOf="@id/main_activity_recyclerview_imageButton_remove"
+            app:layout_constraintEnd_toStartOf="@id/activity_recipes_list_recyclerview_imageButton_remove"
             app:layout_constraintStart_toStartOf="@+id/main_activity_recyclerview_card_view_cons"
             app:layout_constraintTop_toTopOf="@+id/main_activity_recyclerview_card_view_cons"
             tools:text="sample_ingredient" />
