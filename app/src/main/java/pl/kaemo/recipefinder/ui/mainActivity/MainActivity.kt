@@ -54,7 +54,12 @@ class MainActivity : AppCompatActivity() {
         observeIngredients()
 
         buttonFindId.setOnClickListener {
-            startActivity(Intent(this, RecipesListActivity::class.java))
+            if (viewModel.enoughIngredients()){
+                startActivity(Intent(this, RecipesListActivity::class.java))
+            } else {
+                validationId.text = getString(R.string.validation_noIngredients)
+            }
+
         }
 
         buttonAddId.setOnClickListener {
@@ -71,6 +76,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         userInputId.setOnFocusChangeListener { _, _ ->
+            validationId.text = ""
             userGuideId.text = ""
         }
 

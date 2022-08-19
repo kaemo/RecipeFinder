@@ -11,6 +11,10 @@
 
     <!-- Main activity - validations -->
 
+    <string name="validation_noIngredients">Enter at least one ingredient!</string>
+
+    <!-- IngredientNameValidation - validations -->
+
     <string name="validation_empty">Field cannot be empty!</string>
     <string name="validation_whitespaces">Field cannot contain whitespaces!</string>
     <string name="validation_digits">Field cannot contain any digits!</string>

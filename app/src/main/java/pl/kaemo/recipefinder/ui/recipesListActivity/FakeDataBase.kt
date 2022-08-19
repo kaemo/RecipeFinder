@@ -21,10 +21,10 @@ object FakeDataBase {
         "https://spoonacular.com/recipeImages/640352-312x231.jpg",
         "https://spoonacular.com/recipeImages/632660-312x231.jpg",
         "https://spoonacular.com/recipeImages/663748-312x231.jpg",
-        "https://spoonacular.com/recipeImages/632583-312x231.jpg",
-        "https://spoonacular.com/recipeImages/660261-312x231.jpg",
-        "https://spoonacular.com/recipeImages/640352-312x231.jpg",
-        "https://spoonacular.com/recipeImages/632660-312x231.jpg"
+        "https://spoonacular.com/recipeImages/632555-312x231.jpg",
+        "https://spoonacular.com/recipeImages/660268-312x231.jpg",
+        "https://spoonacular.com/recipeImages/640353-312x231.jpg",
+        "https://spoonacular.com/recipeImages/632666-312x231.jpg"
     )
 
     var recipeSummary: List<String> = listOf(

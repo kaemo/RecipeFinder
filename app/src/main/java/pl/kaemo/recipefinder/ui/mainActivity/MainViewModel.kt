@@ -20,4 +20,8 @@ class MainViewModel : ViewModel() {
         ingredientsList.removeAt(index)
         _ingredients.postValue(ingredientsList)
     }
+
+    fun enoughIngredients(): Boolean {
+        return ingredientsList.size >= 1
+    }
 }
