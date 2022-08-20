@@ -1,5 +1,6 @@
 package pl.kaemo.recipefinder.ui.recipesListActivity
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,15 +31,25 @@ class RecipesListAdapter : RecyclerView.Adapter<RecipesListAdapter.RecipesListVi
             holder.itemView.findViewById(R.id.activity_recipes_list_recyclerview_card_image_view)
         val cardTitle: TextView =
             holder.itemView.findViewById(R.id.activity_recipes_list_recyclerview_card_ingredient_title)
-        val cardSummary: TextView =
-            holder.itemView.findViewById(R.id.activity_recipes_list_recyclerview_card_ingredient_summary)
-
-        cardTitle.text = FakeDataBase.recipeTitle[position]
-        cardSummary.text = FakeDataBase.recipeSummary[position]
+        val cardMissingIngredients: TextView =
+            holder.itemView.findViewById(R.id.activity_recipes_list_recyclerview_card_ingredients_missing)
+        val cardInfo: TextView =
+            holder.itemView.findViewById(R.id.activity_recipes_list_recyclerview_card_ingredients_info)
 
         Glide.with(holder.view.context)
             .load(FakeDataBase.imageUlr[position])
             .into(cardImage)
+
+        cardTitle.text = FakeDataBase.recipeTitle[position]
+
+        if (FakeDataBase.missedIngredientsOriginal[position] == null){
+            cardInfo.text = holder.view.context.getString(R.string.recipes_list_adapter_ingredients_ok)
+            cardInfo.setTextColor(Color.parseColor("#377D3F"))
+        } else {
+            cardInfo.text = holder.view.context.getString(R.string.recipes_list_adapter_ingredients_nok)
+        }
+
+        cardMissingIngredients.text = FakeDataBase.missedIngredientsOriginal[position]
 
         holder.itemView.findViewById<View>(R.id.activity_recipes_list_recyclerview_card_view)
             .setOnClickListener {
@@ -48,6 +59,8 @@ class RecipesListAdapter : RecyclerView.Adapter<RecipesListAdapter.RecipesListVi
                     Toast.LENGTH_SHORT
                 ).show()
             }
+
+
     }
 
     class RecipesListViewHolder(val view: View) : RecyclerView.ViewHolder(view)

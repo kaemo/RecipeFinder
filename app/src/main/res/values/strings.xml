@@ -22,4 +22,9 @@
     <string name="validation_char">Field cannot contain chars!</string>
     <string name="validation_long">Name too long!</string>
 
+    <!-- RecipesListAdapter -->
+
+    <string name="recipes_list_adapter_ingredients_ok">✅ You have all the ingredients needed to make this recipe!</string>
+    <string name="recipes_list_adapter_ingredients_nok">You need 1 more ingredient for this recipe:</string>
+
 </resources>
