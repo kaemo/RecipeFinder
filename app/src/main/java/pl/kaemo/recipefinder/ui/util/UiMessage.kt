@@ -4,11 +4,10 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
 sealed class UiMessage {
-    class Toast(val message: String): UiMessage()
-    class Dialog(@DrawableRes val icon: Int, @StringRes val title: Int, @StringRes val message: Int): UiMessage()
+    class Toast(val message: String) : UiMessage()
+    class Dialog(
+        @DrawableRes val icon: Int,
+        @StringRes val title: Int,
+        @StringRes val message: Int
+    ) : UiMessage()
 }
-
-
-
-
-// add extension function to show message on activity
