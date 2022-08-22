@@ -24,6 +24,7 @@
 
     <!-- RecipeListAdapter -->
 
+    <string name="recipes_list_activity_dialog_title">Your plan: FREE</string>
     <string name="recipes_list_activity_dialog_message">Every API call you make costs a certain amount of points: every request is 1 point and 0.01 points per result returned. There is only 150 points to use per day. Use them wisely.</string>
 
     <!-- RecipesListAdapter -->

@@ -2,11 +2,14 @@ package pl.kaemo.recipefinder.ui.recipesListActivity
 
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
+import pl.kaemo.recipefinder.ui.util.UiMessage
 
 class RecipesListActivity : AppCompatActivity() {
 
@@ -31,24 +34,45 @@ class RecipesListActivity : AppCompatActivity() {
         moreButtonId = findViewById(R.id.activity_recipes_list_xml_more_button)
 
         initRecyclerview()
+        observeUiMessages()
 
         tooltipId.setOnClickListener {
-            viewModel.showDialog(this)
+            viewModel.onTooltipClicked()
         }
 
         sortButtonId.setOnClickListener {
-            viewModel.toast(this, "Sorting not implemented yet!")
+            viewModel.onSortButtonClicked()
         }
 
         moreButtonId.setOnClickListener {
-            viewModel.toast(this, "Settings not implemented yet!")
+            viewModel.onMoreButtonClicked()
         }
 
     }
 
-    private fun initRecyclerview(){
+    private fun initRecyclerview() {
         recyclerViewId.layoutManager = LinearLayoutManager(this)
         adapter = RecipesListAdapter()
         recyclerViewId.adapter = adapter
+    }
+
+    private fun observeUiMessages() {
+        viewModel.uiMessages.observe(this) { uiMessage ->
+            when (uiMessage) {
+                is UiMessage.Dialog -> {
+                    val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+                    builder.setIcon(uiMessage.icon)
+                    builder.setTitle(uiMessage.title)
+                    builder.setMessage(uiMessage.message)
+                    builder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+
+                    val alertDialog: AlertDialog = builder.create()
+                    alertDialog.show()
+                }
+                is UiMessage.Toast -> {
+                    Toast.makeText(this, uiMessage.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 }

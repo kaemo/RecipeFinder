@@ -1,25 +1,32 @@
 package pl.kaemo.recipefinder.ui.recipesListActivity
 
-import android.app.AlertDialog
-import android.content.Context
-import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import pl.kaemo.recipefinder.R
+import pl.kaemo.recipefinder.ui.util.UiMessage
 
-class RecipesListViewModel: ViewModel() {
+class RecipesListViewModel : ViewModel() {
 
-    fun showDialog(context: Context) {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-        builder.setIcon(R.drawable.ic_baseline_info_24)
-        builder.setTitle("Your plan: FREE")
-        builder.setMessage(R.string.recipes_list_activity_dialog_message)
-        builder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+    private val _uiMessages = MutableLiveData<UiMessage>()
+    val uiMessages: LiveData<UiMessage> = _uiMessages
 
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.show()
+    fun onTooltipClicked() {
+        val dialog = UiMessage.Dialog(
+            R.drawable.ic_baseline_info_24,
+            R.string.recipes_list_activity_dialog_title,
+            R.string.recipes_list_activity_dialog_message
+        )
+        _uiMessages.postValue(dialog)
     }
 
-    fun toast(context: Context, text: String) {
-        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+    fun onSortButtonClicked() {
+        val toast = UiMessage.Toast("Sorting not implemented yet!")
+        _uiMessages.postValue(toast)
+    }
+
+    fun onMoreButtonClicked() {
+        val toast = UiMessage.Toast("Settings not implemented yet!")
+        _uiMessages.postValue(toast)
     }
 }
