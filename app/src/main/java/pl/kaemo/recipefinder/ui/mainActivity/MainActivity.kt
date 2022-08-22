@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeIngredients() {
         viewModel.ingredients.observe(this) {
-            Log.d("TAG", "it: $it")
+            logger.logMessage("it: $it")
             adapter.update(it)
         }
     }
