@@ -2,7 +2,6 @@ package pl.kaemo.recipefinder.ui.mainActivity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -13,11 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.ui.recipesListActivity.RecipesListActivity
+import pl.kaemo.recipefinder.ui.util.AndroidLogger
 import pl.kaemo.recipefinder.ui.util.IsKeyboardVisibleLiveData
+import pl.kaemo.recipefinder.ui.util.LogcatLogger
 
 class MainActivity : AppCompatActivity() {
 
-    private val logger: Logger = AndroidLogger("TAG") // lub FileLogger()
+    private val logger: LogcatLogger = AndroidLogger("TAG") // lub FileLogger()
 
     lateinit var viewModel: MainViewModel
 
@@ -111,30 +112,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-interface Logger{
-    fun logMessage(text: String)
-}
-
-class AndroidLogger(private val tag: String): Logger {
-    override fun logMessage(text: String) {
-        Log.d(tag, text)
-    }
-}
-
-class FileLogger: Logger {
-    override fun logMessage(text: String) {
-        //TO DO zapisywanie do pliku
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
