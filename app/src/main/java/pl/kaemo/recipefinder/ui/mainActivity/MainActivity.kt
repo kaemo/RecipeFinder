@@ -50,16 +50,21 @@ class MainActivity : AppCompatActivity() {
         xmlLayoutId = findViewById(R.id.activity_main_xml_root)
 
         initRecyclerView()
-
         observeIngredients()
 
-        buttonFindId.setOnClickListener {
-            if (viewModel.enoughIngredients()){
-                startActivity(Intent(this, RecipesListActivity::class.java))
-            } else {
-                validationId.text = getString(R.string.validation_noIngredients)
-            }
+        userInputId.setOnFocusChangeListener { _, _ ->
+            validationId.text = ""
+            userGuideId.text = ""
+        }
 
+        IsKeyboardVisibleLiveData(xmlLayoutId).observe(this) { isVisible ->
+            if (isVisible) {
+                logger.logMessage("keyboard is visible")
+                mainTextId.textSize = 40.0F
+            } else {
+                logger.logMessage("keyboard is invisible")
+                mainTextId.textSize = 60.0F
+            }
         }
 
         buttonAddId.setOnClickListener {
@@ -75,19 +80,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        userInputId.setOnFocusChangeListener { _, _ ->
-            validationId.text = ""
-            userGuideId.text = ""
-        }
-
-        IsKeyboardVisibleLiveData(xmlLayoutId).observe(this) {
-            if (it) {
-                logger.logMessage("keyboard is visible")
-                mainTextId.textSize = 40.0F
+        buttonFindId.setOnClickListener {
+            if (viewModel.enoughIngredients()){
+                startActivity(Intent(this, RecipesListActivity::class.java))
             } else {
-                logger.logMessage("keyboard is invisible")
-                mainTextId.textSize = 60.0F
+                validationId.text = getString(R.string.validation_noIngredients)
             }
+
         }
 
     }

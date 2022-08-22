@@ -28,16 +28,16 @@ object FakeDataBase {
     )
 
     var missedIngredientsOriginal: List<String?> = listOf(
-        "2 teaspoons chopped fresh rosemary leaves",
+        "• 2 teaspoons chopped fresh rosemary leaves",
         null,
-        "2 10oz cans verde enchilada sauce\n1 bunch kale",
-        "1/2 pound extra lean beef, ground\n1 pound fresh rhubarb\n1/4 cup honey\n1 15oz can refried beans",
-        "6-8 flour tortillas torn into bite sized pieces",
+        "• 2 10oz cans verde enchilada sauce\n• 1 bunch kale",
+        "• 1/2 pound extra lean beef, ground\n• 1 pound fresh rhubarb\n• 1/4 cup honey\n• 1 15oz can refried beans",
+        "• 6-8 flour tortillas torn into bite sized pieces",
         null,
-        "green onion tops optional",
+        "• green onion tops optional",
         null,
-        "1 package dry yeast",
-        "¾ cup fresh basil leaves (loosely packed), chopped"
+        "• 1 package dry yeast",
+        "• ¾ cup fresh basil leaves (loosely packed), chopped"
     )
 
 }
