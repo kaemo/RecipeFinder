@@ -2,15 +2,12 @@ package pl.kaemo.recipefinder.ui.recipesListActivity
 
 import android.os.Bundle
 import android.widget.ImageButton
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
-import pl.kaemo.recipefinder.ui.util.UiMessage
-import pl.kaemo.recipefinder.ui.util.showDialog
-import pl.kaemo.recipefinder.ui.util.showToast
+import pl.kaemo.recipefinder.ui.util.showUiMessage
 
 class RecipesListActivity : AppCompatActivity() {
 
@@ -59,15 +56,7 @@ class RecipesListActivity : AppCompatActivity() {
 
     private fun observeUiMessages() {
         viewModel.uiMessages.observe(this) { uiMessage ->
-            when (uiMessage) {
-                is UiMessage.Dialog -> {
-                    AlertDialog.Builder(this)
-                        .showDialog(uiMessage.icon, uiMessage.title, uiMessage.message)
-                }
-                is UiMessage.Toast -> {
-                    uiMessage.message.showToast(this) // wyciek pamięci?
-                }
-            }
+            showUiMessage(uiMessage)
         }
     }
 }
