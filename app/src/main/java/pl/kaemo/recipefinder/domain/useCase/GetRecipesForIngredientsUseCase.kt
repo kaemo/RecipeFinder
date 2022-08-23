@@ -1,6 +1,6 @@
-package pl.kaemo.recipefinder.domain.UseCase
+package pl.kaemo.recipefinder.domain.useCase
 
-import pl.kaemo.recipefinder.domain.Model.RecipePreview
+import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.domain.RecipeService
 
 class GetRecipesForIngredientsUseCase(private val service: RecipeService) {

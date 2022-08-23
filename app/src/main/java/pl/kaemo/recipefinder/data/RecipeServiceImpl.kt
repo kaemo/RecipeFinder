@@ -1,6 +1,6 @@
 package pl.kaemo.recipefinder.data
 
-import pl.kaemo.recipefinder.domain.Model.RecipePreview
+import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.domain.RecipeService
 
 class RecipeServiceImpl : RecipeService {

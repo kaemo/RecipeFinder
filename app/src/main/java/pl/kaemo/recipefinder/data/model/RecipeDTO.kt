@@ -1,4 +1,4 @@
-package pl.kaemo.recipefinder.data.Model
+package pl.kaemo.recipefinder.data.model
 
 data class RecipeDTO(
     val id: String,
