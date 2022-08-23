@@ -1,6 +1,5 @@
 package pl.kaemo.recipefinder.ui.mainActivity
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
@@ -11,10 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
-import pl.kaemo.recipefinder.ui.recipesListActivity.RecipesListActivity
 import pl.kaemo.recipefinder.ui.util.AndroidLogger
 import pl.kaemo.recipefinder.ui.util.IsKeyboardVisibleLiveData
 import pl.kaemo.recipefinder.ui.util.LogcatLogger
+import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToRecipesListActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -83,7 +82,8 @@ class MainActivity : AppCompatActivity() {
 
         buttonFindId.setOnClickListener {
             if (viewModel.enoughIngredients()){
-                startActivity(Intent(this, RecipesListActivity::class.java))
+                navigateToRecipesListActivity()
+//                startActivity(Intent(this, RecipesListActivity::class.java))
             } else {
                 validationId.text = getString(R.string.validation_noIngredients)
             }
