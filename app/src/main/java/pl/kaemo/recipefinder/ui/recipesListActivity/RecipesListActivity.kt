@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
+import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.ui.util.showUiMessage
 
 class RecipesListActivity : AppCompatActivity() {
@@ -30,6 +31,10 @@ class RecipesListActivity : AppCompatActivity() {
         tooltipId = findViewById(R.id.activity_recipes_list_xml_tooltip)
         sortButtonId = findViewById(R.id.activity_recipes_list_xml_sort_button)
         moreButtonId = findViewById(R.id.activity_recipes_list_xml_more_button)
+
+        //ingredientsList transferred form Mainctivity
+        val extraIngredients =
+            intent.getParcelableArrayListExtra<RecipePreview>("extraIngredientsList")
 
         initRecyclerview()
         observeUiMessages()

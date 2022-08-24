@@ -2,7 +2,7 @@ package pl.kaemo.recipefinder.ui.recipesListActivity
 
 object FakeDataBase {
     var recipeTitle: List<String> = listOf(
-        "Slow Cooker Apple Pork Tenderloin",
+        "Lista z FakedataBase: Slow Cooker Apple Pork Tenderloin",
         "Apple Pie with PB&J Streusel",
         "Slow Cooked Applesauce",
         "Cranberry Apple Crisp",

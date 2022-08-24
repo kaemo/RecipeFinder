@@ -1,6 +1,7 @@
 package pl.kaemo.recipefinder.ui.mainActivity
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
+import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.ui.util.AndroidLogger
 import pl.kaemo.recipefinder.ui.util.IsKeyboardVisibleLiveData
 import pl.kaemo.recipefinder.ui.util.LogcatLogger
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         initRecyclerView()
         observeIngredients()
+        observeRecipes()
 
         userInputId.setOnFocusChangeListener { _, _ ->
             validationId.text = ""
@@ -69,8 +72,9 @@ class MainActivity : AppCompatActivity() {
 
         buttonAddId.setOnClickListener {
             logger.logMessage("Button ADD clicked")
-            val validationStatus = IngredientNameValidation.validateUserInput(userInputId.text.toString())
-            if (validationStatus is ValidationStatus.Error){
+            val validationStatus =
+                IngredientNameValidation.validateUserInput(userInputId.text.toString())
+            if (validationStatus is ValidationStatus.Error) {
                 validationId.text = getString(validationStatus.message)
             } else {
                 validationId.text = "" //clean the validation field
@@ -81,9 +85,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonFindId.setOnClickListener {
-            if (viewModel.enoughIngredients()){
-                navigateToRecipesListActivity()
-//                startActivity(Intent(this, RecipesListActivity::class.java))
+            if (viewModel.enoughIngredients()) {
+                viewModel.onButtonSearchRecipesClicked()
             } else {
                 validationId.text = getString(R.string.validation_noIngredients)
             }
@@ -109,6 +112,13 @@ class MainActivity : AppCompatActivity() {
         viewModel.ingredients.observe(this) {
             logger.logMessage("it: $it")
             adapter.update(it)
+        }
+    }
+
+    private fun observeRecipes() {
+        viewModel.recipes.observe(this) {
+            Log.d("MVM", "recipes: $it")
+            navigateToRecipesListActivity(it as ArrayList<RecipePreview>)
         }
     }
 }

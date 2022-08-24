@@ -10,7 +10,7 @@ class FakeRecipeService : RecipeService {
     override fun getRecipes(ingredients: List<String>): List<RecipePreview> {
         return listOf(
             RecipePreview(
-                "Slow Cooker Apple Pork Tenderloin",
+                "Lista z ReipeService: Slow Cooker Apple Pork Tenderloin",
                 "https://spoonacular.com/recipeImages/673463-312x231.jpg",
                 emptyList()
             ),
