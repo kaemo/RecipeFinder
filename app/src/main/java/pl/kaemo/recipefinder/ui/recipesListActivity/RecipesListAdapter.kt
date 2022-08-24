@@ -10,8 +10,17 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import pl.kaemo.recipefinder.R
+import pl.kaemo.recipefinder.domain.model.RecipePreview
+
 
 class RecipesListAdapter : RecyclerView.Adapter<RecipesListAdapter.RecipesListViewHolder>() {
+
+    private var recipesList: List<RecipePreview> = listOf()
+
+    fun update(list: List<RecipePreview>) {
+        recipesList = list
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
@@ -23,7 +32,7 @@ class RecipesListAdapter : RecyclerView.Adapter<RecipesListAdapter.RecipesListVi
     }
 
     override fun getItemCount(): Int {
-        return FakeDataBase.recipeTitle.size
+        return recipesList.size
     }
 
     override fun onBindViewHolder(holder: RecipesListViewHolder, position: Int) {
@@ -37,19 +46,28 @@ class RecipesListAdapter : RecyclerView.Adapter<RecipesListAdapter.RecipesListVi
             holder.itemView.findViewById(R.id.activity_recipes_list_recyclerview_card_ingredients_info)
 
         Glide.with(holder.view.context)
-            .load(FakeDataBase.imageUlr[position])
+            .load(recipesList[position].imageUrl)
             .into(cardImage)
 
-        cardTitle.text = FakeDataBase.recipeTitle[position]
+        cardTitle.text = recipesList[position].title
 
-        if (FakeDataBase.missedIngredientsOriginal[position] == null){
-            cardInfo.text = holder.view.context.getString(R.string.recipes_list_adapter_ingredients_ok)
-            cardInfo.setTextColor(Color.parseColor("#377D3F"))
+        val missedIngredientsList = recipesList[position].missedIngredients
+
+        if (missedIngredientsList == null) {
+            cardInfo.text =
+                holder.view.context.getString(R.string.recipes_list_adapter_ingredients_ok)
+            cardInfo.setTextColor(Color.parseColor("#377D3F")) //problem - ostatni element na RV - do przegadania
+        } else if (missedIngredientsList.size == 1) {
+            cardInfo.text =
+                holder.view.context.getString(R.string.recipes_list_adapter_ingredients_nok)
+            cardMissingIngredients.text =
+                returnMissedIngredients(missedIngredientsList)
         } else {
-            cardInfo.text = holder.view.context.getString(R.string.recipes_list_adapter_ingredients_nok)
+            cardInfo.text =
+                "You need ${missedIngredientsList.size} more ingredients for this recipe:" //lepszy sposób?
+            cardMissingIngredients.text =
+                returnMissedIngredients(missedIngredientsList)
         }
-
-        cardMissingIngredients.text = FakeDataBase.missedIngredientsOriginal[position]
 
         holder.itemView.findViewById<View>(R.id.activity_recipes_list_recyclerview_card_view)
             .setOnClickListener {
@@ -59,10 +77,18 @@ class RecipesListAdapter : RecyclerView.Adapter<RecipesListAdapter.RecipesListVi
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
-
     }
 
     class RecipesListViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 }
 
+fun returnMissedIngredients(missedIngredientsList: List<String>?): String {
+    var listOfMissedIngredients = ""
+
+    if (missedIngredientsList != null) {
+        for (missedIngredient in missedIngredientsList) {
+            listOfMissedIngredients += "• $missedIngredient\n"
+        }
+    }
+    return listOfMissedIngredients
+}

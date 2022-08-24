@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class RecipePreview(
     val title: String,
     val imageUrl: String,
-    val missedIngredients: List<String>
+    val missedIngredients: List<String>?
 ) : Parcelable

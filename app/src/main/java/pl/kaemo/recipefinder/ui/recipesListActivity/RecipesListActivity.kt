@@ -32,12 +32,17 @@ class RecipesListActivity : AppCompatActivity() {
         sortButtonId = findViewById(R.id.activity_recipes_list_xml_sort_button)
         moreButtonId = findViewById(R.id.activity_recipes_list_xml_more_button)
 
-        //ingredientsList transferred form Mainctivity
-        val extraIngredients =
-            intent.getParcelableArrayListExtra<RecipePreview>("extraIngredientsList")
+        //recipes transferred form Mainctivity
+        val extraRecipes =
+            intent.getParcelableArrayListExtra<RecipePreview>("extraRecipesList")
+
+        if (extraRecipes != null) {
+            viewModel.onRecipesListActivityCreated(extraRecipes)
+        }
 
         initRecyclerview()
         observeUiMessages()
+        observeRecipes()
 
         tooltipId.setOnClickListener {
             viewModel.onTooltipClicked()
@@ -62,6 +67,12 @@ class RecipesListActivity : AppCompatActivity() {
     private fun observeUiMessages() {
         viewModel.uiMessages.observe(this) { uiMessage ->
             showUiMessage(uiMessage)
+        }
+    }
+
+    private fun observeRecipes() {
+        viewModel.recipes.observe(this) {
+            adapter.update(it)
         }
     }
 }

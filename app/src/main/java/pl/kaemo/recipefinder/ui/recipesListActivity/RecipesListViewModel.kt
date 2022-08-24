@@ -4,9 +4,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import pl.kaemo.recipefinder.R
+import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.ui.util.UiMessage
 
 class RecipesListViewModel : ViewModel() {
+
+    private val recipesList = mutableListOf<RecipePreview>()
+
+    private val _recipes = MutableLiveData<List<RecipePreview>>(recipesList)
+    val recipes: LiveData<List<RecipePreview>> = _recipes
+
+
+    fun onRecipesListActivityCreated(recipes: List<RecipePreview>) {
+        for (recipe in recipes) {
+            recipesList.add(recipe)
+        }
+        _recipes.postValue(recipesList)
+    }
+
+    // *********************************************
 
     private val _uiMessages = MutableLiveData<UiMessage>()
     val uiMessages: LiveData<UiMessage> = _uiMessages

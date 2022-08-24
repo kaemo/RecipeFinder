@@ -1,12 +1,13 @@
 package pl.kaemo.recipefinder.ui.mainActivity
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userGuideId: TextView
     private lateinit var mainTextId: TextView
     private lateinit var xmlLayoutId: ConstraintLayout
+    private lateinit var loadingScreenId: CardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         userGuideId = findViewById(R.id.activity_main_xml_user_guide)
         mainTextId = findViewById(R.id.activity_main_xml_mainText)
         xmlLayoutId = findViewById(R.id.activity_main_xml_root)
+        loadingScreenId = findViewById(R.id.activity_main_xml_loading_layout)
 
         initRecyclerView()
         observeIngredients()
@@ -87,6 +90,7 @@ class MainActivity : AppCompatActivity() {
         buttonFindId.setOnClickListener {
             if (viewModel.enoughIngredients()) {
                 viewModel.onButtonSearchRecipesClicked()
+                loadingScreenId.isVisible = true
             } else {
                 validationId.text = getString(R.string.validation_noIngredients)
             }
@@ -117,7 +121,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeRecipes() {
         viewModel.recipes.observe(this) {
-            Log.d("MVM", "recipes: $it")
             navigateToRecipesListActivity(it as ArrayList<RecipePreview>)
         }
     }

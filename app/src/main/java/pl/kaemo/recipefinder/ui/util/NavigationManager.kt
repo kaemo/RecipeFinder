@@ -8,10 +8,10 @@ import pl.kaemo.recipefinder.ui.recipesListActivity.RecipesListActivity
 object NavigationManager {
 
     fun Activity.navigateToRecipesListActivity(
-        ingredientsList: ArrayList<RecipePreview>
+        recipesList: ArrayList<RecipePreview>
     ) {
         Intent(this, RecipesListActivity::class.java).also {
-            it.putParcelableArrayListExtra("extraIngredientsList", ingredientsList)
+            it.putParcelableArrayListExtra("extraRecipesList", recipesList)
             startActivity(it)
         }
     }
