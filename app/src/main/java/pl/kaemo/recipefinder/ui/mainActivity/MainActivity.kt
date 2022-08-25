@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
-import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.ui.util.AndroidLogger
 import pl.kaemo.recipefinder.ui.util.IsKeyboardVisibleLiveData
+import pl.kaemo.recipefinder.ui.util.KeyboardManager.hideKeyboard
 import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToRecipesListActivity
 
@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity() {
         buttonFindId.setOnClickListener {
             if (viewModel.enoughIngredients()) {
                 viewModel.onButtonSearchRecipesClicked()
+                hideKeyboard()
                 loadingScreenId.isVisible = true
             } else {
                 validationId.text = getString(R.string.validation_noIngredients)
@@ -97,6 +98,11 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadingScreenId.isVisible = false
     }
 
     private fun initRecyclerView() {
@@ -121,7 +127,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeRecipes() {
         viewModel.recipes.observe(this) {
-            navigateToRecipesListActivity(it as ArrayList<RecipePreview>)
+            navigateToRecipesListActivity(it)
         }
     }
 }

@@ -8,9 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.domain.model.RecipePreview
+import pl.kaemo.recipefinder.ui.util.AndroidLogger
+import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import pl.kaemo.recipefinder.ui.util.showUiMessage
 
 class RecipesListActivity : AppCompatActivity() {
+
+    private val logger: LogcatLogger = AndroidLogger("TAG") // lub FileLogger()
 
     lateinit var viewModel: RecipesListViewModel
 
@@ -33,11 +37,8 @@ class RecipesListActivity : AppCompatActivity() {
         moreButtonId = findViewById(R.id.activity_recipes_list_xml_more_button)
 
         //recipes transferred form Mainctivity
-        val extraRecipes =
-            intent.getParcelableArrayListExtra<RecipePreview>("extraRecipesList")
-
-        if (extraRecipes != null) {
-            viewModel.onRecipesListActivityCreated(extraRecipes)
+        intent.getParcelableArrayListExtra<RecipePreview>("extraRecipesList")?.let {
+            viewModel.onRecipesListActivityCreated(it)
         }
 
         initRecyclerview()
@@ -58,9 +59,14 @@ class RecipesListActivity : AppCompatActivity() {
 
     }
 
+    private fun onItemClicked(index: Int) {
+        logger.logMessage("onItemClicked index: $index")
+        viewModel.onRecipeClicked(index)
+    }
+
     private fun initRecyclerview() {
         recyclerViewId.layoutManager = LinearLayoutManager(this)
-        adapter = RecipesListAdapter()
+        adapter = RecipesListAdapter(::onItemClicked)
         recyclerViewId.adapter = adapter
     }
 

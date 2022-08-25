@@ -10,22 +10,16 @@ import pl.kaemo.recipefinder.ui.util.UiMessage
 class RecipesListViewModel : ViewModel() {
 
     private val recipesList = mutableListOf<RecipePreview>()
-
     private val _recipes = MutableLiveData<List<RecipePreview>>(recipesList)
     val recipes: LiveData<List<RecipePreview>> = _recipes
 
-
-    fun onRecipesListActivityCreated(recipes: List<RecipePreview>) {
-        for (recipe in recipes) {
-            recipesList.add(recipe)
-        }
-        _recipes.postValue(recipesList)
-    }
-
-    // *********************************************
-
     private val _uiMessages = MutableLiveData<UiMessage>()
     val uiMessages: LiveData<UiMessage> = _uiMessages
+
+    fun onRecipesListActivityCreated(recipes: List<RecipePreview>) {
+        recipesList.addAll(recipes)
+        _recipes.postValue(recipesList)
+    }
 
     fun onTooltipClicked() {
         val dialog = UiMessage.Dialog(
@@ -43,6 +37,11 @@ class RecipesListViewModel : ViewModel() {
 
     fun onMoreButtonClicked() {
         val toast = UiMessage.Toast("Settings not implemented yet!")
+        _uiMessages.postValue(toast)
+    }
+
+    fun onRecipeClicked(index: Int) {
+        val toast = UiMessage.Toast("[id: $index] not implemented yet!")
         _uiMessages.postValue(toast)
     }
 }

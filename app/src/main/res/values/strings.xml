@@ -31,5 +31,6 @@
 
     <string name="recipes_list_adapter_ingredients_ok">✅ You have all the ingredients needed to make this recipe!</string>
     <string name="recipes_list_adapter_ingredients_nok">You need 1 more ingredient for this recipe:</string>
+    <string name="recipes_list_adapter_ingredients_nok_plural">You need %d more ingredients for this recipe:</string>
 
 </resources>

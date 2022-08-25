@@ -1,6 +1,5 @@
 package pl.kaemo.recipefinder.ui.mainActivity
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +7,13 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
+import pl.kaemo.recipefinder.ui.util.AndroidLogger
+import pl.kaemo.recipefinder.ui.util.LogcatLogger
 
-class MainRecyclerAdapter(val onDeleted: (Int) -> Unit) : RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder>() {
+class MainRecyclerAdapter(val onDeleted: (Int) -> Unit) :
+    RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder>() {
+
+    private val logger: LogcatLogger = AndroidLogger("TAG") // lub FileLogger()
 
     private var ingredientsList: List<String> = listOf()
 
@@ -21,7 +25,7 @@ class MainRecyclerAdapter(val onDeleted: (Int) -> Unit) : RecyclerView.Adapter<M
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ): MainViewHolder {
-        Log.d("TAG", "Adapter: onCreateViewHolder")
+        logger.logMessage("Adapter: onCreateViewHolder")
         return MainViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.activity_main_recyclerview_card, parent, false)
