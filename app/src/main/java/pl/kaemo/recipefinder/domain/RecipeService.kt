@@ -1,13 +1,15 @@
 package pl.kaemo.recipefinder.domain
 
+import kotlinx.coroutines.delay
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 
 interface RecipeService {
-    fun getRecipes(ingredients: List<String>): List<RecipePreview>
+    suspend fun getRecipes(ingredients: List<String>): List<RecipePreview>
 }
 
 class FakeRecipeService : RecipeService {
-    override fun getRecipes(ingredients: List<String>): List<RecipePreview> {
+    override suspend fun getRecipes(ingredients: List<String>): List<RecipePreview> {
+        delay(1000L)
         return listOf(
             RecipePreview(
                 "Slow Cooker Apple Pork Tenderloin",

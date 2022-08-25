@@ -3,6 +3,8 @@ package pl.kaemo.recipefinder.ui.mainActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import pl.kaemo.recipefinder.domain.FakeRecipeService
 import pl.kaemo.recipefinder.domain.RecipeService
 import pl.kaemo.recipefinder.domain.model.RecipePreview
@@ -33,7 +35,9 @@ class MainViewModel : ViewModel() {
     }
 
     fun onButtonSearchRecipesClicked() {
-        val recipePreviewList: List<RecipePreview> = recipeServiceImplementation.getRecipes(ingredientsList)
-        _recipes.postValue(recipePreviewList)
+        viewModelScope.launch {
+            val recipePreviewList: List<RecipePreview> = recipeServiceImplementation.getRecipes(ingredientsList)
+            _recipes.postValue(recipePreviewList)
+        }
     }
 }
