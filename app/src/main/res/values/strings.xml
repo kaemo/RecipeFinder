@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">RecipeFinder</string>
+
+    <!-- Main activity -->
+
+    <string name="main_activity_mainText">What do you have in your fridge?</string>
+    <string name="main_activity_inputHintText">Enter first ingredient</string>
+    <string name="main_activity_inputSecondHintText">Enter next ingredient</string>
+    <string name="main_activity_buttonFindMeal">Find a recipe!</string>
+    <string name="main_activity_user_guide">1. Type all ingredients you have\n\n2. Click on the button below\n\n3. The algorithm will find recipes that use as many of the given ingredients as possible and require as few additional ingredients as possible</string>
+
+    <!-- Main activity - validations -->
+
+    <string name="validation_noIngredients">Enter at least one ingredient!</string>
+
+    <!-- IngredientNameValidation - validations -->
+
+    <string name="validation_empty">Field cannot be empty!</string>
+    <string name="validation_whitespaces">Field cannot contain whitespaces!</string>
+    <string name="validation_digits">Field cannot contain any digits!</string>
+    <string name="validation_specChar">Field cannot contain any special characters!</string>
+    <string name="validation_char">Field cannot contain chars!</string>
+    <string name="validation_long">Name too long!</string>
+
+    <!-- RecipeListAdapter -->
+
+    <string name="recipes_list_activity_dialog_title">Your plan: FREE</string>
+    <string name="recipes_list_activity_dialog_message">Every API call you make costs a certain amount of points: every request is 1 point and 0.01 points per result returned. There is only 150 points to use per day. Use them wisely.</string>
+
+    <!-- RecipesListAdapter -->
+
+    <string name="recipes_list_adapter_ingredients_ok">✅ You have all the ingredients needed to make this recipe!</string>
+    <string name="recipes_list_adapter_ingredients_nok">You need 1 more ingredient for this recipe:</string>
+    <string name="recipes_list_adapter_ingredients_nok_plural">You need %d more ingredients for this recipe:</string>
+
 </resources>

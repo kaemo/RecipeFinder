@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_recipes_list_recyclerview_card_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@android:color/white"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activity_recipes_list_recyclerview_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/activity_recipes_list_recyclerview_card_image_view"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="#AAAAAA"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/activity_recipes_list_recyclerview_card_view"
+            app:layout_constraintStart_toStartOf="@id/activity_recipes_list_recyclerview_card_view"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/activity_recipes_list_recyclerview_card_ingredient_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/activity_recipes_list_recyclerview_card_view"
+            app:layout_constraintStart_toEndOf="@+id/activity_recipes_list_recyclerview_card_image_view"
+            app:layout_constraintTop_toTopOf="@+id/activity_recipes_list_recyclerview_card_view"
+            tools:text="Slow Cooker Apple Pork Tenderloin" />
+
+        <TextView
+            android:id="@+id/activity_recipes_list_recyclerview_card_ingredients_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@id/activity_recipes_list_recyclerview_card_view"
+            app:layout_constraintStart_toEndOf="@+id/activity_recipes_list_recyclerview_card_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/activity_recipes_list_recyclerview_card_ingredient_title"
+            tools:text="You are missing these ingredients:" />
+
+        <TextView
+            android:id="@+id/activity_recipes_list_recyclerview_card_ingredients_missing"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/activity_recipes_list_recyclerview_card_view"
+            app:layout_constraintEnd_toEndOf="@id/activity_recipes_list_recyclerview_card_view"
+            app:layout_constraintStart_toEndOf="@+id/activity_recipes_list_recyclerview_card_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/activity_recipes_list_recyclerview_card_ingredients_info"
+            tools:text="1/2 pound extra lean beef, ground\n1 pound fresh rhubarb\n1/4 cup honey\n1 15oz can refried beans" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
