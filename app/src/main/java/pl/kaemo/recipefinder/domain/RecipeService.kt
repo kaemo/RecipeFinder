@@ -9,7 +9,7 @@ interface RecipeService {
 
 class FakeRecipeService : RecipeService {
     override suspend fun getRecipes(ingredients: List<String>): List<RecipePreview> {
-        delay(1000L)
+        delay(3000L)
         return listOf(
             RecipePreview(
                 "Slow Cooker Apple Pork Tenderloin",

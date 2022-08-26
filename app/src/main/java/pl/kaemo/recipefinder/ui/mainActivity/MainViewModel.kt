@@ -5,13 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import pl.kaemo.recipefinder.data.RecipeServiceImpl
+import pl.kaemo.recipefinder.data.spoonacularApi.RetrofitHelper
 import pl.kaemo.recipefinder.domain.FakeRecipeService
 import pl.kaemo.recipefinder.domain.RecipeService
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 
 class MainViewModel : ViewModel() {
 
-    private val recipeServiceImplementation: RecipeService = FakeRecipeService() //zmienna typu interfejsu
+//    private val recipesApi = RetrofitHelper.getInstance()
+//    private val recipeServiceImplementation: RecipeService =
+//        RecipeServiceImpl(recipesApi) //lub FakeRecipeService()
+    private val recipeServiceImplementation: RecipeService =
+        FakeRecipeService()
 
     private val ingredientsList = mutableListOf<String>()
     private val _ingredients = MutableLiveData<List<String>>(ingredientsList)
@@ -36,7 +42,8 @@ class MainViewModel : ViewModel() {
 
     fun onButtonSearchRecipesClicked() {
         viewModelScope.launch {
-            val recipePreviewList: List<RecipePreview> = recipeServiceImplementation.getRecipes(ingredientsList)
+            val recipePreviewList: List<RecipePreview> =
+                recipeServiceImplementation.getRecipes(ingredientsList)
             _recipes.postValue(recipePreviewList)
         }
     }
