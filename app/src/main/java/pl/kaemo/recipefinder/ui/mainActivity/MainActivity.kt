@@ -89,9 +89,9 @@ class MainActivity : AppCompatActivity() {
 
         buttonFindId.setOnClickListener {
             if (viewModel.enoughIngredients()) {
-                viewModel.onButtonSearchRecipesClicked()
                 hideKeyboard()
                 loadingScreenId.isVisible = true
+                viewModel.onButtonSearchRecipesClicked()
             } else {
                 validationId.text = getString(R.string.validation_noIngredients)
             }

@@ -53,7 +53,7 @@ class RecipesListAdapter(val onClicked: (Int) -> Unit) : RecyclerView.Adapter<Re
 
         val missedIngredientsList = recipesList[position].missedIngredients
 
-        if (missedIngredientsList == null) {
+        if (missedIngredientsList.isNullOrEmpty()) {
             cardInfo.text =
                 holder.view.context.getString(R.string.recipes_list_adapter_ingredients_ok)
             cardInfo.setTextColor(Color.parseColor("#377D3F"))
