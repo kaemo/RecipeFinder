@@ -12,7 +12,7 @@ import pl.kaemo.recipefinder.domain.model.RecipePreview
 
 class MainViewModel : ViewModel() {
 
-    private val recipesApi = RetrofitHelper.getInstance()
+    private val recipesApi = RetrofitHelper(::onQuotaUpdated).getInstance()
     private val recipeServiceImplementation: RecipeService =
         RecipeServiceImpl(recipesApi) //RecipeServiceImpl(recipesApi) or FakeRecipeService()
 
@@ -22,6 +22,9 @@ class MainViewModel : ViewModel() {
 
     private val _recipes = MutableLiveData<List<RecipePreview>>()
     val recipes: LiveData<List<RecipePreview>> = _recipes
+
+    private val _quotaLeft = MutableLiveData<Float>()
+    val quotaLeft: LiveData<Float> = _quotaLeft
 
     fun onIngredientAdded(name: String) {
         ingredientsList.add(name)
@@ -43,5 +46,9 @@ class MainViewModel : ViewModel() {
                 recipeServiceImplementation.getRecipes(ingredientsList)
             _recipes.postValue(recipePreviewList)
         }
+    }
+
+    private fun onQuotaUpdated(quota: Float) {
+        _quotaLeft.postValue(quota)
     }
 }

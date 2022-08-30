@@ -3,7 +3,7 @@ package pl.kaemo.recipefinder.data.model
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 
 data class RecipeDTO(
-//    val id: Int,
+    val id: Int,
     val title: String,
     val image: String,
     val missedIngredients: List<MissedIngredientDTO>
@@ -16,11 +16,13 @@ data class RecipeDTO(
 
 )
 
-fun RecipeDTO.toRecipePreview(): RecipePreview {
+fun RecipeDTO.toRecipePreview(): RecipePreview { //dlaczego to jest tu a nie w RecipeServiceImpl?
 
     return RecipePreview(
+        id = this.id,
         title = this.title,
         imageUrl = this.image,
         missedIngredients = this.missedIngredients.map { it.original }
     )
+
 }

@@ -1,5 +1,7 @@
 package pl.kaemo.recipefinder.ui.mainActivity
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
@@ -12,10 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.kaemo.recipefinder.R
-import pl.kaemo.recipefinder.ui.util.AndroidLogger
-import pl.kaemo.recipefinder.ui.util.IsKeyboardVisibleLiveData
+import pl.kaemo.recipefinder.ui.util.*
 import pl.kaemo.recipefinder.ui.util.KeyboardManager.hideKeyboard
-import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToRecipesListActivity
 
 class MainActivity : AppCompatActivity() {
@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
     private val logger: LogcatLogger = AndroidLogger("TAG") // lub FileLogger()
 
     lateinit var viewModel: MainViewModel
-
     private lateinit var adapter: MainRecyclerAdapter
+    lateinit var sharedPrefs: SharedPreferences
 
     private lateinit var recyclerViewId: RecyclerView
     private lateinit var buttonAddId: ImageButton
@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         logger.logMessage("onCreate")
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        sharedPrefs = getSharedPreferences(SHARED_PREFS_KEY, Context.MODE_PRIVATE)
 
         recyclerViewId = findViewById(R.id.activity_main_xml_recyclerview)
         buttonAddId = findViewById(R.id.activity_main_xml_imageButton_add)
@@ -57,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
         observeIngredients()
         observeRecipes()
+        observeQuotaLeft()
 
         userInputId.setOnFocusChangeListener { _, _ ->
             validationId.text = ""
@@ -100,9 +102,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        loadingScreenId.isVisible = false
+    override fun onResume() { //nadpisywanie onresume
+        super.onResume() //ale wykonujemy najpierw oryginalną onResume // jak by tego nie bylo to tylko linijka ponizej by sie wykonała
+        loadingScreenId.isVisible = false // dodanie nowej funkcjonalnosci do onResume
     }
 
     private fun initRecyclerView() {
@@ -120,7 +122,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeIngredients() {
         viewModel.ingredients.observe(this) {
-            logger.logMessage("it: $it")
+            logger.logMessage("List of ingredients: $it")
             adapter.update(it)
         }
     }
@@ -128,6 +130,12 @@ class MainActivity : AppCompatActivity() {
     private fun observeRecipes() {
         viewModel.recipes.observe(this) {
             navigateToRecipesListActivity(it)
+        }
+    }
+
+    private fun observeQuotaLeft() {
+        viewModel.quotaLeft.observe(this) {
+            sharedPrefs.edit().putFloat(SHARED_PREF_QUOTALEFT_KEY, it).apply()
         }
     }
 }

@@ -9,7 +9,7 @@ interface RecipesApi {
 
     @GET("/recipes/findByIngredients")
 
-    suspend fun getRecipes(
+    suspend fun getRecipesResponse(
         @Query("apiKey") apiKey: String,
         @Query("ingredients") ingredients: String,
         @Query("number") number: Int,

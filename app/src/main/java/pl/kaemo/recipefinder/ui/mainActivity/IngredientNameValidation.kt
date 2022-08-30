@@ -3,11 +3,11 @@ package pl.kaemo.recipefinder.ui.mainActivity
 import pl.kaemo.recipefinder.R
 
 object IngredientNameValidation {
-    fun validateUserInput(userInput: String): ValidationStatus{
+    fun validateUserInput(userInput: String): ValidationStatus {
 
         return if (userInput == "") {
             ValidationStatus.Error(R.string.validation_empty)
-        } else if (userInput.contains(" ")) {
+        } else if (userInput.contains("  ")) {
             ValidationStatus.Error(R.string.validation_whitespaces)
         } else if (userInput.contains("[0-9]".toRegex())) {
             ValidationStatus.Error(R.string.validation_digits)
@@ -23,7 +23,7 @@ object IngredientNameValidation {
     }
 }
 
-sealed class ValidationStatus(){
-    class Ok: ValidationStatus()
-    class Error(val message: Int): ValidationStatus()
+sealed class ValidationStatus() {
+    class Ok : ValidationStatus()
+    class Error(val message: Int) : ValidationStatus()
 }

@@ -1,6 +1,5 @@
 package pl.kaemo.recipefinder.data
 
-import android.util.Log
 import pl.kaemo.recipefinder.data.model.toRecipePreview
 import pl.kaemo.recipefinder.data.spoonacularApi.RecipesApi
 import pl.kaemo.recipefinder.domain.RecipeService
@@ -16,7 +15,7 @@ const val ignorePantry: Boolean = true //Whether to ignore typical pantry items,
 class RecipeServiceImpl(private val recipesApi: RecipesApi) : RecipeService {
     override suspend fun getRecipes(ingredients: List<String>): List<RecipePreview> {
 
-        val result = recipesApi.getRecipes(
+        val result = recipesApi.getRecipesResponse(
             apiKey,
             formatToApiString(ingredients),
             number,
@@ -24,19 +23,10 @@ class RecipeServiceImpl(private val recipesApi: RecipesApi) : RecipeService {
             ignorePantry
         )
 
-        getQuotaLeftFromHeader(result.headers().toString()) // lepszy sposób na wyciągnięcie x-api-quota-left: <tej wartości> ? / jak to najlepiej przesłać do adaptera na kolejnym ekranie?
-
         return result.body()?.map {
             it.toRecipePreview()
         } ?: emptyList()
 
-    }
-
-    private fun getQuotaLeftFromHeader(header: String) {
-        val afterQuotaIndex: Int = header.indexOf("cf-cache-status") - 1
-        var quotaLeft: String = header.dropLast(header.length - afterQuotaIndex)
-        quotaLeft = quotaLeft.drop(quotaLeft.indexOf("x-api-quota-left") + 18)
-        Log.d("quota left:", quotaLeft)
     }
 
     private fun formatToApiString(ingredientsList: List<String>): String {
