@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import pl.kaemo.recipefinder.data.service.FakeRecipeService
 import pl.kaemo.recipefinder.data.service.RecipeServiceImpl
 import pl.kaemo.recipefinder.data.spoonacularApi.QuotaLeftInterceptor
 import pl.kaemo.recipefinder.data.spoonacularApi.RetrofitHelper
@@ -23,7 +24,7 @@ object AppModule {
     @Provides
     fun provideretrofitHelper(quotaLeftInterceptor: QuotaLeftInterceptor): RetrofitHelper {
         return RetrofitHelper(quotaLeftInterceptor)
-    } //zadziała również bez tego - RetrofitHelper ma construktor oznaczony @Inject
+    } //zadziała również bez tego bo RetrofitHelper ma constructor oznaczony @Inject
 
     @Provides
     fun provideRecipeService(retrofitHelper: RetrofitHelper): RecipeService {
