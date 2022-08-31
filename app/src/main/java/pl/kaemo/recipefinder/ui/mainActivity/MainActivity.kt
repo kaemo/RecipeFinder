@@ -102,9 +102,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onResume() { //nadpisywanie onresume
-        super.onResume() //ale wykonujemy najpierw oryginalną onResume // jak by tego nie bylo to tylko linijka ponizej by sie wykonała
-        loadingScreenId.isVisible = false // dodanie nowej funkcjonalnosci do onResume
+    override fun onResume() {
+        super.onResume()
+        loadingScreenId.isVisible = false
     }
 
     private fun initRecyclerView() {
