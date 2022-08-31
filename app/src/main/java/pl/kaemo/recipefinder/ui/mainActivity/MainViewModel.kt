@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import pl.kaemo.recipefinder.data.RecipeServiceImpl
+import pl.kaemo.recipefinder.data.service.RecipeServiceImpl
 import pl.kaemo.recipefinder.data.spoonacularApi.RetrofitHelper
 import pl.kaemo.recipefinder.domain.RecipeService
 import pl.kaemo.recipefinder.domain.model.RecipePreview

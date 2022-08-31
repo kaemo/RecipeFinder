@@ -7,7 +7,7 @@ interface RecipeService {
     suspend fun getRecipes(ingredients: List<String>): List<RecipePreview>
 }
 
-class FakeRecipeService : RecipeService { //dlaczego to jest tu? - a nie jako osobny plik w warstwie data // struktura po wywaleniu fekowych danych - dalej RecipeService w takiej formie?
+class FakeRecipeService : RecipeService {
     override suspend fun getRecipes(ingredients: List<String>): List<RecipePreview> {
         delay(3000L)
         return listOf(

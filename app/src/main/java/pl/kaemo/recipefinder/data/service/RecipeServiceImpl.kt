@@ -1,4 +1,4 @@
-package pl.kaemo.recipefinder.data
+package pl.kaemo.recipefinder.data.service
 
 import pl.kaemo.recipefinder.data.model.toRecipePreview
 import pl.kaemo.recipefinder.data.spoonacularApi.RecipesApi

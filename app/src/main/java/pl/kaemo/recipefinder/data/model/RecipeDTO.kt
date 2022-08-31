@@ -16,7 +16,7 @@ data class RecipeDTO(
 
 )
 
-fun RecipeDTO.toRecipePreview(): RecipePreview { //dlaczego to jest tu a nie w RecipeServiceImpl?
+fun RecipeDTO.toRecipePreview(): RecipePreview {
 
     return RecipePreview(
         id = this.id,
