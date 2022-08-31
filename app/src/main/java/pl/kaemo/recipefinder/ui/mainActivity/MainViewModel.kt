@@ -4,17 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import pl.kaemo.recipefinder.data.service.RecipeServiceImpl
-import pl.kaemo.recipefinder.data.spoonacularApi.RetrofitHelper
 import pl.kaemo.recipefinder.domain.RecipeService
 import pl.kaemo.recipefinder.domain.model.RecipePreview
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
-
-    private val recipesApi = RetrofitHelper(::onQuotaUpdated).getInstance()
-    private val recipeServiceImplementation: RecipeService =
-        RecipeServiceImpl(recipesApi) //RecipeServiceImpl(recipesApi) or FakeRecipeService()
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val recipeService: RecipeService
+) : ViewModel() {
 
     private val ingredientsList = mutableListOf<String>()
     private val _ingredients = MutableLiveData<List<String>>(ingredientsList)
@@ -22,9 +21,6 @@ class MainViewModel : ViewModel() {
 
     private val _recipes = MutableLiveData<List<RecipePreview>>()
     val recipes: LiveData<List<RecipePreview>> = _recipes
-
-    private val _quotaLeft = MutableLiveData<Float>()
-    val quotaLeft: LiveData<Float> = _quotaLeft
 
     fun onIngredientAdded(name: String) {
         ingredientsList.add(name)
@@ -43,12 +39,9 @@ class MainViewModel : ViewModel() {
     fun onButtonSearchRecipesClicked() {
         viewModelScope.launch {
             val recipePreviewList: List<RecipePreview> =
-                recipeServiceImplementation.getRecipes(ingredientsList)
+                recipeService.getRecipes(ingredientsList)
             _recipes.postValue(recipePreviewList)
         }
     }
 
-    private fun onQuotaUpdated(quota: Float) {
-        _quotaLeft.postValue(quota)
-    }
 }

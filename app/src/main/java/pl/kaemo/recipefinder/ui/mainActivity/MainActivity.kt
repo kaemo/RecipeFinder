@@ -1,7 +1,5 @@
 package pl.kaemo.recipefinder.ui.mainActivity
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
@@ -13,18 +11,21 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import pl.kaemo.recipefinder.R
-import pl.kaemo.recipefinder.ui.util.*
+import pl.kaemo.recipefinder.ui.util.AndroidLogger
+import pl.kaemo.recipefinder.ui.util.IsKeyboardVisibleLiveData
 import pl.kaemo.recipefinder.ui.util.KeyboardManager.hideKeyboard
+import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToRecipesListActivity
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val logger: LogcatLogger = AndroidLogger("TAG") // lub FileLogger()
 
     lateinit var viewModel: MainViewModel
     private lateinit var adapter: MainRecyclerAdapter
-    lateinit var sharedPrefs: SharedPreferences
 
     private lateinit var recyclerViewId: RecyclerView
     private lateinit var buttonAddId: ImageButton
@@ -43,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         logger.logMessage("onCreate")
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        sharedPrefs = getSharedPreferences(SHARED_PREFS_KEY, Context.MODE_PRIVATE)
 
         recyclerViewId = findViewById(R.id.activity_main_xml_recyclerview)
         buttonAddId = findViewById(R.id.activity_main_xml_imageButton_add)
@@ -58,7 +58,6 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
         observeIngredients()
         observeRecipes()
-        observeQuotaLeft()
 
         userInputId.setOnFocusChangeListener { _, _ ->
             validationId.text = ""
@@ -133,9 +132,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeQuotaLeft() {
-        viewModel.quotaLeft.observe(this) {
-            sharedPrefs.edit().putFloat(SHARED_PREF_QUOTALEFT_KEY, it).apply()
-        }
-    }
 }

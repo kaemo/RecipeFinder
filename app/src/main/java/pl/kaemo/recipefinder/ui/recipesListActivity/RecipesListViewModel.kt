@@ -3,11 +3,14 @@ package pl.kaemo.recipefinder.ui.recipesListActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.ui.util.UiMessage
+import javax.inject.Inject
 
-class RecipesListViewModel : ViewModel() {
+@HiltViewModel
+class RecipesListViewModel @Inject constructor() : ViewModel() {
 
     private val recipesList = mutableListOf<RecipePreview>()
     private val _recipes = MutableLiveData<List<RecipePreview>>(recipesList)

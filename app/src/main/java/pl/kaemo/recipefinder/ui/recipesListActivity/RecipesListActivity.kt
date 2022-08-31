@@ -9,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.ui.util.*
 
+@AndroidEntryPoint
 class RecipesListActivity : AppCompatActivity() {
 
     private val logger: LogcatLogger = AndroidLogger("TAG") // lub FileLogger()
