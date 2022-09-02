@@ -1,6 +1,6 @@
-package pl.kaemo.recipefinder.data.model
+package pl.kaemo.recipefinder.data.model.recipesList
 
-data class UsedIngredientDTO(
+data class UnusedIngredientDTO(
     val id: Int,
     val amount: Int,
     val unit: String,
@@ -10,6 +10,6 @@ data class UsedIngredientDTO(
     val name: String,
     val original: String,
     val originalName: String,
-    val meta: List<String>,
+    val meta: List<Any>,
     val image: String
 )

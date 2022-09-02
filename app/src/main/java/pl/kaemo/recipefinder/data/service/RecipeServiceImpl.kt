@@ -1,8 +1,9 @@
 package pl.kaemo.recipefinder.data.service
 
-import pl.kaemo.recipefinder.data.model.toRecipePreview
+import pl.kaemo.recipefinder.data.model.recipesList.toRecipePreview
 import pl.kaemo.recipefinder.data.spoonacularApi.RecipesApi
 import pl.kaemo.recipefinder.domain.RecipeService
+import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 import javax.inject.Inject
 
@@ -28,6 +29,10 @@ class RecipeServiceImpl @Inject constructor(private val recipesApi: RecipesApi) 
             it.toRecipePreview()
         } ?: emptyList()
 
+    }
+
+    override suspend fun getRecipeDetails(id: Int): List<RecipeDetailsPreview> {
+        TODO("Not yet implemented")
     }
 
     private fun formatToApiString(ingredientsList: List<String>): String {

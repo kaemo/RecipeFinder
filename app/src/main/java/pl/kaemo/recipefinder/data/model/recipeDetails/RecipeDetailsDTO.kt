@@ -1,0 +1,41 @@
+package pl.kaemo.recipefinder.data.model.recipeDetails
+
+data class RecipeDetailsDTO(
+    val title: String,
+    val summary: String,
+    val instructions: String,
+    val readyInMinutes: Int,
+    val servings: Int,
+    val sourceName: String,
+    val sourceUrl: String,
+    val extendedIngredients: List<ExtendedIngredientDTO>,
+
+
+//    val aggregateLikes: Int,
+//    val analyzedInstructions: List<AnalyzedInstructionDTO>,
+//    val cheap: Boolean,
+//    val cookingMinutes: Int,
+//    val creditsText: String,
+//    val cuisines: List<Any>,
+//    val dairyFree: Boolean,
+//    val diets: List<Any>,
+//    val dishTypes: List<String>,
+//    val gaps: String,
+//    val glutenFree: Boolean,
+//    val healthScore: Int,
+//    val id: Int,
+//    val license: String,
+//    val lowFodmap: Boolean,
+//    val occasions: List<Any>,
+//    val originalId: Any,
+//    val preparationMinutes: Int,
+//    val pricePerServing: Double,
+//    val spoonacularSourceUrl: String,
+//    val sustainable: Boolean,
+//    val vegan: Boolean,
+//    val vegetarian: Boolean,
+//    val veryHealthy: Boolean,
+//    val veryPopular: Boolean,
+//    val weightWatcherSmartPoints: Int,
+//    val winePairing: WinePairingDTO
+)

@@ -1,4 +1,4 @@
-package pl.kaemo.recipefinder.data.model
+package pl.kaemo.recipefinder.data.model.recipesList
 
 data class MissedIngredientDTO(
 //    val id: Int,

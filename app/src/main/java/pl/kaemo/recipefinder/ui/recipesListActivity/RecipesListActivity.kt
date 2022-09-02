@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.ui.util.*
+import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToRecipeDetailsActivity
 
 @AndroidEntryPoint
 class RecipesListActivity : AppCompatActivity() {
@@ -82,6 +83,7 @@ class RecipesListActivity : AppCompatActivity() {
     private fun onItemClicked(index: Int) {
         logger.logMessage("onItemClicked index: $index")
         viewModel.onRecipeClicked(index)
+        navigateToRecipeDetailsActivity(666)
     }
 
     private fun observeUiMessages() {

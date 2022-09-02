@@ -1,6 +1,6 @@
 package pl.kaemo.recipefinder.data.spoonacularApi
 
-import pl.kaemo.recipefinder.data.model.RecipeDTO
+import pl.kaemo.recipefinder.data.model.recipesList.RecipeDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

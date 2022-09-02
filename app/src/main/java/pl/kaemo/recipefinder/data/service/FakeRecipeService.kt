@@ -2,6 +2,7 @@ package pl.kaemo.recipefinder.data.service
 
 import kotlinx.coroutines.delay
 import pl.kaemo.recipefinder.domain.RecipeService
+import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 
 class FakeRecipeService : RecipeService {
@@ -75,4 +76,9 @@ class FakeRecipeService : RecipeService {
             )
         )
     }
+
+    override suspend fun getRecipeDetails(id: Int): List<RecipeDetailsPreview> {
+        TODO("Not yet implemented")
+    }
+
 }
