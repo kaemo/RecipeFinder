@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         userGuideId = findViewById(R.id.activity_main_xml_user_guide)
         mainTextId = findViewById(R.id.activity_main_xml_mainText)
         xmlLayoutId = findViewById(R.id.activity_main_xml_root)
-        loadingScreenId = findViewById(R.id.activity_main_xml_loading_layout)
+        loadingScreenId = findViewById(R.id.loading_layout)
 
         initRecyclerView()
         observeIngredients()

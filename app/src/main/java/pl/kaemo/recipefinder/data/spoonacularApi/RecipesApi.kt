@@ -1,8 +1,10 @@
 package pl.kaemo.recipefinder.data.spoonacularApi
 
+import pl.kaemo.recipefinder.data.model.recipeDetails.RecipeDetailsDTO
 import pl.kaemo.recipefinder.data.model.recipesList.RecipeDTO
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RecipesApi {
@@ -16,5 +18,14 @@ interface RecipesApi {
         @Query("ranking") ranking: Int,
         @Query("ignorePantry") ignorePantry: Boolean
     ): Response<List<RecipeDTO>>
+
+
+//    @GET("/recipes/{recipeId}/information")
+//
+//    fun getRecipesDetailsResponse(
+//        @Path("recipeId") recipeId: Int,
+//        @Query("apiKey") apiKey: String,
+//        @Query("includeNutrition") includeNutrition: Boolean
+//    ): Response<List<RecipeDetailsDTO>>
 
 }

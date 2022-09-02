@@ -68,19 +68,21 @@
 
                 <!-- Time / servings section -->
 
-                <include layout="@layout/activity_recipe_details_time_servings_section"
+                <include
                     android:id="@+id/external_time_serving_section"
-                    app:layout_constraintTop_toBottomOf="@+id/main_title"
+                    layout="@layout/activity_recipe_details_time_servings_section"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/main_title" />
 
                 <!-- Ingredients section -->
 
-                <include layout="@layout/activity_recipe_details_ingredients_section"
+                <include
                     android:id="@+id/external_ingredients_section"
-                    app:layout_constraintTop_toBottomOf="@+id/external_time_serving_section"
+                    layout="@layout/activity_recipe_details_ingredients_section"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/external_time_serving_section" />
 
                 <!-- Summary section -->
 
@@ -88,8 +90,9 @@
                     android:id="@+id/summary_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Summary:"
+                    android:paddingTop="10dp"
                     android:paddingBottom="10dp"
+                    android:text="Summary:"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@+id/external_ingredients_section" />
@@ -107,9 +110,9 @@
                     android:id="@+id/preparation_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Preparation:"
-                    android:paddingTop="10dp"
+                    android:paddingTop="20dp"
                     android:paddingBottom="10dp"
+                    android:text="Preparation:"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@+id/summary_text" />
@@ -127,7 +130,7 @@
                     android:id="@+id/source_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
+                    android:paddingTop="20dp"
                     android:paddingBottom="10dp"
                     android:text="For more information check the source:"
                     android:textSize="18sp"
@@ -135,19 +138,21 @@
                     app:layout_constraintTop_toBottomOf="@+id/preparation_text" />
 
                 <TextView
-                    android:id="@+id/source_link"
+                    android:id="@+id/clickable_textview_source_link"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:text="Foodista.com – The Cooking Encyclopedia Everyone Can Edit"
                     app:layout_constraintTop_toBottomOf="@+id/source_title" />
 
                 <!-- Nutritional section -->
 
-                <include layout="@layout/activity_recipe_details_nutritional_section"
+                <include
                     android:id="@+id/external_nutritional_section"
-                    app:layout_constraintTop_toBottomOf="@+id/source_link"
+                    layout="@layout/activity_recipe_details_nutritional_section"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/clickable_textview_source_link" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

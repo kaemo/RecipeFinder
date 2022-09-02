@@ -1,6 +1,9 @@
 package pl.kaemo.recipefinder.data.model.recipeDetails
 
+import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
+
 data class RecipeDetailsDTO(
+    val id: Int,
     val title: String,
     val summary: String,
     val instructions: String,
@@ -8,7 +11,7 @@ data class RecipeDetailsDTO(
     val servings: Int,
     val sourceName: String,
     val sourceUrl: String,
-    val extendedIngredients: List<ExtendedIngredientDTO>,
+//    val extendedIngredients: List<ExtendedIngredientDTO>,
 
 
 //    val aggregateLikes: Int,
@@ -23,7 +26,6 @@ data class RecipeDetailsDTO(
 //    val gaps: String,
 //    val glutenFree: Boolean,
 //    val healthScore: Int,
-//    val id: Int,
 //    val license: String,
 //    val lowFodmap: Boolean,
 //    val occasions: List<Any>,
@@ -39,3 +41,18 @@ data class RecipeDetailsDTO(
 //    val weightWatcherSmartPoints: Int,
 //    val winePairing: WinePairingDTO
 )
+
+fun RecipeDetailsDTO.toRecipeDetailsPreview(): RecipeDetailsPreview {
+
+    return RecipeDetailsPreview(
+        id = this.id,
+        title = this.title,
+        summary = this.summary,
+        instructions = this.instructions,
+        readyInMinutes = this.readyInMinutes,
+        servings = this.servings,
+        sourceName = this.sourceName,
+        sourceUrl = this.sourceUrl
+    )
+
+}

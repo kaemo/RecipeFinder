@@ -3,9 +3,12 @@ package pl.kaemo.recipefinder.ui.recipesListActivity
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +17,7 @@ import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.ui.util.*
 import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToRecipeDetailsActivity
+import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToRecipesListActivity
 
 @AndroidEntryPoint
 class RecipesListActivity : AppCompatActivity() {
@@ -29,6 +33,7 @@ class RecipesListActivity : AppCompatActivity() {
     private lateinit var sortButtonId: ImageButton
     private lateinit var moreButtonId: ImageButton
     private lateinit var pointsLeftId: TextView
+    private lateinit var loadingScreenId: CardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +47,7 @@ class RecipesListActivity : AppCompatActivity() {
         sortButtonId = findViewById(R.id.activity_recipes_list_xml_sort_button)
         moreButtonId = findViewById(R.id.activity_recipes_list_xml_more_button)
         pointsLeftId = findViewById(R.id.activity_recipes_list_xml_points_left)
+        loadingScreenId = findViewById(R.id.loading_layout)
 
         //recipes transferred form Mainctivity
         intent.getParcelableArrayListExtra<RecipePreview>("extraRecipesList")?.let {
@@ -52,6 +58,7 @@ class RecipesListActivity : AppCompatActivity() {
         initRecyclerview()
         observeUiMessages()
         observeRecipes()
+        observeRecipeDetails()
 
         tooltipId.setOnClickListener {
             viewModel.onTooltipClicked()
@@ -67,6 +74,11 @@ class RecipesListActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadingScreenId.isVisible = false
+    }
+
     private fun updatePointsLeftSection() {
         pointsLeftId.text = getString(
             R.string.recipes_list_activity_quota_left,
@@ -80,9 +92,10 @@ class RecipesListActivity : AppCompatActivity() {
         recyclerViewId.adapter = adapter
     }
 
-    private fun onItemClicked(index: Int) {
-        logger.logMessage("onItemClicked index: $index")
-        viewModel.onRecipeClicked(index)
+    private fun onItemClicked(recipeId: Int) {
+        loadingScreenId.isVisible = true
+        logger.logMessage("onItemClicked recipe ID: $recipeId")
+        viewModel.onRecipeClicked(recipeId)
         navigateToRecipeDetailsActivity(666)
     }
 
@@ -97,4 +110,11 @@ class RecipesListActivity : AppCompatActivity() {
             adapter.update(it)
         }
     }
+
+    private fun observeRecipeDetails() {
+        viewModel.recipeDetails.observe(this) {
+            Log.d("TAG", it.toString())
+        }
+    }
+
 }

@@ -76,7 +76,7 @@ class RecipesListAdapter(val onClicked: (Int) -> Unit) : RecyclerView.Adapter<Re
 
         holder.itemView.findViewById<View>(R.id.activity_recipes_list_recyclerview_card_view)
             .setOnClickListener {
-                onClicked(position)
+                onClicked(recipesList[position].id)
             }
     }
 

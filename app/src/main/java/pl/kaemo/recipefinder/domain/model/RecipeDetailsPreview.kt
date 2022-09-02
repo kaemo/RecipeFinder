@@ -6,6 +6,7 @@ import pl.kaemo.recipefinder.data.model.recipeDetails.ExtendedIngredientDTO
 
 @Parcelize
 data class RecipeDetailsPreview(
+    val id: Int,
     val title: String,
     val summary: String,
     val instructions: String,

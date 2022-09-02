@@ -8,7 +8,7 @@
         android:id="@+id/nutritional_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
+        android:paddingTop="20dp"
         android:paddingBottom="10dp"
         android:text="Nutritional information for 1 serving"
         android:textSize="18sp"
@@ -134,8 +134,8 @@
         android:id="@+id/details_more"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:lineSpacingExtra="5sp"
+        android:padding="10dp"
         android:text="Protein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)"
         app:layout_constraintTop_toBottomOf="@+id/details_title" />
 
