@@ -5,5 +5,5 @@ import pl.kaemo.recipefinder.domain.model.RecipePreview
 
 interface RecipeService {
     suspend fun getRecipes(ingredients: List<String>): List<RecipePreview>
-    suspend fun getRecipeDetails(id: Int): List<RecipeDetailsPreview>
+    suspend fun getRecipeDetails(recipeId: Int): RecipeDetailsPreview
 }

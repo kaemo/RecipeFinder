@@ -3,7 +3,6 @@ package pl.kaemo.recipefinder.ui.recipesListActivity
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -17,12 +16,11 @@ import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.ui.util.*
 import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToRecipeDetailsActivity
-import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToRecipesListActivity
 
 @AndroidEntryPoint
 class RecipesListActivity : AppCompatActivity() {
 
-    private val logger: LogcatLogger = AndroidLogger("TAG") // lub FileLogger()
+    private val logger: CustomLogger = LogcatLogger("RecipeListActivity") // lub FileLogger()
 
     lateinit var viewModel: RecipesListViewModel
     private lateinit var adapter: RecipesListAdapter
@@ -94,9 +92,8 @@ class RecipesListActivity : AppCompatActivity() {
 
     private fun onItemClicked(recipeId: Int) {
         loadingScreenId.isVisible = true
-        logger.logMessage("onItemClicked recipe ID: $recipeId")
+        logger.log("onItemClicked recipe ID: $recipeId")
         viewModel.onRecipeClicked(recipeId)
-        navigateToRecipeDetailsActivity(666)
     }
 
     private fun observeUiMessages() {
@@ -113,7 +110,8 @@ class RecipesListActivity : AppCompatActivity() {
 
     private fun observeRecipeDetails() {
         viewModel.recipeDetails.observe(this) {
-            Log.d("TAG", it.toString())
+            logger.log("observeRecipeDetails it: $it")
+            navigateToRecipeDetailsActivity(it)
         }
     }
 

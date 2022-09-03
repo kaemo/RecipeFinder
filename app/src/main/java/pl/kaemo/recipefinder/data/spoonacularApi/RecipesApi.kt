@@ -10,7 +10,6 @@ import retrofit2.http.Query
 interface RecipesApi {
 
     @GET("/recipes/findByIngredients")
-
     suspend fun getRecipesResponse(
         @Query("apiKey") apiKey: String,
         @Query("ingredients") ingredients: String,
@@ -20,12 +19,12 @@ interface RecipesApi {
     ): Response<List<RecipeDTO>>
 
 
-//    @GET("/recipes/{recipeId}/information")
-//
-//    fun getRecipesDetailsResponse(
-//        @Path("recipeId") recipeId: Int,
-//        @Query("apiKey") apiKey: String,
-//        @Query("includeNutrition") includeNutrition: Boolean
-//    ): Response<List<RecipeDetailsDTO>>
+    @GET("/recipes/{recipeId}/information")
+//    @GET("/recipes/716429/information")
+    suspend fun getRecipeDetailsResponse(
+        @Path("recipeId") recipeId: Int,
+        @Query("apiKey") apiKey: String,
+        @Query("includeNutrition") includeNutrition: Boolean
+    ): Response<RecipeDetailsDTO>
 
 }

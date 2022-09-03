@@ -2,6 +2,7 @@ package pl.kaemo.recipefinder.ui.util
 
 import android.app.Activity
 import android.content.Intent
+import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.ui.recipeDetailsActivity.RecipeDetailsActivity
 import pl.kaemo.recipefinder.ui.recipesListActivity.RecipesListActivity
@@ -18,10 +19,10 @@ object NavigationManager {
     }
 
     fun Activity.navigateToRecipeDetailsActivity(
-        recipeId: Int
+        recipeDetails: RecipeDetailsPreview
     ) {
         Intent(this, RecipeDetailsActivity::class.java).also {
-            it.putExtra("extraRecipeId", recipeId)
+            it.putExtra("extraRecipeId", recipeDetails)
             startActivity(it)
         }
     }

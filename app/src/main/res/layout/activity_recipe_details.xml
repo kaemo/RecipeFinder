@@ -138,7 +138,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/preparation_text" />
 
                 <TextView
-                    android:id="@+id/clickable_textview_source_link"
+                    android:id="@+id/clickable_textview_source_name_link"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
@@ -152,7 +152,7 @@
                     layout="@layout/activity_recipe_details_nutritional_section"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/clickable_textview_source_link" />
+                    app:layout_constraintTop_toBottomOf="@+id/clickable_textview_source_name_link" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,6 +6,8 @@ import pl.kaemo.recipefinder.data.spoonacularApi.RecipesApi
 import pl.kaemo.recipefinder.domain.RecipeService
 import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
 import pl.kaemo.recipefinder.domain.model.RecipePreview
+import pl.kaemo.recipefinder.ui.util.CustomLogger
+import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import javax.inject.Inject
 
 // API docs: spoonacular.com/food-api/docs#Search-Recipes-by-Ingredients
@@ -18,6 +20,9 @@ const val ignorePantry: Boolean = true //Whether to ignore typical pantry items,
 const val includeNutrition: Boolean = false //Include nutrition data in the recipe information. Nutrition data is per serving. If you want the nutrition data for the entire recipe, just multiply by the number of servings.
 
 class RecipeServiceImpl @Inject constructor(private val recipesApi: RecipesApi) : RecipeService {
+
+    private val logger: CustomLogger = LogcatLogger("RecipeServiceImpl") // lub FileLogger()
+
     override suspend fun getRecipes(ingredients: List<String>): List<RecipePreview> {
 
         val result = recipesApi.getRecipesResponse(
@@ -28,25 +33,30 @@ class RecipeServiceImpl @Inject constructor(private val recipesApi: RecipesApi) 
             ignorePantry
         )
 
+        logger.log("getRecipes result: $result")
+        logger.log("getRecipes result.body(): ${result.body()}")
+
         return result.body()?.map {
             it.toRecipePreview()
         } ?: emptyList()
 
     }
 
-    override suspend fun getRecipeDetails(recipeId: Int): List<RecipeDetailsPreview> {
+    override suspend fun getRecipeDetails(recipeId: Int): RecipeDetailsPreview {
 
-//        val result = recipesApi.getRecipesDetailsResponse(
-//            recipeId,
-//            apiKey,
-//            includeNutrition
-//        )
-//
-//        return result.body()?.map {
-//            it.toRecipeDetailsPreview()
-//        } ?: emptyList()
+        val result = recipesApi.getRecipeDetailsResponse(
+            recipeId,
+            apiKey,
+            includeNutrition
+        )
 
-        return emptyList()
+        logger.log("getRecipesDetails result: $result")
+        logger.log("getRecipesDetails result.body(): ${result.body()}")
+        logger.log("getRecipesDetails result.body()?.id: ${result.body()?.id}")
+
+        return result.body()?.let{
+            it.toRecipeDetailsPreview()
+        } ?: RecipeDetailsPreview(id = 0, title = "Error", summary = "Error", instructions = "Error", readyInMinutes = 0, servings = 0, sourceName = "Error", sourceUrl = "Error")
 
     }
 

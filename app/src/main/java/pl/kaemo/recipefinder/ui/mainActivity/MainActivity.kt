@@ -13,16 +13,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kaemo.recipefinder.R
-import pl.kaemo.recipefinder.ui.util.AndroidLogger
+import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import pl.kaemo.recipefinder.ui.util.IsKeyboardVisibleLiveData
 import pl.kaemo.recipefinder.ui.util.KeyboardManager.hideKeyboard
-import pl.kaemo.recipefinder.ui.util.LogcatLogger
+import pl.kaemo.recipefinder.ui.util.CustomLogger
 import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToRecipesListActivity
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val logger: LogcatLogger = AndroidLogger("TAG") // lub FileLogger()
+    private val logger: CustomLogger = LogcatLogger("MainActivity") // lub FileLogger()
 
     lateinit var viewModel: MainViewModel
     private lateinit var adapter: MainRecyclerAdapter
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        logger.logMessage("onCreate")
+        logger.log("onCreate")
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -66,16 +66,16 @@ class MainActivity : AppCompatActivity() {
 
         IsKeyboardVisibleLiveData(xmlLayoutId).observe(this) { isVisible ->
             if (isVisible) {
-                logger.logMessage("keyboard is visible")
+                logger.log("keyboard is visible")
                 mainTextId.textSize = 40.0F
             } else {
-                logger.logMessage("keyboard is invisible")
+                logger.log("keyboard is invisible")
                 mainTextId.textSize = 60.0F
             }
         }
 
         buttonAddId.setOnClickListener {
-            logger.logMessage("Button ADD clicked")
+            logger.log("Button ADD clicked")
             val validationStatus =
                 IngredientNameValidation.validateUserInput(userInputId.text.toString())
             if (validationStatus is ValidationStatus.Error) {
@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        logger.logMessage("initrecyclerview")
+        logger.log("initrecyclerview")
         recyclerViewId.layoutManager = LinearLayoutManager(this)
         adapter = MainRecyclerAdapter(::onItemDeleted)
         //adapter = MainRecyclerAdapter(viewModel::onIngredientDeleted) //bezpośrednie odwołanie z pominięciem metody
@@ -115,13 +115,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onItemDeleted(index: Int) {
-        logger.logMessage("onItemDeleted index: $index")
+        logger.log("onItemDeleted index: $index")
         viewModel.onIngredientDeleted(index)
     }
 
     private fun observeIngredients() {
         viewModel.ingredients.observe(this) {
-            logger.logMessage("List of ingredients: $it")
+            logger.log("List of ingredients: $it")
             adapter.update(it)
         }
     }

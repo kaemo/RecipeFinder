@@ -3,6 +3,7 @@ package pl.kaemo.recipefinder.ui.recipeDetailsActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
 import pl.kaemo.recipefinder.ui.util.UiMessage
 
 class RecipeDetailsViewModel : ViewModel() {

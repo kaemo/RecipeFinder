@@ -25,8 +25,8 @@ class RecipesListViewModel @Inject constructor(
     private val _uiMessages = MutableLiveData<UiMessage>()
     val uiMessages: LiveData<UiMessage> = _uiMessages
 
-    private val _recipeDetails = MutableLiveData<List<RecipeDetailsPreview>>()
-    val recipeDetails: LiveData<List<RecipeDetailsPreview>> = _recipeDetails
+    private val _recipeDetails = MutableLiveData<RecipeDetailsPreview>()
+    val recipeDetails: LiveData<RecipeDetailsPreview> = _recipeDetails
 
     fun onRecipesListActivityCreated(recipes: List<RecipePreview>) {
         recipesList.addAll(recipes)
@@ -58,9 +58,9 @@ class RecipesListViewModel @Inject constructor(
         _uiMessages.postValue(toast)
 
         viewModelScope.launch {
-            val recipeDetailsPreviewList: List<RecipeDetailsPreview> =
+            val recipeDetailsPreview: RecipeDetailsPreview =
                 recipeService.getRecipeDetails(recipeId)
-            _recipeDetails.postValue(recipeDetailsPreviewList)
+            _recipeDetails.postValue(recipeDetailsPreview)
         }
     }
 }

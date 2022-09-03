@@ -37,4 +37,9 @@
     <string name="recipes_list_adapter_ingredients_nok">You need 1 more ingredient for this recipe:</string>
     <string name="recipes_list_adapter_ingredients_nok_plural">You need %d more ingredients for this recipe:</string>
 
+    <!-- RecipeDetailsActivity -->
+
+    <string name="recipe_ready_in_minutes">%d min.</string>
+    <string name="recipe_servings">%d servings</string>
+
 </resources>

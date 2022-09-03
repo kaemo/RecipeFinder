@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:paddingStart="5dp"
-        android:text="45 min."
+        android:text="@string/recipe_ready_in_minutes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/activity_recipe_details_xml_clock_image"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="5dp"
-        android:text="2 servings"
+        android:text="@string/recipe_servings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/activity_recipe_details_xml_servings_image"
         app:layout_constraintTop_toTopOf="parent" />
