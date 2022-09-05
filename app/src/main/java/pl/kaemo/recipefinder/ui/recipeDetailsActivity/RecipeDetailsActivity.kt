@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import pl.kaemo.recipefinder.R
@@ -24,62 +25,119 @@ class RecipeDetailsActivity : AppCompatActivity() {
     lateinit var viewModel: RecipeDetailsViewModel
     lateinit var sharedPrefs: SharedPreferences
 
-    // clickable elements
-    private lateinit var addToWishlistId: ImageButton
-    private lateinit var clickableTextViewTimeId: TextView
-    private lateinit var servingsId: ImageButton
-    private lateinit var metricImperialId: Switch
-    private lateinit var nutritionalServingsId: ImageButton
-    private lateinit var recipeSourceNameLink: TextView
+    lateinit var extraRecipeDetails: RecipeDetailsPreview
 
-    // text from API
+    // background
+    private lateinit var recipeImage: ImageView
+    private lateinit var addToWishlistId: ImageButton
+
+    // title & time_servings section
     private lateinit var recipeTitle: TextView
-    private lateinit var recipeSummary: TextView
-    private lateinit var recipeInstructions: TextView
+    private lateinit var clickableTextViewTimeId: TextView
+    private lateinit var servingsSectionId: ConstraintLayout
+
+    // ingredients section
+    private lateinit var metricImperialId: Switch
     private lateinit var recipeReadyIn: TextView
     private lateinit var recipeServings: TextView
+    private lateinit var recipeIngredients: TextView
 
     // other
-    private lateinit var recipeImage: ImageView
+    private lateinit var recipeSummary: TextView
+    private lateinit var recipeInstructions: TextView
+    private lateinit var recipeSourceNameLink: TextView
+
+    //nutritional section
+    private lateinit var nutritionalTitle: TextView
+    private lateinit var nutritionalServingsId: ImageButton
+    private lateinit var nutritionalKcal: TextView
+    private lateinit var nutritionalFat: TextView
+    private lateinit var nutritionalCarbs: TextView
+    private lateinit var nutritionalProtein: TextView
+    private lateinit var nutritionalDetails: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_details)
 
+        logger.log("onCreate")
+
         viewModel = ViewModelProvider(this).get(RecipeDetailsViewModel::class.java)
         sharedPrefs = getSharedPreferences(SHARED_PREFS_KEY, Context.MODE_PRIVATE)
 
-        // clickable elements
+        // background
+        recipeImage = findViewById(R.id.activity_recipe_details_xml_recipe_image)
         addToWishlistId = findViewById(R.id.imageButton)
-        clickableTextViewTimeId = findViewById(R.id.clickable_textview_time)
-        servingsId = findViewById(R.id.servings_image_button)
-        metricImperialId = findViewById(R.id.measures_switch)
-        nutritionalServingsId = findViewById(R.id.nutritional_serving)
-        recipeSourceNameLink = findViewById(R.id.clickable_textview_source_name_link)
 
-        // text from API
+        //title & time_servings section
         recipeTitle = findViewById(R.id.main_title)
-        recipeSummary = findViewById(R.id.summary_text)
-        recipeInstructions = findViewById(R.id.preparation_text)
+        clickableTextViewTimeId = findViewById(R.id.clickable_textview_time)
+        servingsSectionId = findViewById(R.id.servings_view_clickable_section)
+
+        // ingredients section
+        metricImperialId = findViewById(R.id.measures_switch)
         recipeReadyIn = findViewById(R.id.clickable_textview_time)
         recipeServings = findViewById(R.id.activity_recipe_details_xml_servings_text)
+        recipeIngredients = findViewById(R.id.ingredients_list)
 
         // other
-        recipeImage = findViewById(R.id.activity_recipe_details_xml_recipe_image)
+        recipeSummary = findViewById(R.id.summary_text)
+        recipeInstructions = findViewById(R.id.preparation_text)
+        recipeSourceNameLink = findViewById(R.id.clickable_textview_source_name_link)
 
-        val extraRecipeDetails = intent.getParcelableExtra<RecipeDetailsPreview>("extraRecipeId")
+        //nutritional section
+        nutritionalTitle = findViewById(R.id.nutritional_title)
+        nutritionalServingsId = findViewById(R.id.nutritional_serving)
+        nutritionalKcal = findViewById(R.id.nutrions_layout_card_calories_number)
+        nutritionalFat = findViewById(R.id.nutrions_fat)
+        nutritionalCarbs = findViewById(R.id.nutrions_carbs)
+        nutritionalProtein = findViewById(R.id.nutrions_protein)
+        nutritionalDetails = findViewById(R.id.details_more)
 
-        recipeTitle.text = extraRecipeDetails?.title
-        recipeSummary.text = extraRecipeDetails?.summary
-        recipeInstructions.text = extraRecipeDetails?.instructions
-        recipeReadyIn.text = getString(R.string.recipe_ready_in_minutes, extraRecipeDetails?.readyInMinutes)
-        recipeServings.text = getString(R.string.recipe_servings, extraRecipeDetails?.servings)
-        recipeSourceNameLink.text = extraRecipeDetails?.sourceName
+        /* -------------------------------------------------------------------------------------- */
 
-        Glide.with(this)
-            .load("https://spoonacular.com/recipeImages/${extraRecipeDetails?.id}-636x393.jpg")
-            .into(recipeImage)
+        intent.getParcelableExtra<RecipeDetailsPreview>("extraRecipeId")?.let {
+            extraRecipeDetails = it
+        }
+
+        // background
+        loadRecipeImage(extraRecipeDetails.id, extraRecipeDetails.imageType)
+
+        //title & time_servings section
+        recipeTitle.text = extraRecipeDetails.title
+
+        // ingredients section
+        recipeReadyIn.text = getString(
+            R.string.recipe_ready_in_minutes,
+            extraRecipeDetails.readyInMinutes
+        )
+        recipeServings.text = getString(
+            R.string.resource_strings_recipe_servings_plural,
+            extraRecipeDetails.servings
+        )
+        recipeIngredients.text = viewModel.returnIngredientsString(
+            extraRecipeDetails.extendedIngredientsAmount,
+            extraRecipeDetails.extendedIngredientsUnit,
+            extraRecipeDetails.extendedIngredientsOriginalName
+        )
+
+        logger.log("extendedIngredientsAmount[0]: ${extraRecipeDetails.extendedIngredientsAmount[0]}")
+
+        // other
+        recipeSummary.text = extraRecipeDetails.summary
+        recipeInstructions.text = extraRecipeDetails.instructions
+        recipeSourceNameLink.text = extraRecipeDetails.sourceName
+
+        //nutritional section
+        nutritionalTitle.text = getString(R.string.resource_strings_nutritional_title_singular, 1)
+        nutritionalKcal.text = "647"
+        nutritionalFat.text = "Total fat 36g (30%)"
+        nutritionalCarbs.text = "Carbs 18g (34%)"
+        nutritionalProtein.text = "Proteins 23g (46%)"
+        nutritionalDetails.text =
+            "Protein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)"
+
 
         observeUiMessages()
 
@@ -91,7 +149,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
             viewModel.onTextViewTimeClicked()
         }
 
-        servingsId.setOnClickListener {
+        servingsSectionId.setOnClickListener {
             viewModel.onServingsClicked()
         }
 
@@ -107,6 +165,12 @@ class RecipeDetailsActivity : AppCompatActivity() {
             viewModel.onNutritionalServingsClicked()
         }
 
+    }
+
+    private fun loadRecipeImage(recipeId: Int?, imageType: String?) {
+        Glide.with(this)
+            .load("https://spoonacular.com/recipeImages/$recipeId-636x393.$imageType")
+            .into(recipeImage)
     }
 
     private fun observeUiMessages() {

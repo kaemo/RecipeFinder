@@ -52,7 +52,6 @@ class RecipesListActivity : AppCompatActivity() {
             viewModel.onRecipesListActivityCreated(it)
         }
 
-        updatePointsLeftSection()
         initRecyclerview()
         observeUiMessages()
         observeRecipes()
@@ -75,6 +74,7 @@ class RecipesListActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         loadingScreenId.isVisible = false
+        updatePointsLeftSection()
     }
 
     private fun updatePointsLeftSection() {

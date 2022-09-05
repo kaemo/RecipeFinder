@@ -2,7 +2,6 @@ package pl.kaemo.recipefinder.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import pl.kaemo.recipefinder.data.model.recipeDetails.ExtendedIngredientDTO
 
 @Parcelize
 data class RecipeDetailsPreview(
@@ -12,7 +11,10 @@ data class RecipeDetailsPreview(
     val instructions: String,
     val readyInMinutes: Int,
     val servings: Int,
-    val sourceName: String,
+    val sourceName: String?,
     val sourceUrl: String,
-//    val extendedIngredients: List<ExtendedIngredientDTO>
+    val imageType: String,
+    val extendedIngredientsAmount: List<Double>,
+    val extendedIngredientsUnit: List<String>,
+    val extendedIngredientsOriginalName: List<String>
 ) : Parcelable

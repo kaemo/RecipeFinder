@@ -53,10 +53,12 @@ class RecipeServiceImpl @Inject constructor(private val recipesApi: RecipesApi) 
         logger.log("getRecipesDetails result: $result")
         logger.log("getRecipesDetails result.body(): ${result.body()}")
         logger.log("getRecipesDetails result.body()?.id: ${result.body()?.id}")
+        logger.log("getRecipesDetails result.body()?.sourceName: ${result.body()?.sourceName}")
 
         return result.body()?.let{
+            logger.log("let{ $it")
             it.toRecipeDetailsPreview()
-        } ?: RecipeDetailsPreview(id = 0, title = "Error", summary = "Error", instructions = "Error", readyInMinutes = 0, servings = 0, sourceName = "Error", sourceUrl = "Error")
+        } ?: RecipeDetailsPreview(id = 0, title = "Error", summary = "Error", instructions = "Error", readyInMinutes = 0, servings = 0, sourceName = "Error", sourceUrl = "Error", imageType = "jpg", extendedIngredientsAmount = emptyList(), extendedIngredientsUnit = emptyList(), extendedIngredientsOriginalName = emptyList())
 
     }
 

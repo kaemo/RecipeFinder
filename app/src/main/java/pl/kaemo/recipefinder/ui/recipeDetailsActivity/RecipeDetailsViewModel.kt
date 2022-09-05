@@ -3,8 +3,8 @@ package pl.kaemo.recipefinder.ui.recipeDetailsActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
 import pl.kaemo.recipefinder.ui.util.UiMessage
+import pl.kaemo.recipefinder.ui.util.trimIfMoreDecimalThan
 
 class RecipeDetailsViewModel : ViewModel() {
 
@@ -39,5 +39,21 @@ class RecipeDetailsViewModel : ViewModel() {
     fun onNutritionalServingsClicked() {
         val toast = UiMessage.Toast("Variable servings not implemented yet!")
         _uiMessages.postValue(toast)
+    }
+
+    fun returnIngredientsString(
+        amountList: List<Double>,
+        unitList: List<String>,
+        nameList: List<String>
+    ): String {
+        var ingredientsListString = ""
+        amountList.forEachIndexed { index, it ->
+            ingredientsListString += "• ${
+                it.trimIfMoreDecimalThan(2).toString().trimEnd { it == '0' }.trimEnd { it == '.' }
+//                it.toString().trimEnd { it == '0' }.trimEnd { it == '.' }
+            } ${unitList[index]} ${nameList[index]}\n"
+        }
+        ingredientsListString = ingredientsListString.dropLast(1)
+        return ingredientsListString
     }
 }

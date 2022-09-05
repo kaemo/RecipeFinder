@@ -61,7 +61,7 @@
                     android:id="@+id/main_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cheesy Rosemary Meatball Bake some more text"
+                    android:text="@string/recipe_title"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -84,25 +84,42 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/external_time_serving_section" />
 
+                <!-- Horizontal line -->
+
+                <include
+                    android:id="@+id/horizontal_line_summary"
+                    layout="@layout/horizontal_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/external_ingredients_section" />
+
                 <!-- Summary section -->
 
                 <TextView
                     android:id="@+id/summary_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:text="Summary:"
+                    android:text="@string/summary_title"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@+id/external_ingredients_section" />
+                    app:layout_constraintTop_toBottomOf="@+id/horizontal_line_summary" />
 
                 <TextView
                     android:id="@+id/summary_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Heat olive oil in large oven proof skillet over medium high heat. Add the onion, mushroom and pepper and sauté till softened – about 3-4 minutes. Add the garlic and cook for an additional minute. Add the crushed tomatoes, tomato paste, red pepper, sugar, cumin, salt and pepper. Stir and reduce heat to medium low - allow to cook down while making the meat balls – will thicken. Remove from the heat and place in a bowl – add the cream."
-                    app:layout_constraintTop_toBottomOf="@id/summary_title" />
+                    app:layout_constraintTop_toBottomOf="@id/summary_title"
+                    tools:text="Heat olive oil in large oven proof skillet over medium high heat. Add the onion, mushroom and pepper and sauté till softened – about 3–4 minutes. Add the garlic and cook for an additional minute. Add the crushed tomatoes, tomato paste, red pepper, sugar, cumin, salt and pepper. Stir and reduce heat to medium low - allow to cook down while making the meat balls – will thicken. Remove from the heat and place in a bowl – add the cream." />
+
+                <!-- Horizontal line -->
+
+                <include
+                    android:id="@+id/horizontal_line_preparation"
+                    layout="@layout/horizontal_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/summary_text" />
 
                 <!-- Preparation section -->
 
@@ -110,19 +127,18 @@
                     android:id="@+id/preparation_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="20dp"
                     android:paddingBottom="10dp"
-                    android:text="Preparation:"
+                    android:text="@string/preparation_title"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@+id/summary_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/horizontal_line_preparation" />
 
                 <TextView
                     android:id="@+id/preparation_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1. For the sauce\n\n2. Heat olive oil in large oven proof skillet over medium high heat. Add the onion, mushroom and pepper and saut till softened about 3-4 minutes. Add the garlic and cook for an additional minute. Add the crushed tomatoes, tomato paste, red pepper, sugar, cumin, salt and pepper. Stir and reduce heat to medium low - allow to cook down while making the meat balls will thicken. Remove from the heat and place in a bowl add the cream.\n\n3. For the meatballs\n\n4. In a large mixing bowl, combine the ground meat, bread crumbs, shallot, thyme, rosemary, parmesan, garlic, egg, salt and pepper. Using your hands, mix ingredients together until well combined. Form into 1 inch meatballs.\n\n5. In the skillet that the sauce was cooked in, heat olive oil over medium high heat. Cook meatballs (may need to cook in batches) turning occasionally. The meatballs may stick to the skillet a little and that is ok will deglaze in a moment. Once meatballs are browned on all sides, remove meatballs to the same bowl that the sauce is in.\n\n6. Turn the burner up to medium high. When skillet is hot, add wine (can substitute chicken or beef broth). Scrape the browned bits from the bottom of the pan and allow the wine to bubbly and reduce by about half (5 mins). Remove skillet from the heat and add the bowl of sauce and meatballs to the skillet.\n\n7. To finish:\n\n8. Preheat the oven to 400. Sprinkle the mozerella and paremesean over the top of the meatballs and sauce and bake until heated through and cheese is melted and bubbly about 15 minutes. Garnish with fresh basil. Serve warm."
-                    app:layout_constraintTop_toBottomOf="@id/preparation_title" />
+                    app:layout_constraintTop_toBottomOf="@id/preparation_title"
+                    tools:text="1. For the sauce\n\n2. Heat olive oil in large oven proof skillet over medium high heat. Add the onion, mushroom and pepper and saut till softened about 3–4 minutes. Add the garlic and cook for an additional minute. Add the crushed tomatoes, tomato paste, red pepper, sugar, cumin, salt and pepper. Stir and reduce heat to medium low - allow to cook down while making the meat balls will thicken. Remove from the heat and place in a bowl add the cream.\n\n3. For the meatballs\n\n4. In a large mixing bowl, combine the ground meat, bread crumbs, shallot, thyme, rosemary, parmesan, garlic, egg, salt and pepper. Using your hands, mix ingredients together until well combined. Form into 1 inch meatballs.\n\n5. In the skillet that the sauce was cooked in, heat olive oil over medium high heat. Cook meatballs (may need to cook in batches) turning occasionally. The meatballs may stick to the skillet a little and that is OK will deglaze in a moment. Once meatballs are browned on all sides, remove meatballs to the same bowl that the sauce is in.\n\n6. Turn the burner up to medium high. When skillet is hot, add wine (can substitute chicken or beef broth). Scrape the browned bits from the bottom of the pan and allow the wine to bubbly and reduce by about half (5 mins). Remove skillet from the heat and add the bowl of sauce and meatballs to the skillet.\n\n7. To finish:\n\n8. Preheat the oven to 400. Sprinkle the mozerella and paremesean over the top of the meatballs and sauce and bake until heated through and cheese is melted and bubbly about 15 minutes. Garnish with fresh basil. Serve warm." />
 
                 <!-- Source section -->
 
@@ -132,8 +148,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="20dp"
                     android:paddingBottom="10dp"
-                    android:text="For more information check the source:"
-                    android:textSize="18sp"
+                    android:text="@string/source_title"
                     android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@+id/preparation_text" />
 
@@ -142,8 +157,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:text="Foodista.com – The Cooking Encyclopedia Everyone Can Edit"
-                    app:layout_constraintTop_toBottomOf="@+id/source_title" />
+                    android:focusable="true"
+                    app:layout_constraintTop_toBottomOf="@+id/source_title"
+                    tools:text="Foodista.com – The Cooking Encyclopedia Everyone Can Edit" />
+
+                <!-- Horizontal line -->
+
+                <include
+                    android:id="@+id/horizontal_line_nutritional"
+                    layout="@layout/horizontal_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/clickable_textview_source_name_link" />
 
                 <!-- Nutritional section -->
 
@@ -152,7 +177,7 @@
                     layout="@layout/activity_recipe_details_nutritional_section"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/clickable_textview_source_name_link" />
+                    app:layout_constraintTop_toBottomOf="@+id/horizontal_line_nutritional" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

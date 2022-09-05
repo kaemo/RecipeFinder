@@ -37,9 +37,29 @@
     <string name="recipes_list_adapter_ingredients_nok">You need 1 more ingredient for this recipe:</string>
     <string name="recipes_list_adapter_ingredients_nok_plural">You need %d more ingredients for this recipe:</string>
 
-    <!-- RecipeDetailsActivity -->
+    <!-- activity_recipe_details -->
+
+    <string name="recipe_title">Cheesy Rosemary Meatball Bake some more text</string>
+    <string name="summary_title">Summary:</string>
+    <string name="preparation_title">Preparation:</string>
+    <string name="source_title">For more information check the source:</string>
+
+    <!-- activity_recipe_details_time_servings_section -->
 
     <string name="recipe_ready_in_minutes">%d min.</string>
-    <string name="recipe_servings">%d servings</string>
+    <string name="resource_strings_recipe_servings_singular">%d serving</string>
+    <string name="resource_strings_recipe_servings_plural">%d servings</string>
+
+    <!-- activity_recipe_details_nutritional_section -->
+
+    <string name="resource_strings_nutritional_title_singular">Nutritional information for %d serving</string>
+    <string name="resource_strings_nutritional_title_plural">Nutritional information for %d servings</string>
+    <string name="kcal">kcal</string>
+    <string name="nutritional_details_title">Details:</string>
+
+    <!-- activity_recipe_details_ingredients_section -->
+    <string name="ingredients_title">Ingredients:</string>
+    <string name="imperial">Imperial</string>
+    <string name="metric">Metric</string>
 
 </resources>

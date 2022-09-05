@@ -53,10 +53,6 @@ class RecipesListViewModel @Inject constructor(
     }
 
     fun onRecipeClicked(recipeId: Int) {
-
-        val toast = UiMessage.Toast("[recipeId: $recipeId]")
-        _uiMessages.postValue(toast)
-
         viewModelScope.launch {
             val recipeDetailsPreview: RecipeDetailsPreview =
                 recipeService.getRecipeDetails(recipeId)
