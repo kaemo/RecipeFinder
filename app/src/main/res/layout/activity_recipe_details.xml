@@ -179,6 +179,34 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/horizontal_line_nutritional" />
 
+                <!-- Horizontal line -->
+
+                <include
+                    android:id="@+id/horizontal_line_similar_button"
+                    layout="@layout/horizontal_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/external_nutritional_section" />
+
+                <!-- Search for similar recipes button -->
+
+                <Button
+                    android:id="@+id/similar_recipes_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="#377D3F"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="15dp"
+                    android:text="@string/get_similar_recipes_button"
+                    android:textAllCaps="false"
+                    android:textSize="24sp"
+                    app:cornerRadius="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/horizontal_line_similar_button" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>

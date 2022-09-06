@@ -17,6 +17,7 @@ import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import pl.kaemo.recipefinder.ui.util.IsKeyboardVisibleLiveData
 import pl.kaemo.recipefinder.ui.util.KeyboardManager.hideKeyboard
 import pl.kaemo.recipefinder.ui.util.CustomLogger
+import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToErrorScreenActivity
 import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToRecipesListActivity
 
 @AndroidEntryPoint
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
         observeIngredients()
         observeRecipes()
+        observeApiErrors()
 
         userInputId.setOnFocusChangeListener { _, _ ->
             validationId.text = ""
@@ -129,6 +131,12 @@ class MainActivity : AppCompatActivity() {
     private fun observeRecipes() {
         viewModel.recipes.observe(this) {
             navigateToRecipesListActivity(it)
+        }
+    }
+
+    private fun observeApiErrors() {
+        viewModel.apiErrors.observe(this) {
+            navigateToErrorScreenActivity(it)
         }
     }
 

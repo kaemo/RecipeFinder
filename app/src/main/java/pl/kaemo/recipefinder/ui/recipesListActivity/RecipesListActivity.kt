@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.ui.util.*
+import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToErrorScreenActivity
 import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToRecipeDetailsActivity
 
 @AndroidEntryPoint
@@ -56,6 +57,7 @@ class RecipesListActivity : AppCompatActivity() {
         observeUiMessages()
         observeRecipes()
         observeRecipeDetails()
+        observeApiErrors()
 
         tooltipId.setOnClickListener {
             viewModel.onTooltipClicked()
@@ -112,6 +114,12 @@ class RecipesListActivity : AppCompatActivity() {
         viewModel.recipeDetails.observe(this) {
             logger.log("observeRecipeDetails it: $it")
             navigateToRecipeDetailsActivity(it)
+        }
+    }
+
+    private fun observeApiErrors() {
+        viewModel.apiError.observe(this) {
+            navigateToErrorScreenActivity(it)
         }
     }
 

@@ -41,6 +41,11 @@ class RecipeDetailsViewModel : ViewModel() {
         _uiMessages.postValue(toast)
     }
 
+    fun onSimilarRecipesButtonClicked() {
+        val toast = UiMessage.Toast("Similar recipes list not implemented yet!")
+        _uiMessages.postValue(toast)
+    }
+
     fun returnIngredientsString(
         amountList: List<Double>,
         unitList: List<String>,
@@ -50,7 +55,6 @@ class RecipeDetailsViewModel : ViewModel() {
         amountList.forEachIndexed { index, it ->
             ingredientsListString += "• ${
                 it.trimIfMoreDecimalThan(2).toString().trimEnd { it == '0' }.trimEnd { it == '.' }
-//                it.toString().trimEnd { it == '0' }.trimEnd { it == '.' }
             } ${unitList[index]} ${nameList[index]}\n"
         }
         ingredientsListString = ingredientsListString.dropLast(1)

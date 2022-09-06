@@ -3,9 +3,11 @@ package pl.kaemo.recipefinder.data.service
 import pl.kaemo.recipefinder.data.model.recipeDetails.toRecipeDetailsPreview
 import pl.kaemo.recipefinder.data.model.recipesList.toRecipePreview
 import pl.kaemo.recipefinder.data.spoonacularApi.RecipesApi
+import pl.kaemo.recipefinder.data.utils.toReply
 import pl.kaemo.recipefinder.domain.RecipeService
 import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
 import pl.kaemo.recipefinder.domain.model.RecipePreview
+import pl.kaemo.recipefinder.domain.utils.Reply
 import pl.kaemo.recipefinder.ui.util.CustomLogger
 import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import javax.inject.Inject
@@ -42,23 +44,40 @@ class RecipeServiceImpl @Inject constructor(private val recipesApi: RecipesApi) 
 
     }
 
-    override suspend fun getRecipeDetails(recipeId: Int): RecipeDetailsPreview {
+    override suspend fun getRecipeDetails(recipeId: Int): Reply<RecipeDetailsPreview> {
 
-        val result = recipesApi.getRecipeDetailsResponse(
-            recipeId,
-            apiKey,
-            includeNutrition
-        )
+        return try {
+            recipesApi.getRecipeDetailsResponse(
+                recipeId,
+                apiKey,
+                includeNutrition
+            ).toReply { it.toRecipeDetailsPreview() }
+        } catch (e: Exception) {
+            Reply.Error(e)
+        }
 
-        logger.log("getRecipesDetails result: $result")
-        logger.log("getRecipesDetails result.body(): ${result.body()}")
-        logger.log("getRecipesDetails result.body()?.id: ${result.body()?.id}")
-        logger.log("getRecipesDetails result.body()?.sourceName: ${result.body()?.sourceName}")
+//        val result = recipesApi.getRecipeDetailsResponse(
+//            recipeId,
+//            apiKey,
+//            includeNutrition
+//        )
 
-        return result.body()?.let{
-            logger.log("let{ $it")
-            it.toRecipeDetailsPreview()
-        } ?: RecipeDetailsPreview(id = 0, title = "Error", summary = "Error", instructions = "Error", readyInMinutes = 0, servings = 0, sourceName = "Error", sourceUrl = "Error", imageType = "jpg", extendedIngredientsAmount = emptyList(), extendedIngredientsUnit = emptyList(), extendedIngredientsOriginalName = emptyList())
+//        logger.log("getRecipesDetails result: $result")
+//        logger.log("getRecipesDetails result.body(): ${result.body()}")
+//        logger.log("getRecipesDetails result.body()?.id: ${result.body()?.id}")
+//        logger.log("getRecipesDetails result.body()?.sourceName: ${result.body()?.sourceName}")
+
+
+//        if (result.isSuccessful && result.body() != null) {
+//            return Reply.Success(result.body()!!.toRecipeDetailsPreview()) //todo remove wykrzykniki
+//        } else {
+//            return Reply.Error(Exception(), null)
+//        }
+
+//        return result.body()?.let{
+//            logger.log("let{ $it")
+//            it.toRecipeDetailsPreview()
+//        } ?: RecipeDetailsPreview(id = 0, title = "Error", summary = "Error", instructions = "Error", readyInMinutes = 0, servings = 0, sourceName = "Error", sourceUrl = "Error", imageType = "jpg", extendedIngredientsAmount = emptyList(), extendedIngredientsUnit = emptyList(), extendedIngredientsOriginalName = emptyList())
 
     }
 

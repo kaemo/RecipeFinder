@@ -3,6 +3,7 @@ package pl.kaemo.recipefinder.ui.recipeDetailsActivity
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Switch
@@ -46,6 +47,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
     private lateinit var recipeSummary: TextView
     private lateinit var recipeInstructions: TextView
     private lateinit var recipeSourceNameLink: TextView
+    private lateinit var similarRecipesButtonId: Button
 
     //nutritional section
     private lateinit var nutritionalTitle: TextView
@@ -85,6 +87,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
         recipeSummary = findViewById(R.id.summary_text)
         recipeInstructions = findViewById(R.id.preparation_text)
         recipeSourceNameLink = findViewById(R.id.clickable_textview_source_name_link)
+        similarRecipesButtonId = findViewById(R.id.similar_recipes_button)
 
         //nutritional section
         nutritionalTitle = findViewById(R.id.nutritional_title)
@@ -163,6 +166,10 @@ class RecipeDetailsActivity : AppCompatActivity() {
 
         nutritionalServingsId.setOnClickListener {
             viewModel.onNutritionalServingsClicked()
+        }
+
+        similarRecipesButtonId.setOnClickListener {
+            viewModel.onSimilarRecipesButtonClicked()
         }
 
     }

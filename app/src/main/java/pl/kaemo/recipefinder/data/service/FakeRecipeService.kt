@@ -4,6 +4,7 @@ import kotlinx.coroutines.delay
 import pl.kaemo.recipefinder.domain.RecipeService
 import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
 import pl.kaemo.recipefinder.domain.model.RecipePreview
+import pl.kaemo.recipefinder.domain.utils.Reply
 import pl.kaemo.recipefinder.ui.util.CustomLogger
 import pl.kaemo.recipefinder.ui.util.LogcatLogger
 
@@ -83,9 +84,9 @@ class FakeRecipeService : RecipeService {
         )
     }
 
-    override suspend fun getRecipeDetails(recipeId: Int): RecipeDetailsPreview {
+    override suspend fun getRecipeDetails(recipeId: Int): Reply<RecipeDetailsPreview> {
         logger.log("[FAKE DATA]")
-        TODO("Not yet implemented")
+        TODO("do zrobienia")
     }
 
 }

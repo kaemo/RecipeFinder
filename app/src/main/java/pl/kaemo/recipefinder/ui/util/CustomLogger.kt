@@ -3,7 +3,7 @@ package pl.kaemo.recipefinder.ui.util
 import android.util.Log
 
 interface CustomLogger {
-    fun log(text: String)
+    fun log(message: String)
 }
 
 class LogcatLogger(private val placeInCode: String) : CustomLogger {
@@ -13,7 +13,7 @@ class LogcatLogger(private val placeInCode: String) : CustomLogger {
 }
 
 class FileLogger : CustomLogger {
-    override fun log(text: String) {
+    override fun log(message: String) {
         //TODO zapisywanie do pliku
     }
 }

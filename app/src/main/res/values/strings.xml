@@ -30,6 +30,8 @@
 
     <string name="recipes_list_activity_dialog_title">Your plan: FREE</string>
     <string name="recipes_list_activity_dialog_message">Every API call you make costs a certain amount of points: every request is 1 point and 0.01 points per result returned. There is only 150 points to use per day. Use them wisely.</string>
+    <string name="recipes_list_activity_dialog_error">ERROR</string>
+
 
     <!-- RecipesListAdapter -->
 
@@ -43,6 +45,7 @@
     <string name="summary_title">Summary:</string>
     <string name="preparation_title">Preparation:</string>
     <string name="source_title">For more information check the source:</string>
+    <string name="get_similar_recipes_button">Search for similar recipes</string>
 
     <!-- activity_recipe_details_time_servings_section -->
 
@@ -58,8 +61,14 @@
     <string name="nutritional_details_title">Details:</string>
 
     <!-- activity_recipe_details_ingredients_section -->
+
     <string name="ingredients_title">Ingredients:</string>
     <string name="imperial">Imperial</string>
     <string name="metric">Metric</string>
+
+    <!-- activity_error_screen -->
+
+    <string name="error_screen_error_button">Go back</string>
+    <string name="error_screen_error_title">Something went wrong…</string>
 
 </resources>
