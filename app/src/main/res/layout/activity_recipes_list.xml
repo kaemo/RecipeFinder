@@ -33,7 +33,8 @@
                 android:text="@string/recipes_list_activity_quota_left"
                 app:layout_constraintBottom_toBottomOf="@+id/activity_recipes_list_xml_navbar"
                 app:layout_constraintStart_toStartOf="@+id/activity_recipes_list_xml_navbar"
-                app:layout_constraintTop_toTopOf="@+id/activity_recipes_list_xml_navbar" />
+                app:layout_constraintTop_toTopOf="@+id/activity_recipes_list_xml_navbar"
+                tools:ignore="RtlSymmetry" />
 
             <ImageButton
                 android:id="@+id/activity_recipes_list_xml_tooltip"
@@ -86,12 +87,22 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!--  Empty state  -->
+
+    <include
+        android:id="@+id/external_empty_state_no_recipes"
+        layout="@layout/empty_state_no_recipes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible" />
+
     <!-- Loading screen -->
 
     <include
         android:id="@+id/external_loading_screen"
         layout="@layout/loading_screen"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

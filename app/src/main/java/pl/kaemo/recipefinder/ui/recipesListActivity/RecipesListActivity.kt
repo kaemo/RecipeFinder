@@ -3,6 +3,7 @@ package pl.kaemo.recipefinder.ui.recipesListActivity
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -33,10 +34,13 @@ class RecipesListActivity : AppCompatActivity() {
     private lateinit var moreButtonId: ImageButton
     private lateinit var pointsLeftId: TextView
     private lateinit var loadingScreenId: CardView
+    private lateinit var emptyStateId: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipes_list)
+
+        logger.log("onCreate")
 
         viewModel = ViewModelProvider(this).get(RecipesListViewModel::class.java)
         sharedPrefs = getSharedPreferences(SHARED_PREFS_KEY, Context.MODE_PRIVATE)
@@ -47,6 +51,7 @@ class RecipesListActivity : AppCompatActivity() {
         moreButtonId = findViewById(R.id.activity_recipes_list_xml_more_button)
         pointsLeftId = findViewById(R.id.activity_recipes_list_xml_points_left)
         loadingScreenId = findViewById(R.id.loading_layout)
+        emptyStateId = findViewById(R.id.external_empty_state_no_recipes)
 
         //recipes transferred form Mainctivity
         intent.getParcelableArrayListExtra<RecipePreview>("extraRecipesList")?.let {
@@ -75,6 +80,7 @@ class RecipesListActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        logger.log("onResume")
         loadingScreenId.isVisible = false
         updatePointsLeftSection()
     }
@@ -106,6 +112,7 @@ class RecipesListActivity : AppCompatActivity() {
 
     private fun observeRecipes() {
         viewModel.recipes.observe(this) {
+            emptyStateId.isVisible = it.isNullOrEmpty()
             adapter.update(it)
         }
     }

@@ -71,4 +71,9 @@
     <string name="error_screen_error_button">Go back</string>
     <string name="error_screen_error_title">Something went wrong…</string>
 
+    <!-- empty_state_no_recipes -->
+
+    <string name="empty_state_title">No recipes found</string>
+    <string name="empty_state_message">Add more ingredients and search again</string>
+
 </resources>
