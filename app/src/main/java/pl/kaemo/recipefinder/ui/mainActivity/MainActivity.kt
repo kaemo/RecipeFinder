@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeApiErrors() {
-        viewModel.apiErrors.observe(this) {
+        viewModel.apiError.observe(this) {
             navigateToErrorScreenActivity(it)
         }
     }

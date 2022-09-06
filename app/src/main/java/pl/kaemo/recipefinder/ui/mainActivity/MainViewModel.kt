@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import pl.kaemo.recipefinder.domain.RecipeService
 import pl.kaemo.recipefinder.domain.model.RecipePreview
+import pl.kaemo.recipefinder.domain.utils.Reply
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,8 +23,8 @@ class MainViewModel @Inject constructor(
     private val _recipes = MutableLiveData<List<RecipePreview>>()
     val recipes: LiveData<List<RecipePreview>> = _recipes
 
-    private val _apiErrors = MutableLiveData<String>() //TODO
-    val apiErrors: LiveData<String> = _apiErrors
+    private val _apiError = MutableLiveData<String>() //TODO
+    val apiError: LiveData<String> = _apiError
 
     fun onIngredientAdded(name: String) {
         ingredientsList.add(name)
@@ -41,9 +42,15 @@ class MainViewModel @Inject constructor(
 
     fun onButtonSearchRecipesClicked() {
         viewModelScope.launch {
-            val recipePreviewList: List<RecipePreview> =
-                recipeService.getRecipes(ingredientsList)
-            _recipes.postValue(recipePreviewList)
+            val reply = recipeService.getRecipes(ingredientsList)
+            when (reply) {
+                is Reply.Success -> {
+                    _recipes.postValue(reply.data)
+                }
+                is Reply.Error -> {
+                    _apiError.postValue(reply.error.toString())
+                }
+            }
         }
     }
 

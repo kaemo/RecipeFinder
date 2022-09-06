@@ -25,22 +25,24 @@ class RecipeServiceImpl @Inject constructor(private val recipesApi: RecipesApi) 
 
     private val logger: CustomLogger = LogcatLogger("RecipeServiceImpl") // lub FileLogger()
 
-    override suspend fun getRecipes(ingredients: List<String>): List<RecipePreview> {
+    override suspend fun getRecipes(ingredients: List<String>): Reply<List<RecipePreview>> {
 
-        val result = recipesApi.getRecipesResponse(
-            apiKey,
-            formatToApiString(ingredients),
-            number,
-            ranking,
-            ignorePantry
-        )
+        return try {
+            recipesApi.getRecipesResponse(
+                apiKey,
+                formatToApiString(ingredients),
+                number,
+                ranking,
+                ignorePantry
+            ).toReply {
+                it.map {
+                    it.toRecipePreview()
+                }
+            }
 
-        logger.log("getRecipes result: $result")
-        logger.log("getRecipes result.body(): ${result.body()}")
-
-        return result.body()?.map {
-            it.toRecipePreview()
-        } ?: emptyList()
+        } catch (e: Exception) {
+            Reply.Error(e)
+        }
 
     }
 
@@ -55,29 +57,6 @@ class RecipeServiceImpl @Inject constructor(private val recipesApi: RecipesApi) 
         } catch (e: Exception) {
             Reply.Error(e)
         }
-
-//        val result = recipesApi.getRecipeDetailsResponse(
-//            recipeId,
-//            apiKey,
-//            includeNutrition
-//        )
-
-//        logger.log("getRecipesDetails result: $result")
-//        logger.log("getRecipesDetails result.body(): ${result.body()}")
-//        logger.log("getRecipesDetails result.body()?.id: ${result.body()?.id}")
-//        logger.log("getRecipesDetails result.body()?.sourceName: ${result.body()?.sourceName}")
-
-
-//        if (result.isSuccessful && result.body() != null) {
-//            return Reply.Success(result.body()!!.toRecipeDetailsPreview()) //todo remove wykrzykniki
-//        } else {
-//            return Reply.Error(Exception(), null)
-//        }
-
-//        return result.body()?.let{
-//            logger.log("let{ $it")
-//            it.toRecipeDetailsPreview()
-//        } ?: RecipeDetailsPreview(id = 0, title = "Error", summary = "Error", instructions = "Error", readyInMinutes = 0, servings = 0, sourceName = "Error", sourceUrl = "Error", imageType = "jpg", extendedIngredientsAmount = emptyList(), extendedIngredientsUnit = emptyList(), extendedIngredientsOriginalName = emptyList())
 
     }
 

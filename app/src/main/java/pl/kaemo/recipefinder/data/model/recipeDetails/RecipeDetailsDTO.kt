@@ -11,7 +11,7 @@ data class RecipeDetailsDTO(
     val servings: Int,
     val sourceName: String?,
     val sourceUrl: String,
-    val imageType: String,
+    val imageType: String?,
     val extendedIngredients: List<ExtendedIngredientDTO>
     //    val cookingMinutes: Int,
     //    val preparationMinutes: Int,
@@ -27,7 +27,7 @@ fun RecipeDetailsDTO.toRecipeDetailsPreview(): RecipeDetailsPreview {
         instructions = this.instructions,
         readyInMinutes = this.readyInMinutes,
         servings = this.servings,
-        sourceName = this.sourceName ?: ">> Click here to open the external site <<",
+        sourceName = this.sourceName,
         sourceUrl = this.sourceUrl,
         imageType = this.imageType,
         extendedIngredientsAmount = this.extendedIngredients.map { it.amount },

@@ -14,10 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
-import pl.kaemo.recipefinder.ui.util.CustomLogger
-import pl.kaemo.recipefinder.ui.util.LogcatLogger
-import pl.kaemo.recipefinder.ui.util.SHARED_PREFS_KEY
-import pl.kaemo.recipefinder.ui.util.showUiMessage
+import pl.kaemo.recipefinder.ui.util.*
 
 class RecipeDetailsActivity : AppCompatActivity() {
 
@@ -125,12 +122,10 @@ class RecipeDetailsActivity : AppCompatActivity() {
             extraRecipeDetails.extendedIngredientsOriginalName
         )
 
-        logger.log("extendedIngredientsAmount[0]: ${extraRecipeDetails.extendedIngredientsAmount[0]}")
-
         // other
         recipeSummary.text = extraRecipeDetails.summary
         recipeInstructions.text = extraRecipeDetails.instructions
-        recipeSourceNameLink.text = extraRecipeDetails.sourceName
+        recipeSourceNameLink.text = extraRecipeDetails.sourceName ?: ">> Click here to open the external site <<"
 
         //nutritional section
         nutritionalTitle.text = getString(R.string.resource_strings_nutritional_title_singular, 1)
@@ -138,9 +133,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
         nutritionalFat.text = "Total fat 36g (30%)"
         nutritionalCarbs.text = "Carbs 18g (34%)"
         nutritionalProtein.text = "Proteins 23g (46%)"
-        nutritionalDetails.text =
-            "Protein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)"
-
+        nutritionalDetails.text = "[FAKE DATA]\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)"
 
         observeUiMessages()
 
@@ -175,8 +168,11 @@ class RecipeDetailsActivity : AppCompatActivity() {
     }
 
     private fun loadRecipeImage(recipeId: Int?, imageType: String?) {
+
         Glide.with(this)
-            .load("https://spoonacular.com/recipeImages/$recipeId-636x393.$imageType")
+            .load("https://spoonacular.com/recipeImages/$recipeId-636x393.${imageType ?: "jpg"}")
+            .placeholder(R.drawable.recipe_image_loading)
+            .error(R.drawable.recipe_image_error)
             .into(recipeImage)
     }
 

@@ -13,7 +13,7 @@ data class RecipeDetailsPreview(
     val servings: Int,
     val sourceName: String?,
     val sourceUrl: String,
-    val imageType: String,
+    val imageType: String?,
     val extendedIngredientsAmount: List<Double>,
     val extendedIngredientsUnit: List<String>,
     val extendedIngredientsOriginalName: List<String>
