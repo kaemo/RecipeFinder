@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ECEBEB"
+    android:background="@color/greyBackgroundColor"
     android:importantForAccessibility="no"
     android:padding="20dp"
     tools:context=".ui.errorScreenActivity.ErrorScreenActivity">
@@ -48,7 +48,7 @@
         android:id="@+id/errorButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#377D3F"
+        android:backgroundTint="@color/greenButtons"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:padding="15dp"

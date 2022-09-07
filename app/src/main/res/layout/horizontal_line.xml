@@ -11,6 +11,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#727272" />
+        android:background="@color/iconsSameAsText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

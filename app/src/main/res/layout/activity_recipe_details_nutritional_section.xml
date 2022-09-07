@@ -41,7 +41,7 @@
             android:id="@+id/nutrions_layout_card"
             android:layout_width="130dp"
             android:layout_height="130dp"
-            app:cardBackgroundColor="#AAAAAA"
+            app:cardBackgroundColor="@color/greyDarkerThanBackground"
             app:cardCornerRadius="75dp"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

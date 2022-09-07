@@ -5,7 +5,7 @@
     android:id="@+id/activity_recipe_details_xml_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ECEBEB"
+    android:background="@color/greyBackgroundColor"
     tools:context=".ui.recipeDetailsActivity.RecipeDetailsActivity">
 
     <!-- Background -->
@@ -14,7 +14,7 @@
         android:id="@+id/activity_recipe_details_xml_recipe_image"
         android:layout_width="0dp"
         android:layout_height="225dp"
-        android:background="#AAAAAA"
+        android:background="@color/greyDarkerThanBackground"
         android:importantForAccessibility="no"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="205dp"
-            app:cardBackgroundColor="#ECEBEB"
+            app:cardBackgroundColor="@color/greyBackgroundColor"
             app:cardCornerRadius="20dp"
             app:cardElevation="0dp"
             app:layout_constraintStart_toStartOf="parent">
@@ -195,7 +195,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:backgroundTint="#377D3F"
+                    android:backgroundTint="@color/greenButtons"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:padding="15dp"
