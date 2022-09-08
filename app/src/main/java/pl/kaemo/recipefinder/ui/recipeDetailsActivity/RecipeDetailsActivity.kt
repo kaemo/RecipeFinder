@@ -3,28 +3,32 @@ package pl.kaemo.recipefinder.ui.recipeDetailsActivity
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.Switch
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import pl.kaemo.recipefinder.R
+import pl.kaemo.recipefinder.databinding.ActivityRecipeDetailsBinding
 import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
-import pl.kaemo.recipefinder.ui.util.*
+import pl.kaemo.recipefinder.ui.util.CustomLogger
+import pl.kaemo.recipefinder.ui.util.LogcatLogger
+import pl.kaemo.recipefinder.ui.util.SHARED_PREFS_KEY
+import pl.kaemo.recipefinder.ui.util.showUiMessage
 
 class RecipeDetailsActivity : AppCompatActivity() {
 
     private val logger: CustomLogger = LogcatLogger("RecipeDetailsActivity") // lub FileLogger()
 
+    //DS: declared binding property
+    lateinit var binding: ActivityRecipeDetailsBinding
     lateinit var viewModel: RecipeDetailsViewModel
     lateinit var sharedPrefs: SharedPreferences
 
     lateinit var extraRecipeDetails: RecipeDetailsPreview
 
+    //DS: all variables containing views can be deleted and replaced by binding.<name> like in line 127 here
     // background
     private lateinit var recipeImage: ImageView
     private lateinit var addToWishlistId: ImageButton
@@ -58,11 +62,19 @@ class RecipeDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recipe_details)
+
+        //DS: Assigned value to binding property
+        binding = DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_recipe_details
+        )
 
         logger.log("onCreate")
 
-        viewModel = ViewModelProvider(this).get(RecipeDetailsViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(RecipeDetailsViewModel::class.java).also {
+            //DS: assigned value to variable declared in xml (line 7)
+            binding.viewModel = it
+        }
         sharedPrefs = getSharedPreferences(SHARED_PREFS_KEY, Context.MODE_PRIVATE)
 
         // background
@@ -99,13 +111,17 @@ class RecipeDetailsActivity : AppCompatActivity() {
 
         intent.getParcelableExtra<RecipeDetailsPreview>("extraRecipeId")?.let {
             extraRecipeDetails = it
+            //DS: pass it to view model
+            viewModel.setRecipeDetails(it)
         }
 
         // background
         loadRecipeImage(extraRecipeDetails.id, extraRecipeDetails.imageType)
 
         //title & time_servings section
-        recipeTitle.text = extraRecipeDetails.title
+//        recipeTitle.text = extraRecipeDetails.title
+        //DS: Instead of line above, now can use view elements like below:
+        binding.mainTitle.text = extraRecipeDetails.title
 
         // ingredients section
         recipeReadyIn.text = getString(
@@ -123,7 +139,8 @@ class RecipeDetailsActivity : AppCompatActivity() {
         )
 
         // other
-        recipeSummary.text = extraRecipeDetails.summary
+//        recipeSummary.text = extraRecipeDetails.summary
+        //DS: Instead of line above, now can assign value in xml -> line 121
         recipeInstructions.text = extraRecipeDetails.instructions
         recipeSourceNameLink.text = extraRecipeDetails.sourceName ?: ">> Click here to open the external site <<"
 
@@ -161,9 +178,10 @@ class RecipeDetailsActivity : AppCompatActivity() {
             viewModel.onNutritionalServingsClicked()
         }
 
-        similarRecipesButtonId.setOnClickListener {
-            viewModel.onSimilarRecipesButtonClicked()
-        }
+//        similarRecipesButtonId.setOnClickListener {
+//            viewModel.onSimilarRecipesButtonClicked()
+//        }
+        //DS: Instead of lines above, can assign function callback like in xml -> line 211
 
     }
 

@@ -3,6 +3,7 @@ package pl.kaemo.recipefinder.ui.recipeDetailsActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
 import pl.kaemo.recipefinder.ui.util.UiMessage
 import pl.kaemo.recipefinder.ui.util.trimIfMoreDecimalThan
 
@@ -10,6 +11,10 @@ class RecipeDetailsViewModel : ViewModel() {
 
     private val _uiMessages = MutableLiveData<UiMessage>()
     val uiMessages: LiveData<UiMessage> = _uiMessages
+
+    //DS: or each value independently
+    private val _recipeDetails = MutableLiveData<RecipeDetailsPreview>()
+    val recipeDetails: LiveData<RecipeDetailsPreview> = _recipeDetails
 
     fun onAddToWishlistClicked() {
         val toast = UiMessage.Toast("Wishlist not implemented yet!")
@@ -59,5 +64,9 @@ class RecipeDetailsViewModel : ViewModel() {
         }
         ingredientsListString = ingredientsListString.dropLast(1)
         return ingredientsListString
+    }
+
+    fun setRecipeDetails(details: RecipeDetailsPreview) {
+        _recipeDetails.postValue(details)
     }
 }
