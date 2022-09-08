@@ -34,6 +34,7 @@ class ErrorScreenActivity : AppCompatActivity() {
         errorText = findViewById(R.id.errorTextView)
 
         observeUiMessages()
+        observeDevStatus()
 
         when (Random.nextInt(6)) {
             1 -> imageError.setImageResource(R.drawable.error1)
@@ -45,9 +46,7 @@ class ErrorScreenActivity : AppCompatActivity() {
         }
 
         imageError.setOnClickListener {
-            val result = viewModel.onImageClicked(sharedPrefs.getBoolean(IS_USER_A_DEVELOPER, false))
-            logger.log(result.toString())
-            sharedPrefs.edit().putBoolean(IS_USER_A_DEVELOPER, result).apply()
+            viewModel.onImageClicked(sharedPrefs.getBoolean(IS_USER_A_DEVELOPER, false))
         }
 
         returnButton.setOnClickListener {
@@ -65,11 +64,16 @@ class ErrorScreenActivity : AppCompatActivity() {
     private fun observeUiMessages() {
         viewModel.uiMessages.observe(this) { uiMessage ->
             showUiMessage(uiMessage)
-            if (sharedPrefs.getBoolean(IS_USER_A_DEVELOPER, false)) {
-                intent.getStringExtra("extraErrorMessage")?.let {
-                    errorText.text = it
-                }
+        }
+    }
+
+    private fun observeDevStatus() {
+        viewModel.devStatus.observe(this) { devStatusTrue ->
+            sharedPrefs.edit().putBoolean(IS_USER_A_DEVELOPER, devStatusTrue).apply()
+            intent.getStringExtra("extraErrorMessage")?.let {
+                errorText.text = it
             }
         }
     }
+
 }

@@ -14,23 +14,24 @@ class ErrorScreenViewModel : ViewModel() {
     private val _uiMessages = MutableLiveData<UiMessage>()
     val uiMessages: LiveData<UiMessage> = _uiMessages
 
+    private val _devStatus = MutableLiveData<Boolean>()
+    val devStatus: LiveData<Boolean> = _devStatus
+
     var taps: Int = 0
 
-    fun onImageClicked(isUserADeveloper: Boolean): Boolean {
+    fun onImageClicked(isUserADeveloper: Boolean) {
 
         taps++
         logger.log(taps.toString())
 
-        return if (!isUserADeveloper && taps % 7 == 0) {
+        if (!isUserADeveloper && taps % 7 == 0) {
             val toast = UiMessage.Toast("You are now a developer!")
             _uiMessages.postValue(toast)
-            true
+            _devStatus.postValue(true)
         } else if (isUserADeveloper) {
             val toast = UiMessage.Toast("No need, you are already a developer")
             _uiMessages.postValue(toast)
-            true
-        } else {
-            false
+            _devStatus.postValue(true)
         }
 
     }
