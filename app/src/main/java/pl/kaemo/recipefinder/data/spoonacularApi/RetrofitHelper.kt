@@ -31,6 +31,7 @@ class RetrofitHelper @Inject constructor(val quotaLeftInterceptor: QuotaLeftInte
             .callTimeout(10000L, TimeUnit.MILLISECONDS)
             .readTimeout(10000L, TimeUnit.MILLISECONDS)
             .writeTimeout(10000L, TimeUnit.MILLISECONDS)
+            .connectTimeout(10000L, TimeUnit.MILLISECONDS)
             .build()
 
         return Retrofit.Builder()

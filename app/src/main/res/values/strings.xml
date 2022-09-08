@@ -70,6 +70,7 @@
 
     <string name="error_screen_error_button">Go back</string>
     <string name="error_screen_error_title">Something went wrong…</string>
+    <string name="error_message">Check your internet connection and try again</string>
 
     <!-- empty_state_no_recipes -->
 

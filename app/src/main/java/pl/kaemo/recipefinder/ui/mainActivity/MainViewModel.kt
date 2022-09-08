@@ -9,12 +9,16 @@ import kotlinx.coroutines.launch
 import pl.kaemo.recipefinder.domain.RecipeService
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.domain.utils.Reply
+import pl.kaemo.recipefinder.ui.util.CustomLogger
+import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val recipeService: RecipeService
 ) : ViewModel() {
+
+    private val logger: CustomLogger = LogcatLogger("MainViewModel") // lub FileLogger()
 
     private val ingredientsList = mutableListOf<String>()
     private val _ingredients = MutableLiveData<List<String>>(ingredientsList)
@@ -48,6 +52,7 @@ class MainViewModel @Inject constructor(
                     _recipes.postValue(reply.data)
                 }
                 is Reply.Error -> {
+                    logger.log(reply.error.toString())
                     _apiError.postValue(reply.error.toString())
                 }
             }
