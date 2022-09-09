@@ -38,6 +38,9 @@ class RecipesListAdapter(
 
     @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: RecipesListViewHolder, position: Int) {
+
+        fun getColor(id: Int): Int = holder.view.context.getColor(id)
+
         val cardImage: ImageView =
             holder.itemView.findViewById(R.id.activity_recipes_list_recyclerview_card_image_view)
         val cardTitle: TextView =
@@ -58,12 +61,12 @@ class RecipesListAdapter(
         if (missedIngredientsList.isNullOrEmpty()) {
             cardInfo.text =
                 holder.view.context.getString(R.string.recipes_list_adapter_ingredients_ok)
-            cardInfo.setTextColor(R.color.greenSuccessText)
+            cardInfo.setTextColor(getColor(R.color.greenSuccessText))
             cardMissingIngredients.text = ""
         } else if (missedIngredientsList.size == 1) {
             cardInfo.text =
                 holder.view.context.getString(R.string.recipes_list_adapter_ingredients_nok)
-            cardInfo.setTextColor(R.color.greyDefaultAndroidText)
+            cardInfo.setTextColor(getColor(R.color.greyDefaultAndroidText))
             cardMissingIngredients.text =
                 returnMissedIngredients(missedIngredientsList)
         } else {
@@ -71,7 +74,7 @@ class RecipesListAdapter(
                 R.string.recipes_list_adapter_ingredients_nok_plural,
                 missedIngredientsList.size
             )
-            cardInfo.setTextColor(R.color.greyDefaultAndroidText)
+            cardInfo.setTextColor(getColor(R.color.greyDefaultAndroidText))
             cardMissingIngredients.text =
                 returnMissedIngredients(missedIngredientsList)
         }
