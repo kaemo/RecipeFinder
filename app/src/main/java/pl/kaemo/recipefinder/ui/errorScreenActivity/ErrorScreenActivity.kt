@@ -14,7 +14,6 @@ import kotlin.random.Random
 
 class ErrorScreenActivity : AppCompatActivity() {
 
-    private val logger: CustomLogger = LogcatLogger("ErrorScreenActivity") // lub FileLogger()
     lateinit var viewModel: ErrorScreenViewModel
     lateinit var sharedPrefs: SharedPreferences
 
@@ -58,7 +57,6 @@ class ErrorScreenActivity : AppCompatActivity() {
                 errorText.text = it
             }
         }
-
     }
 
     private fun observeUiMessages() {

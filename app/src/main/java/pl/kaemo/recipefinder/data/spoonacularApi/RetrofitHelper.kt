@@ -28,10 +28,10 @@ class RetrofitHelper @Inject constructor(val quotaLeftInterceptor: QuotaLeftInte
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor) // dodanie customowych logow do OkHttpClient
             .addInterceptor(quotaLeftInterceptor) // dodanie funkcji wyciagajacej punkty z hedera
-            .callTimeout(10000L, TimeUnit.MILLISECONDS)
-            .readTimeout(10000L, TimeUnit.MILLISECONDS)
-            .writeTimeout(10000L, TimeUnit.MILLISECONDS)
-            .connectTimeout(10000L, TimeUnit.MILLISECONDS)
+            .callTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(5, TimeUnit.SECONDS)
+            .writeTimeout(5, TimeUnit.SECONDS)
+            .connectTimeout(5, TimeUnit.SECONDS)
             .build()
 
         return Retrofit.Builder()
