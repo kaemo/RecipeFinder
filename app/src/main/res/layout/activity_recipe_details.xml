@@ -182,7 +182,7 @@
                     <!-- Nutritional section -->
 
                     <include
-                        android:id="@+id/include_nutritional_section"
+                        android:id="@+id/include_nutri_section"
                         layout="@layout/activity_recipe_details_nutritional_section"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -195,7 +195,7 @@
                         layout="@layout/horizontal_line"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/include_nutritional_section" />
+                        app:layout_constraintTop_toBottomOf="@+id/include_nutri_section" />
 
                     <!-- Search for similar recipes button -->
 

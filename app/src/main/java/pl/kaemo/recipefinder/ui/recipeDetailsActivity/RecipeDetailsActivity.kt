@@ -66,17 +66,16 @@ class RecipeDetailsActivity : AppCompatActivity() {
         binding.summaryContent.text = extraRecipeDetails.summary
         binding.preparationContent.text = extraRecipeDetails.instructions
         binding.sourceNameClickableLink.text =
-            extraRecipeDetails.sourceName ?: ">> Click here to open the external site <<"
+            extraRecipeDetails.sourceName ?: getString(R.string.source_name_if_null)
 
         //nutritional section
-        binding.includeNutritionalSection.nutritionalTitle.text =
+        binding.includeNutriSection.nutritionalTitle.text =
             getString(R.string.resource_strings_nutritional_title_singular, 1)
-        binding.includeNutritionalSection.nutritionalKcal.text = "647"
-        binding.includeNutritionalSection.nutritionalFat.text = "Total fat 36g (30%)"
-        binding.includeNutritionalSection.nutritionalCarbs.text = "Carbs 18g (34%)"
-        binding.includeNutritionalSection.nutritionalProtein.text = "Proteins 23g (46%)"
-        binding.includeNutritionalSection.detailsContent.text =
-            "[FAKE DATA]\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)"
+        binding.includeNutriSection.nutritionalKcal.text = getString(R.string.nutritional_kcal)
+        binding.includeNutriSection.nutritionalFat.text = getString(R.string.nutritional_fat)
+        binding.includeNutriSection.nutritionalCarbs.text = getString(R.string.nutritional_carbs)
+        binding.includeNutriSection.nutritionalProtein.text = getString(R.string.nutritional_prot)
+        binding.includeNutriSection.detailsContent.text = getString(R.string.nutritional_list)
 
         observeUiMessages()
 
@@ -100,7 +99,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
             viewModel.onTextViewSourceLinkClicked()
         }
 
-        binding.includeNutritionalSection.nutritionalServing.setOnClickListener {
+        binding.includeNutriSection.nutritionalServing.setOnClickListener {
             viewModel.onNutritionalServingsClicked()
         }
 

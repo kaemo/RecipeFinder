@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
     private val _recipes = MutableLiveData<List<RecipePreview>>()
     val recipes: LiveData<List<RecipePreview>> = _recipes
 
-    private val _apiError = MutableLiveData<String>() //TODO
+    private val _apiError = MutableLiveData<String>()
     val apiError: LiveData<String> = _apiError
 
     fun onIngredientAdded(name: String) {

@@ -77,4 +77,16 @@
     <string name="empty_state_title">No recipes found</string>
     <string name="empty_state_message">Add more ingredients and search again</string>
 
+    <!-- RecipeDetailsActivity - Nutritional section -->
+
+    <string name="nutritional_kcal">647</string>
+    <string name="nutritional_fat">Total fat 36g (30%)</string>
+    <string name="nutritional_carbs">Carbs 18g (34%)</string>
+    <string name="nutritional_prot">Proteins 23g (46%)</string>
+    <string name="nutritional_list">[FAKE DATA]\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)\nProtein 23g (48% of daily need)\nVitamin B3 6mg (33% od daily need)\nVitamin B12 1ug (33% of daily need)\nZinc 4 mg (29% of daily need)</string>
+
+    <!-- RecipeDetailsActivity - other -->
+
+    <string name="source_name_if_null">Click here to open the external site</string>
+
 </resources>
