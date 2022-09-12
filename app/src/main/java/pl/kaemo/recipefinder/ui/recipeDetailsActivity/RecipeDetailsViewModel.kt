@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
+import pl.kaemo.recipefinder.domain.utils.StringRepository
 import pl.kaemo.recipefinder.ui.util.CustomLogger
 import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import pl.kaemo.recipefinder.ui.util.UiMessage
@@ -14,6 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecipeDetailsViewModel @Inject constructor(
+    stringRepository: StringRepository,
     savedState: SavedStateHandle
 ) : ViewModel() {
 
@@ -22,11 +25,31 @@ class RecipeDetailsViewModel @Inject constructor(
     val extraRecipeDetails: RecipeDetailsPreview? =
         savedState.get<RecipeDetailsPreview>("extraRecipeId")
 
-    private val _ingredientsList = MutableLiveData<String>("loading...")
+    private val _ingredientsList = MutableLiveData("loading...")
     val ingredientsList: LiveData<String> = _ingredientsList
 
     private val _uiMessages = MutableLiveData<UiMessage>()
     val uiMessages: LiveData<UiMessage> = _uiMessages
+
+    /* String variables */
+
+    val recipeReadyInMinutes: String = stringRepository.getString(
+        R.string.recipe_ready_in_minutes,
+        extraRecipeDetails?.readyInMinutes ?: "0"
+    )
+    val recipeServingsPlural: String = stringRepository.getString(
+        R.string.resource_strings_recipe_servings_plural,
+        extraRecipeDetails?.servings ?: "1"
+    )
+    val sourceNameLink: String =
+        extraRecipeDetails?.sourceName ?: stringRepository.getString(R.string.source_name_if_null)
+
+    val nutritionalTitle: String = stringRepository.getString(
+        R.string.resource_strings_nutritional_title_singular,
+        1
+    )
+
+    /* ------------ */
 
     fun onAddToWishlistClicked() {
         val toast = UiMessage.Toast("Wishlist not implemented yet!")
@@ -70,7 +93,7 @@ class RecipeDetailsViewModel @Inject constructor(
                 it.trimIfMoreDecimalThan(2).toString().trimEnd { it == '0' }.trimEnd { it == '.' }
             } ${extraRecipeDetails.extendedIngredientsUnit[index]} ${extraRecipeDetails.extendedIngredientsOriginalName[index]}\n"
         }
-        ingredientsListString = ingredientsListString.dropLast(1)
-        _ingredientsList.postValue(ingredientsListString)
+        _ingredientsList.postValue(ingredientsListString.dropLast(1))
     }
+
 }

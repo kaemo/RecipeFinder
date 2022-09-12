@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.databinding.ActivityRecipeDetailsBinding
 import pl.kaemo.recipefinder.ui.util.CustomLogger
 import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import pl.kaemo.recipefinder.ui.util.showUiMessage
 
+@AndroidEntryPoint
 class RecipeDetailsActivity : AppCompatActivity() {
 
     private val logger: CustomLogger = LogcatLogger("RecipeDetailsActivity") // lub FileLogger()
@@ -31,28 +33,6 @@ class RecipeDetailsActivity : AppCompatActivity() {
 
         loadRecipeImage()
         observeUiMessages()
-
-        //title & time_servings section //string repository
-        binding.includeTimeServingsSection.clickableTextviewTime.text =
-            getString(
-                R.string.recipe_ready_in_minutes,
-                viewModel.extraRecipeDetails?.readyInMinutes
-            )
-        binding.includeTimeServingsSection.activityRecipeDetailsXmlServingsText.text =
-            getString(
-                R.string.resource_strings_recipe_servings_plural,
-                viewModel.extraRecipeDetails?.servings
-            )
-
-        // other  //string repository
-        binding.sourceNameClickableLink.text =
-            viewModel.extraRecipeDetails?.sourceName ?: getString(R.string.source_name_if_null)
-
-        //nutritional section //do przeniesienia do VM + stworzenie string repository
-        binding.includeNutriSection.nutritionalTitle.text = getString(
-            R.string.resource_strings_nutritional_title_singular,
-            1
-        )
 
     }
 

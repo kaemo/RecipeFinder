@@ -11,12 +11,14 @@ import pl.kaemo.recipefinder.data.service.RecipeServiceImpl
 import pl.kaemo.recipefinder.data.spoonacularApi.QuotaLeftInterceptor
 import pl.kaemo.recipefinder.data.spoonacularApi.RetrofitHelper
 import pl.kaemo.recipefinder.domain.RecipeService
+import pl.kaemo.recipefinder.domain.utils.AppContextStringRepository
+import pl.kaemo.recipefinder.domain.utils.StringRepository
 
 @Module
 @InstallIn(SingletonComponent::class) //singletoncomponent - unikalne instancje dla całej aplikacji
 object AppModule {
 
-    /* ------------ Chapter 1 start ------------ */
+    /* ------------ Chapter 1 ------------ */
 
     /* ------ Provider 1 ------ */
 //    @Provides
@@ -45,8 +47,8 @@ object AppModule {
     /* ------ Provider 4 ------ */
     @Provides
     fun provideRecipeService(retrofitHelper: RetrofitHelper): RecipeService {
-//        return RecipeServiceImpl(retrofitHelper.getInstance())
-        return FakeRecipeService() /* FakeDataBase */
+        return RecipeServiceImpl(retrofitHelper.getInstance())
+//        return FakeRecipeService() /* FakeDataBase */
     }
 
     /* INFO - Damian, popraw jak coś się nie zgadza pls :)
@@ -78,6 +80,11 @@ object AppModule {
 
      */
 
-    /* ------------ Chapter 1 end ------------ */
+    /* ------------ Chapter 2 ------------ */
+
+    @Provides
+    fun provideStringRepository(stringRepository: AppContextStringRepository): StringRepository {
+        return stringRepository
+    }
 
 }

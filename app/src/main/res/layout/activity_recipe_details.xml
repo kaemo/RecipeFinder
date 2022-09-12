@@ -172,6 +172,7 @@
                         android:id="@+id/source_name_clickable_link"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@{viewModel.sourceNameLink}"
                         android:clickable="true"
                         android:focusable="true"
                         android:onClick="@{() -> viewModel.onTextViewSourceLinkClicked()}"
