@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -38,6 +39,7 @@
             android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
             android:importantForAccessibility="no"
+            android:onClick="@{() -> viewModel.onAddToWishlistClicked()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_bookmark_24" />
@@ -69,10 +71,11 @@
                         android:id="@+id/recipe_main_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/recipe_title"
+                        android:text="@{viewModel.extraRecipeDetails.title}"
                         android:textSize="24sp"
                         android:textStyle="bold"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/recipe_title" />
 
                     <!-- Time / servings section -->
 
@@ -81,7 +84,8 @@
                         layout="@layout/activity_recipe_details_time_servings_section"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/recipe_main_title" />
+                        app:layout_constraintTop_toBottomOf="@+id/recipe_main_title"
+                        bind:viewModel="@{viewModel}" />
 
                     <!-- Ingredients section -->
 
@@ -90,7 +94,8 @@
                         layout="@layout/activity_recipe_details_ingredients_section"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/include_time_servings_section" />
+                        app:layout_constraintTop_toBottomOf="@+id/include_time_servings_section"
+                        bind:viewModel="@{viewModel}" />
 
 
                     <!-- Horizontal line -->
@@ -118,6 +123,7 @@
                         android:id="@+id/summary_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@{viewModel.extraRecipeDetails.summary}"
                         app:layout_constraintTop_toBottomOf="@id/summary_title"
                         tools:text="Heat olive oil in large oven proof skillet over medium high heat. Add the onion, mushroom and pepper and sauté till softened – about 3–4 minutes. Add the garlic and cook for an additional minute. Add the crushed tomatoes, tomato paste, red pepper, sugar, cumin, salt and pepper. Stir and reduce heat to medium low - allow to cook down while making the meat balls – will thicken. Remove from the heat and place in a bowl – add the cream." />
 
@@ -146,6 +152,7 @@
                         android:id="@+id/preparation_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@{viewModel.extraRecipeDetails.instructions}"
                         app:layout_constraintTop_toBottomOf="@id/preparation_title"
                         tools:text="1. For the sauce\n\n2. Heat olive oil in large oven proof skillet over medium high heat. Add the onion, mushroom and pepper and saut till softened about 3–4 minutes. Add the garlic and cook for an additional minute. Add the crushed tomatoes, tomato paste, red pepper, sugar, cumin, salt and pepper. Stir and reduce heat to medium low - allow to cook down while making the meat balls will thicken. Remove from the heat and place in a bowl add the cream.\n\n3. For the meatballs\n\n4. In a large mixing bowl, combine the ground meat, bread crumbs, shallot, thyme, rosemary, parmesan, garlic, egg, salt and pepper. Using your hands, mix ingredients together until well combined. Form into 1 inch meatballs.\n\n5. In the skillet that the sauce was cooked in, heat olive oil over medium high heat. Cook meatballs (may need to cook in batches) turning occasionally. The meatballs may stick to the skillet a little and that is OK will deglaze in a moment. Once meatballs are browned on all sides, remove meatballs to the same bowl that the sauce is in.\n\n6. Turn the burner up to medium high. When skillet is hot, add wine (can substitute chicken or beef broth). Scrape the browned bits from the bottom of the pan and allow the wine to bubbly and reduce by about half (5 mins). Remove skillet from the heat and add the bowl of sauce and meatballs to the skillet.\n\n7. To finish:\n\n8. Preheat the oven to 400. Sprinkle the mozerella and paremesean over the top of the meatballs and sauce and bake until heated through and cheese is melted and bubbly about 15 minutes. Garnish with fresh basil. Serve warm." />
 
@@ -167,6 +174,7 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:focusable="true"
+                        android:onClick="@{() -> viewModel.onTextViewSourceLinkClicked()}"
                         app:layout_constraintTop_toBottomOf="@+id/source_title"
                         tools:text="Foodista.com – The Cooking Encyclopedia Everyone Can Edit" />
 
@@ -186,7 +194,8 @@
                         layout="@layout/activity_recipe_details_nutritional_section"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/include_horizontal_line_nutritional" />
+                        app:layout_constraintTop_toBottomOf="@+id/include_horizontal_line_nutritional"
+                        bind:viewModel="@{viewModel}" />
 
                     <!-- Horizontal line -->
 
@@ -207,6 +216,7 @@
                         android:backgroundTint="@color/greenButtons"
                         android:insetTop="0dp"
                         android:insetBottom="0dp"
+                        android:onClick="@{() -> viewModel.onSimilarRecipesButtonClicked()}"
                         android:padding="15dp"
                         android:text="@string/get_similar_recipes_button"
                         android:textAllCaps="false"

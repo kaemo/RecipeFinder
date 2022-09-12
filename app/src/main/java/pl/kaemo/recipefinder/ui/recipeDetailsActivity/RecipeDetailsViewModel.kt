@@ -2,11 +2,28 @@ package pl.kaemo.recipefinder.ui.recipeDetailsActivity
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
+import pl.kaemo.recipefinder.ui.util.CustomLogger
+import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import pl.kaemo.recipefinder.ui.util.UiMessage
 import pl.kaemo.recipefinder.ui.util.trimIfMoreDecimalThan
+import javax.inject.Inject
 
-class RecipeDetailsViewModel : ViewModel() {
+@HiltViewModel
+class RecipeDetailsViewModel @Inject constructor(
+    savedState: SavedStateHandle
+) : ViewModel() {
+
+    val logger: CustomLogger = LogcatLogger("RecipeDetailsVM") // lub FileLogger()
+
+    val extraRecipeDetails: RecipeDetailsPreview? =
+        savedState.get<RecipeDetailsPreview>("extraRecipeId")
+
+    private val _ingredientsList = MutableLiveData<String>("loading...")
+    val ingredientsList: LiveData<String> = _ingredientsList
 
     private val _uiMessages = MutableLiveData<UiMessage>()
     val uiMessages: LiveData<UiMessage> = _uiMessages
@@ -46,18 +63,14 @@ class RecipeDetailsViewModel : ViewModel() {
         _uiMessages.postValue(toast)
     }
 
-    fun returnIngredientsString(
-        amountList: List<Double>,
-        unitList: List<String>,
-        nameList: List<String>
-    ): String {
+    init {
         var ingredientsListString = ""
-        amountList.forEachIndexed { index, it ->
+        extraRecipeDetails?.extendedIngredientsAmount?.forEachIndexed { index, it ->
             ingredientsListString += "• ${
                 it.trimIfMoreDecimalThan(2).toString().trimEnd { it == '0' }.trimEnd { it == '.' }
-            } ${unitList[index]} ${nameList[index]}\n"
+            } ${extraRecipeDetails.extendedIngredientsUnit[index]} ${extraRecipeDetails.extendedIngredientsOriginalName[index]}\n"
         }
         ingredientsListString = ingredientsListString.dropLast(1)
-        return ingredientsListString
+        _ingredientsList.postValue(ingredientsListString)
     }
 }

@@ -45,8 +45,8 @@ object AppModule {
     /* ------ Provider 4 ------ */
     @Provides
     fun provideRecipeService(retrofitHelper: RetrofitHelper): RecipeService {
-        return RecipeServiceImpl(retrofitHelper.getInstance())
-//        return FakeRecipeService() /* FakeDataBase */
+//        return RecipeServiceImpl(retrofitHelper.getInstance())
+        return FakeRecipeService() /* FakeDataBase */
     }
 
     /* INFO - Damian, popraw jak coś się nie zgadza pls :)

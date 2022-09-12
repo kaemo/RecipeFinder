@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="pl.kaemo.recipefinder.ui.recipeDetailsActivity.RecipeDetailsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,6 +45,7 @@
                 android:id="@+id/measures_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onMetricSwitchClicked()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/switch_text_right"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -61,6 +65,7 @@
             android:id="@+id/ingredients_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@{viewModel.ingredientsList}"
             android:lineSpacingExtra="5sp"
             android:padding="10dp"
             app:layout_constraintStart_toStartOf="parent"
