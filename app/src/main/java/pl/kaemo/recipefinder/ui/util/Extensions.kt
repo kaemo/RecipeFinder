@@ -22,4 +22,15 @@ fun Activity.showUiMessage(uiMessage: UiMessage) {
     }
 }
 
+fun Double.trimIfMoreDecimalThan(decimal: Int): Double {
+    var numberString: String = this.toString()
+    val indexOfDecimal: Int = numberString.indexOf('.') + 1
+    return if (this % 1 > 0 && numberString.length - indexOfDecimal > decimal) {
+        numberString = numberString.dropLast(numberString.length - indexOfDecimal - decimal)
+        numberString.toDouble()
+    } else {
+        this
+    }
+}
+
 

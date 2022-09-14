@@ -20,7 +20,7 @@
             android:id="@+id/activity_recipes_list_recyclerview_card_image_view"
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:background="#AAAAAA"
+            android:background="@color/greyDarkerThanBackground"
             android:importantForAccessibility="no"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="@+id/activity_recipes_list_recyclerview_card_view"

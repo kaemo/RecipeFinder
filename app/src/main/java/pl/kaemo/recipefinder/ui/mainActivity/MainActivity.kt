@@ -11,19 +11,21 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import pl.kaemo.recipefinder.R
-import pl.kaemo.recipefinder.ui.util.AndroidLogger
+import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import pl.kaemo.recipefinder.ui.util.IsKeyboardVisibleLiveData
 import pl.kaemo.recipefinder.ui.util.KeyboardManager.hideKeyboard
-import pl.kaemo.recipefinder.ui.util.LogcatLogger
+import pl.kaemo.recipefinder.ui.util.CustomLogger
+import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToErrorScreenActivity
 import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToRecipesListActivity
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val logger: LogcatLogger = AndroidLogger("TAG") // lub FileLogger()
+    private val logger: CustomLogger = LogcatLogger("MainActivity") // lub FileLogger()
 
     lateinit var viewModel: MainViewModel
-
     private lateinit var adapter: MainRecyclerAdapter
 
     private lateinit var recyclerViewId: RecyclerView
@@ -40,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        logger.logMessage("onCreate")
+        logger.log("onCreate")
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -52,11 +54,12 @@ class MainActivity : AppCompatActivity() {
         userGuideId = findViewById(R.id.activity_main_xml_user_guide)
         mainTextId = findViewById(R.id.activity_main_xml_mainText)
         xmlLayoutId = findViewById(R.id.activity_main_xml_root)
-        loadingScreenId = findViewById(R.id.activity_main_xml_loading_layout)
+        loadingScreenId = findViewById(R.id.loading_layout)
 
         initRecyclerView()
         observeIngredients()
         observeRecipes()
+        observeApiErrors()
 
         userInputId.setOnFocusChangeListener { _, _ ->
             validationId.text = ""
@@ -65,16 +68,16 @@ class MainActivity : AppCompatActivity() {
 
         IsKeyboardVisibleLiveData(xmlLayoutId).observe(this) { isVisible ->
             if (isVisible) {
-                logger.logMessage("keyboard is visible")
+                logger.log("keyboard is visible")
                 mainTextId.textSize = 40.0F
             } else {
-                logger.logMessage("keyboard is invisible")
+                logger.log("keyboard is invisible")
                 mainTextId.textSize = 60.0F
             }
         }
 
         buttonAddId.setOnClickListener {
-            logger.logMessage("Button ADD clicked")
+            logger.log("Button ADD clicked")
             val validationStatus =
                 IngredientNameValidation.validateUserInput(userInputId.text.toString())
             if (validationStatus is ValidationStatus.Error) {
@@ -89,9 +92,9 @@ class MainActivity : AppCompatActivity() {
 
         buttonFindId.setOnClickListener {
             if (viewModel.enoughIngredients()) {
-                viewModel.onButtonSearchRecipesClicked()
                 hideKeyboard()
                 loadingScreenId.isVisible = true
+                viewModel.onButtonSearchRecipesClicked()
             } else {
                 validationId.text = getString(R.string.validation_noIngredients)
             }
@@ -106,7 +109,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        logger.logMessage("initrecyclerview")
+        logger.log("initrecyclerview")
         recyclerViewId.layoutManager = LinearLayoutManager(this)
         adapter = MainRecyclerAdapter(::onItemDeleted)
         //adapter = MainRecyclerAdapter(viewModel::onIngredientDeleted) //bezpośrednie odwołanie z pominięciem metody
@@ -114,13 +117,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onItemDeleted(index: Int) {
-        logger.logMessage("onItemDeleted index: $index")
+        logger.log("onItemDeleted index: $index")
         viewModel.onIngredientDeleted(index)
     }
 
     private fun observeIngredients() {
         viewModel.ingredients.observe(this) {
-            logger.logMessage("it: $it")
+            logger.log("List of ingredients: $it")
             adapter.update(it)
         }
     }
@@ -130,4 +133,11 @@ class MainActivity : AppCompatActivity() {
             navigateToRecipesListActivity(it)
         }
     }
+
+    private fun observeApiErrors() {
+        viewModel.apiError.observe(this) {
+            navigateToErrorScreenActivity(it)
+        }
+    }
+
 }

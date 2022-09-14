@@ -1,7 +1,6 @@
 package pl.kaemo.recipefinder.ui.recipesListActivity
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,9 @@ import com.bumptech.glide.Glide
 import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 
-class RecipesListAdapter(val onClicked: (Int) -> Unit) : RecyclerView.Adapter<RecipesListAdapter.RecipesListViewHolder>() {
+class RecipesListAdapter(
+    val onClicked: (Int) -> Unit
+) : RecyclerView.Adapter<RecipesListAdapter.RecipesListViewHolder>() {
 
     private var recipesList: List<RecipePreview> = listOf()
 
@@ -35,7 +36,11 @@ class RecipesListAdapter(val onClicked: (Int) -> Unit) : RecyclerView.Adapter<Re
         return recipesList.size
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: RecipesListViewHolder, position: Int) {
+
+        fun getColor(id: Int): Int = holder.view.context.getColor(id)
+
         val cardImage: ImageView =
             holder.itemView.findViewById(R.id.activity_recipes_list_recyclerview_card_image_view)
         val cardTitle: TextView =
@@ -53,15 +58,15 @@ class RecipesListAdapter(val onClicked: (Int) -> Unit) : RecyclerView.Adapter<Re
 
         val missedIngredientsList = recipesList[position].missedIngredients
 
-        if (missedIngredientsList == null) {
+        if (missedIngredientsList.isNullOrEmpty()) {
             cardInfo.text =
                 holder.view.context.getString(R.string.recipes_list_adapter_ingredients_ok)
-            cardInfo.setTextColor(Color.parseColor("#377D3F"))
+            cardInfo.setTextColor(getColor(R.color.greenSuccessText))
             cardMissingIngredients.text = ""
         } else if (missedIngredientsList.size == 1) {
             cardInfo.text =
                 holder.view.context.getString(R.string.recipes_list_adapter_ingredients_nok)
-            cardInfo.setTextColor(Color.parseColor("#757575"))
+            cardInfo.setTextColor(getColor(R.color.greyDefaultAndroidText))
             cardMissingIngredients.text =
                 returnMissedIngredients(missedIngredientsList)
         } else {
@@ -69,14 +74,14 @@ class RecipesListAdapter(val onClicked: (Int) -> Unit) : RecyclerView.Adapter<Re
                 R.string.recipes_list_adapter_ingredients_nok_plural,
                 missedIngredientsList.size
             )
-            cardInfo.setTextColor(Color.parseColor("#757575"))
+            cardInfo.setTextColor(getColor(R.color.greyDefaultAndroidText))
             cardMissingIngredients.text =
                 returnMissedIngredients(missedIngredientsList)
         }
 
         holder.itemView.findViewById<View>(R.id.activity_recipes_list_recyclerview_card_view)
             .setOnClickListener {
-                onClicked(position)
+                onClicked(recipesList[position].id)
             }
     }
 

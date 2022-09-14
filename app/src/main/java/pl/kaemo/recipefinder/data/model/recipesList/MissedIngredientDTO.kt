@@ -1,0 +1,16 @@
+package pl.kaemo.recipefinder.data.model.recipesList
+
+data class MissedIngredientDTO(
+//    val id: Int,
+//    val amount: Int,
+//    val unit: String,
+//    val unitLong: String,
+//    val unitShort: String,
+//    val aisle: String,
+//    val name: String,
+    val original: String
+//    val originalName: String,
+//    val meta: List<String>,
+//    val image: String
+
+)
