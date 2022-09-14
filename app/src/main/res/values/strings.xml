@@ -41,7 +41,6 @@
 
     <!-- activity_recipe_details -->
 
-    <string name="recipe_title">Cheesy Rosemary Meatball Bake some more text</string>
     <string name="summary_title">Summary:</string>
     <string name="preparation_title">Preparation:</string>
     <string name="source_title">For more information check the source:</string>
