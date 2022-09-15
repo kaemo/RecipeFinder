@@ -6,15 +6,19 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import dagger.hilt.android.AndroidEntryPoint
 import pl.kaemo.recipefinder.R
-import pl.kaemo.recipefinder.ui.util.*
+import pl.kaemo.recipefinder.ui.util.IS_USER_A_DEVELOPER
+import pl.kaemo.recipefinder.ui.util.SHARED_PREFS_KEY
+import pl.kaemo.recipefinder.ui.util.showUiMessage
 import kotlin.random.Random
 
+@AndroidEntryPoint
 class ErrorScreenActivity : AppCompatActivity() {
 
-    lateinit var viewModel: ErrorScreenViewModel
+    val viewModel by viewModels<ErrorScreenViewModel>() // czemu tak
     lateinit var sharedPrefs: SharedPreferences
 
     private lateinit var imageError: ImageView
@@ -25,7 +29,6 @@ class ErrorScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_error_screen)
 
-        viewModel = ViewModelProvider(this).get(ErrorScreenViewModel::class.java)
         sharedPrefs = getSharedPreferences(SHARED_PREFS_KEY, Context.MODE_PRIVATE)
 
         imageError = findViewById(R.id.imageView)
@@ -33,7 +36,7 @@ class ErrorScreenActivity : AppCompatActivity() {
         errorText = findViewById(R.id.errorTextView)
 
         observeUiMessages()
-        observeDevStatus()
+        observeErrorDesc() //DS: When data binding used, no need to observe LD here
 
         when (Random.nextInt(6)) {
             1 -> imageError.setImageResource(R.drawable.error1)
@@ -45,7 +48,7 @@ class ErrorScreenActivity : AppCompatActivity() {
         }
 
         imageError.setOnClickListener {
-            viewModel.onImageClicked(sharedPrefs.getBoolean(IS_USER_A_DEVELOPER, false))
+            viewModel.onImageClicked()
         }
 
         returnButton.setOnClickListener {
@@ -65,12 +68,9 @@ class ErrorScreenActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeDevStatus() {
-        viewModel.devStatus.observe(this) { devStatusTrue ->
-            sharedPrefs.edit().putBoolean(IS_USER_A_DEVELOPER, devStatusTrue).apply()
-            intent.getStringExtra("extraErrorMessage")?.let {
-                errorText.text = it
-            }
+    private fun observeErrorDesc() {
+        viewModel.errorDesc.observe(this) {
+            errorText.text = it
         }
     }
 
