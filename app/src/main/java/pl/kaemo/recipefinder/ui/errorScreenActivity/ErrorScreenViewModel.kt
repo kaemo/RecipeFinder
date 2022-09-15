@@ -20,13 +20,18 @@ class ErrorScreenViewModel @Inject constructor(
 
     private val logger: CustomLogger = LogcatLogger("ErrorScreenVM") // lub FileLogger()
 
-    private val errorDescription = savedStateHandle.get<String>("extraErrorMessage") //DS: key used in NavManager
-    private var isDevFunctionEnabled = getSharedPreferencesUseCase().getBoolean(IS_USER_A_DEVELOPER, false)
+    private val errorDescriptionAdvance =
+        savedStateHandle.get<String>("extraErrorMessage")
+    private val errorDescriptionSimple = errorDecoder(errorDescriptionAdvance)
+
+    private var isDevFunctionEnabled =
+        getSharedPreferencesUseCase().getBoolean(IS_USER_A_DEVELOPER, false)
 
     private val _uiMessages = MutableLiveData<UiMessage>()
     val uiMessages: LiveData<UiMessage> = _uiMessages
 
-    private val _errorDesc = MutableLiveData<String>(if (isDevFunctionEnabled) errorDescription else "")
+    private val _errorDesc =
+        MutableLiveData<String>(if (isDevFunctionEnabled) errorDescriptionAdvance else errorDescriptionSimple)
     val errorDesc: LiveData<String> = _errorDesc
 
     private var taps: Int = 0
@@ -60,11 +65,24 @@ class ErrorScreenViewModel @Inject constructor(
         val sharedPrefs = getSharedPreferencesUseCase()
         isDevFunctionEnabled = isDevFunctionEnabled.not()
         sharedPrefs.edit().putBoolean(IS_USER_A_DEVELOPER, isDevFunctionEnabled).apply()
-        _uiMessages.postValue(UiMessage.Toast("Status changed to: $isDevFunctionEnabled"))
+        _uiMessages.postValue(UiMessage.Toast(if (isDevFunctionEnabled) "You are now a developer!" else "You are no longer a developer"))
     }
 
     private fun updateErrorDescription() {
-        _errorDesc.postValue(if (isDevFunctionEnabled) errorDescription else "")
+        _errorDesc.postValue(if (isDevFunctionEnabled) errorDescriptionAdvance else errorDescriptionSimple)
+    }
+
+    private fun errorDecoder(errorDescriptionAdvance: String?): String {
+        errorDescriptionAdvance?.let {
+            with(it) {
+                return when {
+                    contains("timeout") -> "It took too long to load recipes. It may be caused by a slow Internet connection. Check yor Internet connection and try again."
+                    contains("no address associated", true) -> "There is a problem with connecting to the server. Check yor Internet connection and try again."
+                    contains("failed to connect to api", true) -> "There is a problem with connecting to the server. Check yor Internet connection and try again."
+                    else -> "Unknown error"
+                }
+            }
+        } ?: return "null error description"
     }
 
 }

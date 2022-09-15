@@ -36,7 +36,7 @@ class ErrorScreenActivity : AppCompatActivity() {
         errorText = findViewById(R.id.errorTextView)
 
         observeUiMessages()
-        observeErrorDesc() //DS: When data binding used, no need to observe LD here
+        observeErrorDesc()
 
         when (Random.nextInt(6)) {
             1 -> imageError.setImageResource(R.drawable.error1)

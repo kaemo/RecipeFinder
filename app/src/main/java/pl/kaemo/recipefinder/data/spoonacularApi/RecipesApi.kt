@@ -20,7 +20,6 @@ interface RecipesApi {
 
 
     @GET("/recipes/{recipeId}/information")
-//    @GET("/recipes/716429/information")
     suspend fun getRecipeDetailsResponse(
         @Path("recipeId") recipeId: Int,
         @Query("apiKey") apiKey: String,
