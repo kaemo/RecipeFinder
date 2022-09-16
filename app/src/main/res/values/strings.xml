@@ -52,6 +52,16 @@
     <string name="resource_strings_recipe_servings_singular">%d serving</string>
     <string name="resource_strings_recipe_servings_plural">%d servings</string>
 
+    <!-- activity_recipe_details_time_servings_section - spinner -->
+
+    <string-array name="servings">
+        <item>0.5 serving</item>
+        <item>1 serving</item>
+        <item>2 servings</item>
+        <item>3 servings</item>
+        <item>custom</item>
+    </string-array>
+
     <!-- activity_recipe_details_nutritional_section -->
 
     <string name="resource_strings_nutritional_title_singular">Nutritional information for %d serving</string>
