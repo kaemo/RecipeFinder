@@ -18,7 +18,7 @@ import kotlin.random.Random
 @AndroidEntryPoint
 class ErrorScreenActivity : AppCompatActivity() {
 
-    val viewModel by viewModels<ErrorScreenViewModel>() // czemu tak
+    val viewModel by viewModels<ErrorScreenViewModel>()
     lateinit var sharedPrefs: SharedPreferences
 
     private lateinit var imageError: ImageView

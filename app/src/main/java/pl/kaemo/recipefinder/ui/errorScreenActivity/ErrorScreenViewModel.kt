@@ -5,16 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import pl.kaemo.recipefinder.domain.useCase.GetSharedPreferencesUseCase
+import pl.kaemo.recipefinder.domain.useCase.GetDevStatusUseCase
+import pl.kaemo.recipefinder.domain.useCase.UpdateDevStatusUseCase
 import pl.kaemo.recipefinder.ui.util.CustomLogger
-import pl.kaemo.recipefinder.ui.util.IS_USER_A_DEVELOPER
 import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import pl.kaemo.recipefinder.ui.util.UiMessage
 import javax.inject.Inject
 
 @HiltViewModel
 class ErrorScreenViewModel @Inject constructor(
-    val getSharedPreferencesUseCase: GetSharedPreferencesUseCase,
+    val updateDevStatusUseCase: UpdateDevStatusUseCase,
+    getDevStatusUseCase: GetDevStatusUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -24,8 +25,7 @@ class ErrorScreenViewModel @Inject constructor(
         savedStateHandle.get<String>("extraErrorMessage")
     private val errorDescriptionSimple = errorDecoder(errorDescriptionAdvance)
 
-    private var isDevFunctionEnabled =
-        getSharedPreferencesUseCase().getBoolean(IS_USER_A_DEVELOPER, false)
+    private var isDevFunctionEnabled = getDevStatusUseCase()
 
     private val _uiMessages = MutableLiveData<UiMessage>()
     val uiMessages: LiveData<UiMessage> = _uiMessages
@@ -62,9 +62,8 @@ class ErrorScreenViewModel @Inject constructor(
     }
 
     private fun updateDevFunctionStatus() {
-        val sharedPrefs = getSharedPreferencesUseCase()
         isDevFunctionEnabled = isDevFunctionEnabled.not()
-        sharedPrefs.edit().putBoolean(IS_USER_A_DEVELOPER, isDevFunctionEnabled).apply()
+        updateDevStatusUseCase(isDevFunctionEnabled)
         _uiMessages.postValue(UiMessage.Toast(if (isDevFunctionEnabled) "You are now a developer!" else "You are no longer a developer"))
     }
 
@@ -73,16 +72,22 @@ class ErrorScreenViewModel @Inject constructor(
     }
 
     private fun errorDecoder(errorDescriptionAdvance: String?): String {
-        errorDescriptionAdvance?.let {
+        return errorDescriptionAdvance?.let {
             with(it) {
-                return when {
+                when {
                     contains("timeout") -> "It took too long to load recipes. It may be caused by a slow Internet connection. Check yor Internet connection and try again."
-                    contains("no address associated", true) -> "There is a problem with connecting to the server. Check yor Internet connection and try again."
-                    contains("failed to connect to api", true) -> "There is a problem with connecting to the server. Check yor Internet connection and try again."
+                    contains(
+                        "no address associated",
+                        true
+                    ) -> "There is a problem with connecting to the server. Check yor Internet connection and try again."
+                    contains(
+                        "failed to connect to api",
+                        true
+                    ) -> "There is a problem with connecting to the server. Check yor Internet connection and try again."
                     else -> "Unknown error"
                 }
             }
-        } ?: return "null error description"
+        } ?: "null error description"
     }
 
 }

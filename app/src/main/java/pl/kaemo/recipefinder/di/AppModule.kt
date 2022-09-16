@@ -1,6 +1,7 @@
 package pl.kaemo.recipefinder.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +14,7 @@ import pl.kaemo.recipefinder.data.spoonacularApi.RetrofitHelper
 import pl.kaemo.recipefinder.domain.RecipeService
 import pl.kaemo.recipefinder.domain.utils.AppContextStringRepository
 import pl.kaemo.recipefinder.domain.utils.StringRepository
+import pl.kaemo.recipefinder.ui.util.SHARED_PREFS_KEY
 
 @Module
 @InstallIn(SingletonComponent::class) //singletoncomponent - unikalne instancje dla całej aplikacji
@@ -85,6 +87,11 @@ object AppModule {
     @Provides
     fun provideStringRepository(stringRepository: AppContextStringRepository): StringRepository {
         return stringRepository
+    }
+
+    @Provides
+    fun provideSharedPreferences(context: Context): SharedPreferences {
+        return context.getSharedPreferences(SHARED_PREFS_KEY, Context.MODE_PRIVATE)
     }
 
 }
