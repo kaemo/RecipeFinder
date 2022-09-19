@@ -38,6 +38,11 @@ class RecipeDetailsActivity : AppCompatActivity() {
         loadRecipeImage()
         observeUiMessages()
 
+        spinner() //1. clean architecture? 2. dropdown listy na drugim ekranie?
+
+    }
+
+    private fun spinner() {
         val servings: List<String> =
             listOf("0,5 serving", "1 serving", "2 servings", "3 servings", "set custom")
         val spinner = findViewById<Spinner>(R.id.spinner_servings)
@@ -45,7 +50,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
             ArrayAdapter(this, R.layout.spinner_servings_item, R.id.spinner_text_servings, servings)
         adapter.setDropDownViewResource(R.layout.spinner_servings_dropdown_item)
         spinner.adapter = adapter
-        spinner.setSelection(2, true) //clean architecture?
+        spinner.setSelection(2, true)
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -63,7 +68,6 @@ class RecipeDetailsActivity : AppCompatActivity() {
             }
 
         }
-
     }
 
     private fun loadRecipeImage() {
