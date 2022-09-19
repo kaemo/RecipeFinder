@@ -14,6 +14,14 @@
         android:background="#ECEBEB"
         android:padding="20dp">
 
+        <!-- Navigation bar -->
+
+        <include
+            android:id="@+id/navbar"
+            layout="@layout/narrow_navbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <!-- Top text -->
 
         <TextView
@@ -22,12 +30,12 @@
             android:layout_height="wrap_content"
             android:text="@string/main_activity_mainText"
             android:textAlignment="center"
-            android:textColor="#333333"
-            android:textSize="60sp"
+            android:textColor="@color/greyDarkerText"
+            android:textSize="50sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/navbar" />
 
         <!-- Input field -->
 
@@ -135,13 +143,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <!-- Loading icon (Progress bar) / dark layout -->
 
     <include
         android:id="@+id/external_loading_screen"
         layout="@layout/loading_state"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kaemo.recipefinder.R
-import pl.kaemo.recipefinder.ui.util.LogcatLogger
+import pl.kaemo.recipefinder.ui.util.CustomLogger
 import pl.kaemo.recipefinder.ui.util.IsKeyboardVisibleLiveData
 import pl.kaemo.recipefinder.ui.util.KeyboardManager.hideKeyboard
-import pl.kaemo.recipefinder.ui.util.CustomLogger
+import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToErrorScreenActivity
+import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToFavouritesActivity
 import pl.kaemo.recipefinder.ui.util.NavigationManager.navigateToRecipesListActivity
 
 @AndroidEntryPoint
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainTextId: TextView
     private lateinit var xmlLayoutId: ConstraintLayout
     private lateinit var loadingScreenId: CardView
+    private lateinit var moreButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +57,16 @@ class MainActivity : AppCompatActivity() {
         mainTextId = findViewById(R.id.activity_main_xml_mainText)
         xmlLayoutId = findViewById(R.id.activity_main_xml_root)
         loadingScreenId = findViewById(R.id.loading_layout)
+        moreButton = findViewById(R.id.more_horizontal_button)
 
         initRecyclerView()
         observeIngredients()
         observeRecipes()
         observeApiErrors()
+
+        moreButton.setOnClickListener {
+            navigateToFavouritesActivity(1)
+        }
 
         userInputId.setOnFocusChangeListener { _, _ ->
             validationId.text = ""

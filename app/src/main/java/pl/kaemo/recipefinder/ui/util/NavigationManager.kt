@@ -37,4 +37,13 @@ object NavigationManager {
         }
     }
 
+    fun Activity.navigateToFavouritesActivity(
+        number: Int
+    ) {
+        Intent(this, ErrorScreenActivity::class.java).also {
+            it.putExtra("extraNumber", number)
+            startActivity(it)
+        }
+    }
+
 }

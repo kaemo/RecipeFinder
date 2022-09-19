@@ -17,6 +17,9 @@
         android:theme="@style/Theme.RecipeFinder"
         tools:targetApi="32">
         <activity
+            android:name=".Favourites"
+            android:exported="false" />
+        <activity
             android:name=".ui.errorScreenActivity.ErrorScreenActivity"
             android:exported="false" />
         <activity
