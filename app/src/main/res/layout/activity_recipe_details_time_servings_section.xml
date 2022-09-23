@@ -61,6 +61,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:paddingStart="6dp"
+            android:selectedItemPosition="@={viewModel.selectedItem}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/activity_recipe_details_xml_servings_image"
             app:layout_constraintTop_toTopOf="parent"

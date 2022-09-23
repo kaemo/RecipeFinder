@@ -1,11 +1,11 @@
 package pl.kaemo.recipefinder.ui.mainActivity
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userGuideId: TextView
     private lateinit var mainTextId: TextView
     private lateinit var xmlLayoutId: ConstraintLayout
-    private lateinit var loadingScreenId: CardView
+    private lateinit var loadingScreenId: View
     private lateinit var moreButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         userGuideId = findViewById(R.id.activity_main_xml_user_guide)
         mainTextId = findViewById(R.id.activity_main_xml_mainText)
         xmlLayoutId = findViewById(R.id.activity_main_xml_root)
-        loadingScreenId = findViewById(R.id.loading_layout)
+        loadingScreenId = findViewById(R.id.external_loading_screen)
         moreButton = findViewById(R.id.more_horizontal_button)
 
         initRecyclerView()
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         observeApiErrors()
 
         moreButton.setOnClickListener {
-            navigateToFavouritesActivity(1)
+            navigateToFavouritesActivity()
         }
 
         userInputId.setOnFocusChangeListener { _, _ ->
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         buttonFindId.setOnClickListener {
             if (viewModel.enoughIngredients()) {
                 hideKeyboard()
-                loadingScreenId.isVisible = true
+                loadingScreenId.visibility = View.VISIBLE
                 viewModel.onButtonSearchRecipesClicked()
             } else {
                 validationId.text = getString(R.string.validation_noIngredients)
@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         logger.log("initrecyclerview")
         recyclerViewId.layoutManager = LinearLayoutManager(this)
         adapter = MainRecyclerAdapter(::onItemDeleted)
-        //adapter = MainRecyclerAdapter(viewModel::onIngredientDeleted) //bezpośrednie odwołanie z pominięciem metody
+//        adapter = MainRecyclerAdapter(viewModel::onIngredientDeleted) //bezpośrednie odwołanie z pominięciem metody
         recyclerViewId.adapter = adapter
     }
 

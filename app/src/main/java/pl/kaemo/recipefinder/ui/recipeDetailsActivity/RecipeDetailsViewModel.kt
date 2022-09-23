@@ -1,15 +1,10 @@
 package pl.kaemo.recipefinder.ui.recipeDetailsActivity
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
 import pl.kaemo.recipefinder.domain.utils.StringRepository
-import pl.kaemo.recipefinder.ui.util.CustomLogger
-import pl.kaemo.recipefinder.ui.util.LogcatLogger
 import pl.kaemo.recipefinder.ui.util.UiMessage
 import pl.kaemo.recipefinder.ui.util.trimIfMoreDecimalThan
 import javax.inject.Inject
@@ -20,8 +15,6 @@ class RecipeDetailsViewModel @Inject constructor(
     savedState: SavedStateHandle
 ) : ViewModel() {
 
-    val logger: CustomLogger = LogcatLogger("RecipeDetailsVM") // lub FileLogger()
-
     val extraRecipeDetails: RecipeDetailsPreview? =
         savedState.get<RecipeDetailsPreview>("extraRecipeId")
 
@@ -30,8 +23,6 @@ class RecipeDetailsViewModel @Inject constructor(
 
     private val _uiMessages = MutableLiveData<UiMessage>()
     val uiMessages: LiveData<UiMessage> = _uiMessages
-
-    /* String variables */
 
     val recipeReadyInMinutes: String = stringRepository.getString(
         R.string.recipe_ready_in_minutes,
@@ -49,7 +40,31 @@ class RecipeDetailsViewModel @Inject constructor(
         1
     )
 
-    /* ------------ */
+    val defaultServingOptions: List<String> = listOf(
+        "0,5 serving",
+        "1 serving",
+        "2 servings",
+        "3 servings",
+        "set custom"
+    )
+
+    val selectedItem =
+        MutableLiveData(4)
+
+    init {
+        var ingredientsListString = ""
+        extraRecipeDetails?.extendedIngredientsAmount?.forEachIndexed { index, it ->
+            ingredientsListString += "• ${
+                it.trimIfMoreDecimalThan(2).toString().trimEnd { it == '0' }.trimEnd { it == '.' }
+            } ${extraRecipeDetails.extendedIngredientsUnit[index]} ${extraRecipeDetails.extendedIngredientsOriginalName[index]}\n"
+        }
+        _ingredientsList.postValue(ingredientsListString.dropLast(1))
+
+        selectedItem.distinctUntilChanged().observeForever {
+            val toast = UiMessage.Toast("$it")
+            _uiMessages.postValue(toast)
+        }
+    }
 
     fun onAddToWishlistClicked() {
         val toast = UiMessage.Toast("Wishlist not implemented yet!")
@@ -58,11 +73,6 @@ class RecipeDetailsViewModel @Inject constructor(
 
     fun onTextViewTimeClicked() {
         val toast = UiMessage.Toast("Detailed preview not implemented yet!")
-        _uiMessages.postValue(toast)
-    }
-
-    fun onServingsClicked() {
-        val toast = UiMessage.Toast("Variable servings not implemented yet!")
         _uiMessages.postValue(toast)
     }
 
@@ -85,15 +95,4 @@ class RecipeDetailsViewModel @Inject constructor(
         val toast = UiMessage.Toast("Similar recipes list not implemented yet!")
         _uiMessages.postValue(toast)
     }
-
-    init {
-        var ingredientsListString = ""
-        extraRecipeDetails?.extendedIngredientsAmount?.forEachIndexed { index, it ->
-            ingredientsListString += "• ${
-                it.trimIfMoreDecimalThan(2).toString().trimEnd { it == '0' }.trimEnd { it == '.' }
-            } ${extraRecipeDetails.extendedIngredientsUnit[index]} ${extraRecipeDetails.extendedIngredientsOriginalName[index]}\n"
-        }
-        _ingredientsList.postValue(ingredientsListString.dropLast(1))
-    }
-
 }

@@ -5,6 +5,7 @@ import android.content.Intent
 import pl.kaemo.recipefinder.domain.model.RecipeDetailsPreview
 import pl.kaemo.recipefinder.domain.model.RecipePreview
 import pl.kaemo.recipefinder.ui.errorScreenActivity.ErrorScreenActivity
+import pl.kaemo.recipefinder.ui.favouritesActivity.FavouritesActivity
 import pl.kaemo.recipefinder.ui.recipeDetailsActivity.RecipeDetailsActivity
 import pl.kaemo.recipefinder.ui.recipesListActivity.RecipesListActivity
 
@@ -37,11 +38,8 @@ object NavigationManager {
         }
     }
 
-    fun Activity.navigateToFavouritesActivity(
-        number: Int
-    ) {
-        Intent(this, ErrorScreenActivity::class.java).also {
-            it.putExtra("extraNumber", number)
+    fun Activity.navigateToFavouritesActivity() {
+        Intent(this, FavouritesActivity::class.java).also {
             startActivity(it)
         }
     }

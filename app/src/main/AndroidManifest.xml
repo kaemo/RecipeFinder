@@ -17,7 +17,7 @@
         android:theme="@style/Theme.RecipeFinder"
         tools:targetApi="32">
         <activity
-            android:name=".Favourites"
+            android:name=".ui.favouritesActivity.FavouritesActivity"
             android:exported="false" />
         <activity
             android:name=".ui.errorScreenActivity.ErrorScreenActivity"
@@ -33,7 +33,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

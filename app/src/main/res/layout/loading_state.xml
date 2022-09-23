@@ -10,7 +10,6 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
-        android:visibility="visible"
         app:cardBackgroundColor="#50000000"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
