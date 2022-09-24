@@ -18,7 +18,8 @@
         tools:targetApi="32">
         <activity
             android:name=".ui.favouritesActivity.FavouritesActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/title_activity_favourites" />
         <activity
             android:name=".ui.errorScreenActivity.ErrorScreenActivity"
             android:exported="false" />
@@ -33,6 +34,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

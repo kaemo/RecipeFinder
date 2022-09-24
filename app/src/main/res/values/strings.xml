@@ -86,4 +86,8 @@
     <string name="source_name_if_null">Click here to open the external site</string>
     <string name="title_activity_fav_to_delet">fav_to_delet</string>
 
+    <!-- FavouritesActivity -->
+
+    <string name="title_activity_favourites">Favourites</string>
+
 </resources>
