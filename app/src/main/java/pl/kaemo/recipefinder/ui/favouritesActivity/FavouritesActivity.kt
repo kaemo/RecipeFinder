@@ -4,14 +4,18 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,6 +31,9 @@ import androidx.compose.ui.unit.sp
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.ui.favouritesActivity.ui.theme.RecipeFinderTheme
+
+var isEmpty: Boolean = false
+val recipes: List<Recipe> = SampleData.recipesListSample
 
 @AndroidEntryPoint
 class FavouritesActivity : AppCompatActivity() {
@@ -48,20 +55,16 @@ fun Test() {
 
 @Composable
 fun Layout() {
-    RecipeFinderTheme() {
-        Surface {
-            Background()
-            Column(modifier = Modifier.padding(5.dp)) {
-                NavBar()
-                RecipePreviewCard(
-                    Recipe(
-                        "Slow Cooker Apple Pork Tenderloin",
-                        "You are missing these ingredients:",
-                        "* 1/2 pound extra lean beef, ground\n* 1 pound fresh rhubarb\n* 1/4 cup honey\n* 1 15oz can refried beans\n* 1 15oz can refried beans"
-                    )
-                )
+    RecipeFinderTheme {
+        Background()
+        if (isEmpty) EmptyState()
+        Column(modifier = Modifier.padding(5.dp)) {
+            NavBar()
+            LazyColumn {
+                items(recipes) { recipe ->
+                    RecipePreviewCard(recipe)
+                }
             }
-            if (true) EmptyState()
         }
     }
 }
@@ -85,12 +88,14 @@ fun RecipePreviewCard(msg: Recipe) {
         elevation = 3.dp,
         modifier = Modifier
             .padding(5.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
     ) {
+        var isExpanded by remember { mutableStateOf(false) }
         Row(
             modifier = Modifier
                 .padding(all = 10.dp)
-                .size(130.dp)
+                .clickable { isExpanded = !isExpanded }
+                .animateContentSize()
         ) {
             Image(
                 painter = painterResource(R.drawable._37684_636x393),
@@ -103,7 +108,7 @@ fun RecipePreviewCard(msg: Recipe) {
 
             Spacer(modifier = Modifier.width(10.dp))
 
-            Column() {
+            Column {
                 Text(
                     text = msg.title,
                     color = MaterialTheme.colors.primaryVariant,
@@ -119,7 +124,8 @@ fun RecipePreviewCard(msg: Recipe) {
                 Text(
                     text = msg.missingIngredients,
                     color = MaterialTheme.colors.primaryVariant,
-                    style = MaterialTheme.typography.body2
+                    style = MaterialTheme.typography.body2,
+                    maxLines = if (isExpanded) Int.MAX_VALUE else 4
                 )
             }
         }
@@ -138,36 +144,42 @@ fun NavBar() {
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = "Points left: %.1f",
+                    text = "Favourites",
                     color = MaterialTheme.colors.primaryVariant,
                     fontFamily = FontFamily.Default,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
                     modifier = Modifier.padding(start = 5.dp)
                 )
                 Image(
                     painter = painterResource(R.drawable.ic_baseline_info_24),
-                    contentDescription = "Information icon",
+                    contentDescription = "Info tool",
                     modifier = Modifier
                         .padding(5.dp)
-                        .size(17.dp),
+                        .size(17.dp)
+                        .clickable { },
                     colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primaryVariant)
                 )
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = painterResource(R.drawable.ic_baseline_sort_24),
-                    contentDescription = "Sort icon",
-                    colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primaryVariant),
-                    modifier = Modifier.size(31.dp)
-                )
+                if (!isEmpty) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_baseline_sort_24),
+                        contentDescription = "Sort button",
+                        colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primaryVariant),
+                        modifier = Modifier
+                            .size(31.dp)
+                            .clickable { }
+                    )
+                }
                 Image(
                     painter = painterResource(R.drawable.ic_baseline_more_vert_24),
-                    contentDescription = "More icon",
+                    contentDescription = "More button",
                     modifier = Modifier
                         .padding(end = 5.dp)
                         .padding(start = 10.dp)
-                        .size(31.dp),
+                        .size(31.dp)
+                        .clickable { },
                     colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primaryVariant)
                 )
             }
