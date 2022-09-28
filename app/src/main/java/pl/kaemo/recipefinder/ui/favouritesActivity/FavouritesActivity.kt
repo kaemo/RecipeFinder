@@ -4,22 +4,26 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Sort
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -32,7 +36,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.kaemo.recipefinder.R
 import pl.kaemo.recipefinder.ui.favouritesActivity.ui.theme.RecipeFinderTheme
 
-var isEmpty: Boolean = false
+var isEmpty: Boolean = false //todo
 val recipes: List<Recipe> = SampleData.recipesListSample
 
 @AndroidEntryPoint
@@ -56,26 +60,20 @@ fun Test() {
 @Composable
 fun Layout() {
     RecipeFinderTheme {
-        Background()
-        if (isEmpty) EmptyState()
-        Column(modifier = Modifier.padding(5.dp)) {
-            NavBar()
-            LazyColumn {
-                items(recipes) { recipe ->
-                    RecipePreviewCard(recipe)
+        Surface(color = MaterialTheme.colors.background) {
+            var searchButtonClicked by rememberSaveable { mutableStateOf(false) }
+            if (isEmpty) EmptyState()
+            Column(modifier = Modifier.padding(5.dp)) {
+                NavBar(onSearchButtonClicked = { searchButtonClicked = !searchButtonClicked })
+                if (!isEmpty && searchButtonClicked) SearchBar()
+                LazyColumn {
+                    items(recipes) { recipe ->
+                        RecipePreviewCard(recipe)
+                    }
                 }
             }
         }
     }
-}
-
-@Composable
-fun Background() {
-    Box(
-        modifier = Modifier
-            .background(MaterialTheme.colors.background)
-            .fillMaxSize()
-    )
 }
 
 data class Recipe(val title: String, val infoText: String, val missingIngredients: String)
@@ -90,12 +88,13 @@ fun RecipePreviewCard(msg: Recipe) {
             .padding(5.dp)
             .fillMaxWidth(),
     ) {
-        var isExpanded by remember { mutableStateOf(false) }
+        var isExpanded by rememberSaveable { mutableStateOf(false) }
         Row(
             modifier = Modifier
-                .padding(all = 10.dp)
                 .clickable { isExpanded = !isExpanded }
+                .padding(all = 10.dp)
                 .animateContentSize()
+                .size(if (isExpanded) Int.MAX_VALUE.dp else 130.dp)
         ) {
             Image(
                 painter = painterResource(R.drawable._37684_636x393),
@@ -125,7 +124,6 @@ fun RecipePreviewCard(msg: Recipe) {
                     text = msg.missingIngredients,
                     color = MaterialTheme.colors.primaryVariant,
                     style = MaterialTheme.typography.body2,
-                    maxLines = if (isExpanded) Int.MAX_VALUE else 4
                 )
             }
         }
@@ -133,58 +131,94 @@ fun RecipePreviewCard(msg: Recipe) {
 }
 
 @Composable
-fun NavBar() {
-    Surface(color = MaterialTheme.colors.background) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(5.dp)
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = "Favourites",
-                    color = MaterialTheme.colors.primaryVariant,
-                    fontFamily = FontFamily.Default,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp,
-                    modifier = Modifier.padding(start = 5.dp)
-                )
-                Image(
-                    painter = painterResource(R.drawable.ic_baseline_info_24),
-                    contentDescription = "Info tool",
+fun NavBar(onSearchButtonClicked: () -> Unit) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(5.dp)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = "Favourites",
+                color = MaterialTheme.colors.primaryVariant,
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            )
+            Spacer(modifier = Modifier.width(5.dp))
+            Icon(
+                imageVector = Icons.Filled.Info,
+                contentDescription = "Information",
+                tint = MaterialTheme.colors.primaryVariant,
+                modifier = Modifier
+                    .size(17.dp)
+                    .clickable { }
+            )
+        }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            if (!isEmpty) {
+                Icon(
+                    imageVector = Icons.Filled.Search,
+                    contentDescription = "Search for recipe",
+                    tint = MaterialTheme.colors.primaryVariant,
                     modifier = Modifier
-                        .padding(5.dp)
-                        .size(17.dp)
-                        .clickable { },
-                    colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primaryVariant)
-                )
-            }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                if (!isEmpty) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_baseline_sort_24),
-                        contentDescription = "Sort button",
-                        colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primaryVariant),
-                        modifier = Modifier
-                            .size(31.dp)
-                            .clickable { }
-                    )
-                }
-                Image(
-                    painter = painterResource(R.drawable.ic_baseline_more_vert_24),
-                    contentDescription = "More button",
-                    modifier = Modifier
-                        .padding(end = 5.dp)
-                        .padding(start = 10.dp)
                         .size(31.dp)
-                        .clickable { },
-                    colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primaryVariant)
+                        .clickable { onSearchButtonClicked() }
+//                        .animateContentSize() //poprawić - nie działa / animatedVisibility ?
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+                Icon(
+                    imageVector = Icons.Filled.Sort,
+                    contentDescription = "Sort recipes",
+                    tint = MaterialTheme.colors.primaryVariant,
+                    modifier = Modifier
+                        .size(31.dp)
+                        .clickable { }
                 )
             }
+            Spacer(modifier = Modifier.width(9.dp))
+            Icon(
+                imageVector = Icons.Filled.MoreVert,
+                contentDescription = "More options",
+                tint = MaterialTheme.colors.primaryVariant,
+                modifier = Modifier
+                    .padding(end = 5.dp)
+                    .size(31.dp)
+                    .clickable { }
+            )
         }
     }
+}
+
+@Composable
+fun SearchBar() {
+    TextField(
+        value = "",
+        onValueChange = {},
+        modifier = Modifier
+            .heightIn(min = 55.dp)
+            .fillMaxWidth()
+            .padding(5.dp),
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Filled.Search,
+                contentDescription = null,
+                tint = MaterialTheme.colors.primaryVariant
+            )
+        },
+        placeholder = {
+            Text("Search for recipe")
+        },
+        colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = MaterialTheme.colors.surface,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent
+        ),
+        shape = RoundedCornerShape(10.dp)
+    )
 }
 
 @Composable
@@ -220,3 +254,4 @@ fun EmptyState() {
         )
     }
 }
+

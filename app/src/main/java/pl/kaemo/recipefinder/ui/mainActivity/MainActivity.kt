@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         observeApiErrors()
 
         moreButton.setOnClickListener {
+            loadingScreenId.visibility = View.VISIBLE
             navigateToFavouritesActivity()
         }
 

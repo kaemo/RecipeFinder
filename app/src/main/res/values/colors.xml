@@ -20,6 +20,6 @@
     <color name="redSuccess">#FF3333</color>
 
     <!--   RecipeFinder colors - Dark Mode  -->
-    <!--   TBD   -->
+    <color name="dmGreyBackgroundColor">#292929</color>
 
 </resources>
