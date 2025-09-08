@@ -6,3 +6,5 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class RecipeByIngredientsApplication : Application() {
 }
+
+//test
